@@ -7,8 +7,8 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './layout/Layout';
 import useStore from './store/GeneralStore';
 import Home from './pages/Home';
-import { grey } from '@mui/material/colors';
 import BackdropComponent from './components/BackdropComponent';
+import { mainColor } from './constants';
 
 
 export default function App() {
@@ -16,36 +16,37 @@ export default function App() {
   const getDesignTokens = (mode) => ({
     palette: {
       mode,
-      ...(mode === 'light'
-        ? {
-            // palette values for light mode
-            primary: {
-              main: '#7CDA24'
-            },
-            secondary:{
-              main: '#000000',
-              dark: "#000000"
-            },
-            text: {
-              primary: '#000000',
-              secondary: '#000000',
-            },
-            background: "#000000"
-          }
-        : {
-            // palette values for dark mode
-            primary:  {
-              main: '#7CDA24',
-            },
-            secondary:{
-              main: '#7CDA24',
-              dark: "#00000"
-            },
-            text: {
-              primary: '#7CDA24',
-              secondary: '#7CDA24',
-            },
-          }),
+      // ...(mode == 'light'
+      //   ? {
+      //       // palette values for light mode
+      //       primary: {
+      //         main: mainColor,
+      //         contrastText: '#000000'
+      //       },
+      //       secondary:{
+      //         main: '#000000',
+      //         dark: "#000000"
+      //       },
+      //       text: {
+      //         primary: '#000000',
+      //         secondary: '#000000',
+      //       }
+      //     }
+      //   : {
+      //       // palette values for dark mode
+      //       primary:  {
+      //         main: mainColor,
+      //         contrastText: mainColor
+      //       },
+      //       secondary:{
+      //         main: mainColor,
+      //         dark: "#00000"
+      //       },
+      //       text: {
+      //         primary: mainColor,
+      //         secondary: mainColor,
+      //       }
+      //     }),
     },
   });
   

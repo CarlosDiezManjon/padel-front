@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 const useStore = create((set, get) => ({
-    user: null,
+    user: {username: "asdfsd", name: "Carlos Díez", password: "asdf", saldo: "0€"},
     login: (newUser) => set(() => ({ user: newUser })),
     logout: () => set(()=> ({user: null})),
 	mode: "light",
@@ -9,6 +9,14 @@ const useStore = create((set, get) => ({
 	isLoading: false,
 	startLoading:() => set(() => ({ isLoading: true})),
 	endLoading:() => set(() => ({ isLoading: false})),
+	currentTab: 0,
+	setCurrentTab: (newTab) => set(() => ({ currentTab: newTab})),
+}))
+export default useStore
+
+
+
+
 	// currentTime: '2023-01-01T00:00:00',
 	// setCurrentTime: (newTime) => set(() => ({ currentTime: newTime })),
 	// getCurrentTime: () => {
@@ -37,5 +45,3 @@ const useStore = create((set, get) => ({
 	// setProject: (newProject) => set(() => ({ project: newProject })),
 	// mainVideo: null,
 	// setMainVideo: (newMainVideo) => set(() => ({ mainVideo: newMainVideo })),
-}))
-export default useStore
