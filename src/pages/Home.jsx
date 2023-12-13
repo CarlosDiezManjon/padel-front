@@ -4,16 +4,20 @@ import HomeButton from '../components/HomeButton'
 import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import SearchIcon from '@mui/icons-material/Search';
 import { ButtonCard } from '../components/StyledComponents';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-  const handleGoToPistas = () =>{
 
+  const navigate = useNavigate()
+
+  const handleGoToPistas = () =>{
+    navigate("/pistas")
   }
   const handleGoToReservas = () =>{
-
+    navigate("/reservas")
   }
   const handleGoToSaldo = () =>{
-
+    navigate("/saldo")
   }
   return (
     <Box sx={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", p: 2}}>

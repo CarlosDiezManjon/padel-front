@@ -9,6 +9,11 @@ import useStore from './store/GeneralStore';
 import Home from './pages/Home';
 import BackdropComponent from './components/BackdropComponent';
 import { mainColor } from './constants';
+import Saldo from './pages/Saldo';
+import Perfil from './pages/Perfil';
+import Reservas from './pages/Reservas';
+import Pistas from './pages/Pistas';
+import Historial from './pages/Historial';
 
 
 export default function App() {
@@ -62,6 +67,11 @@ export default function App() {
         {user != null ? (
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
+            <Route path="/saldo" element={<Saldo/>}/>
+            <Route path="/perfil" element={<Perfil/>}/>
+            <Route path="/reservas" element={<Reservas/>}/>
+            <Route path="/pistas" element={<Pistas/>}/>
+            <Route path="/historial" element={<Historial/>}/>
           </Route>
         ):
         <Route path="/"  element={<Login/>}/>

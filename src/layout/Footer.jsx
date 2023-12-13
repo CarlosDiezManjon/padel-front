@@ -4,6 +4,10 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArchiveIcon from '@mui/icons-material/Archive'
 import useStore from '../store/GeneralStore';
+import { Link } from 'react-router-dom';
+import SportsBaseballIcon from '@mui/icons-material/SportsBaseball';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import HistoryIcon from '@mui/icons-material/History';
 
 export default function Footer() {
 
@@ -19,9 +23,9 @@ export default function Footer() {
             setCurrentTab(newValue);
           }}
         >
-          <BottomNavigationAction label="Recents" icon={<RestoreIcon />}/>
-          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-          <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+          <BottomNavigationAction label="Inicio" icon={<SportsBaseballIcon />} component={Link} to="/"/>
+          <BottomNavigationAction label="Historial" icon={<HistoryIcon />} component={Link} to="/historial" />
+          <BottomNavigationAction label="Perfil" icon={<PermIdentityIcon />} component={Link} to="/perfil" />
         </BottomNavigation>
     </AppBar>
   )

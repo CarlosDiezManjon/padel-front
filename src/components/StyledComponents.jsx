@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Card } from '@mui/material';
-import React from 'react'
 
 export const ButtonCard = styled(Card)(({ theme }) => ({
     color: theme.palette.primary,
