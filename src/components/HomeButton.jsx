@@ -12,13 +12,12 @@ export default function HomeButton({title, onClick, image}) {
   return (
     <ButtonCard>
       <CardActionArea onClick={onClick} sx={{width:"100%", height:"100%"}}>
-        <CardMedia image={image} height="190px" component="img"/>
+        <CardMedia image={image} height="120px"  component="img"/>
         <CardContent sx={{display: "flex", alignItems:"baseline", justifyContent:"center"}}>
           {/* <Avatar sx={{color:mainColor, bgcolor: greyColor}}>{icon}</Avatar> */}
-          <Typography variant="h5" component="div" >
+          <Typography  variant="h6" component="div" >
             {title}
           </Typography>
-
         </CardContent>
       </CardActionArea>
     </ButtonCard>

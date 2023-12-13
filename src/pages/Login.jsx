@@ -41,7 +41,7 @@ export default function Login() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Log in (cambiar)
+          PADEL
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -66,7 +66,7 @@ export default function Login() {
             InputProps={{ // <-- This is where the toggle button is added.
               endAdornment: (
                   <IconButton
-                    color='secondary'
+                    color='default'
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
@@ -90,12 +90,12 @@ export default function Login() {
           </Button>
           <Grid container color='secondary'>
             <Grid item xs>
-              <Link href="#" variant="body2" color='secondary'>
+              <Link href="#" variant="body2" color='inherit'>
                 ¿Olvidaste la contraseña?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2" color='secondary'>
+              <Link href="#" variant="body2" color='inherit'>
                 {"Registrarse"}
               </Link>
             </Grid>

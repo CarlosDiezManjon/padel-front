@@ -20,8 +20,11 @@ export default function Home() {
     navigate("/saldo")
   }
   return (
-    <Box sx={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", p: 2}}>
-        <HomeButton title={"Buscar Pistas"} onClick={handleGoToPistas} image="/palaFondo.jpg"/>
+    <Box sx={{width: "100%", height: "100%",display: "grid", gridTemplateColumns: "1fr 1fr", p: 2, gridGap: "2vh"}}>
+        <HomeButton title={"Pistas"} onClick={handleGoToPistas} image="palaFondo.jpg"/>
+        <HomeButton title={"Mis reservas"} onClick={handleGoToReservas} image="calendarioFondo.jpg"/>
+        <HomeButton title={"Saldo"} onClick={handleGoToSaldo} image="saldoFondo.jpg"/>
+        <HomeButton title={"Pistas"} onClick={handleGoToPistas} image="palaFondo.jpg"/>
         <HomeButton title={"Mis reservas"} onClick={handleGoToReservas} image="calendarioFondo.jpg"/>
         <HomeButton title={"Saldo"} onClick={handleGoToSaldo} image="saldoFondo.jpg"/>
 

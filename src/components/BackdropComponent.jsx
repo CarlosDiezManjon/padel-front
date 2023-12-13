@@ -2,10 +2,6 @@ import { Backdrop, CircularProgress } from '@mui/material'
 import React from 'react'
 
 export default function BackdropComponent({ open, size, sx, thickness, messenger }) {
-	const defaultSX = {
-		color: '#7CDA24',
-		position: 'absolute',
-	}
 
 	return (
 		<Backdrop
@@ -14,6 +10,7 @@ export default function BackdropComponent({ open, size, sx, thickness, messenger
 				zIndex: (theme) => theme.zIndex.drawer + 1,
 				position: messenger ? 'relative' : 'fixed',
 			}}
+			color='primary'
 			width='50%'
 			open={open}>
 			<CircularProgress
@@ -21,7 +18,6 @@ export default function BackdropComponent({ open, size, sx, thickness, messenger
 				disableShrink
 				color='inherit'
 				size={size ? size : 40}
-				sx={sx ? sx : defaultSX}
 				thickness={thickness ? thickness : 15}
 			/>
 		</Backdrop>

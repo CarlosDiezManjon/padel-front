@@ -32,8 +32,14 @@ export default function Header() {
     logout()
   }
 
+
+
   const DarkModeItem = () =>{
-    return <MenuItem onClick={toggleMode}>
+    const handleToggle = () =>{
+      toggleMode()
+      handleClose()
+    }
+    return <MenuItem onClick={handleToggle}>
     {mode == "light" ? <Brightness4Icon  color="inherit" sx={{mr: 1}}/>: <Brightness7Icon sx={{mr: 1}} color="inherit"/>}Mode</MenuItem>
   }
   return (
