@@ -21,9 +21,9 @@ export default function Home() {
   }
   return (
     <Box sx={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", p: 2}}>
-        <HomeButton title={"Buscar Pistas"} onClick={handleGoToPistas} image="/src/assets/palaFondo.jpg"/>
-        <HomeButton title={"Mis reservas"} onClick={handleGoToReservas} image="/src/assets/calendarioFondo.jpg"/>
-        <HomeButton title={"Saldo"} onClick={handleGoToSaldo} image="/src/assets/saldoFondo.jpg"/>
+        <HomeButton title={"Buscar Pistas"} onClick={handleGoToPistas} image="/palaFondo.jpg"/>
+        <HomeButton title={"Mis reservas"} onClick={handleGoToReservas} image="calendarioFondo.jpg"/>
+        <HomeButton title={"Saldo"} onClick={handleGoToSaldo} image="saldoFondo.jpg"/>
 
     </Box>
   )
