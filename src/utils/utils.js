@@ -11,3 +11,17 @@ export function parseJwt(token) {
   )
   return JSON.parse(jsonPayload)
 }
+
+export function datetimeToStringMinutes(date) {
+  if (!date) {
+    return ''
+  }
+  date = new Date(date)
+  const mes = ('' + (date.getMonth() + 1)).padStart(2, '0')
+  const dia = ('' + date.getDate()).padStart(2, '0')
+  const hora = ('' + date.getHours()).padStart(2, '0')
+  const minuto = ('' + date.getMinutes()).padStart(2, '0')
+  const dateStr = `${dia}/${mes}/${date.getFullYear()} ${hora}:${minuto}`
+
+  return dateStr
+}

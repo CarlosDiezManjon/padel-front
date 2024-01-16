@@ -1,5 +1,17 @@
 import React, { useState } from 'react'
-import { TextField, Button, Card, CardContent, Box, InputAdornment } from '@mui/material'
+import {
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Box,
+  InputAdornment,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+} from '@mui/material'
+import { datetimeToStringMinutes } from '../../utils/utils'
 
 const GestionUsuarioIndividual = ({ user, setUserSelected }) => {
   const [usuario, setUsuario] = useState(user)
@@ -17,7 +29,7 @@ const GestionUsuarioIndividual = ({ user, setUserSelected }) => {
   }
 
   const handleRevertChanges = () => {
-    // Lógica para revertir los cambios del usuario
+    setUsuario(user)
   }
 
   const handleDeleteUser = () => {
@@ -26,65 +38,117 @@ const GestionUsuarioIndividual = ({ user, setUserSelected }) => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <TextField
-        fullWidth
-        margin="normal"
-        name="username"
-        label="Username"
-        value={usuario.username}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="nombre"
-        label="Nombre"
-        value={usuario.nombre}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="apellidos"
-        label="Apellidos"
-        value={usuario.apellidos}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="email"
-        label="Email"
-        value={usuario.email}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="telefono"
-        label="Teléfono"
-        value={usuario.telefono}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="password"
-        label="Contraseña"
-        value={usuario.password}
-        onChange={handleInputChange}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        name="saldo"
-        label="Saldo"
-        InputProps={{
-          endAdornment: <InputAdornment position="end">€</InputAdornment>,
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
-        value={usuario.saldo}
-        onChange={handleInputChange}
-      />
+      >
+        <TextField
+          sx={{ mr: '4%', width: '50%' }}
+          margin="normal"
+          name="username"
+          label="Username"
+          value={usuario.username}
+          onChange={handleInputChange}
+        />
+        <TextField
+          sx={{ width: '50%' }}
+          margin="normal"
+          name="nombre"
+          label="Nombre"
+          value={usuario.nombre}
+          onChange={handleInputChange}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <TextField
+          sx={{ mr: '4%', width: '50%' }}
+          margin="normal"
+          name="apellidos"
+          label="Apellidos"
+          value={usuario.apellidos}
+          onChange={handleInputChange}
+        />
+        <FormControl sx={{ width: '50%' }} margin="normal">
+          <InputLabel id="tipo">Tipo usuario</InputLabel>
+          <Select
+            labelId="tipo"
+            id="tipo"
+            name="tipo"
+            value={usuario.tipo}
+            label="Tipo usuario"
+            onChange={handleInputChange}
+          >
+            <MenuItem value={1}>Usuario</MenuItem>
+            <MenuItem value={2}>Administrador</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <TextField
+          sx={{ mr: '3%', width: '67%' }}
+          margin="normal"
+          name="email"
+          label="Email"
+          value={usuario.email}
+          onChange={handleInputChange}
+        />
+        <TextField
+          sx={{ width: '30%' }}
+          margin="normal"
+          name="telefono"
+          label="Teléfono"
+          value={usuario.telefono}
+          onChange={handleInputChange}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <TextField
+          sx={{ mr: '4%' }}
+          margin="normal"
+          name="fecha_alta"
+          label="Fecha alta"
+          disabled
+          value={datetimeToStringMinutes(usuario.fecha_alta)}
+          onChange={handleInputChange}
+        />
+        <TextField
+          margin="normal"
+          name="saldo"
+          label="Saldo"
+          InputProps={{
+            endAdornment: <InputAdornment position="end">€</InputAdornment>,
+          }}
+          value={usuario.saldo}
+          onChange={handleInputChange}
+        />
+      </Box>
+
       <Box
         sx={{
           display: 'flex',
@@ -102,7 +166,7 @@ const GestionUsuarioIndividual = ({ user, setUserSelected }) => {
         >
           Volver
         </Button>
-        <Button variant="contained" color="error" onClick={handleDeleteUser} sx={{ m: 0.25 }}>
+        <Button variant="contained" color="error" onClick={handleRevertChanges} sx={{ m: 0.25 }}>
           Dar de baja
         </Button>
         <Button variant="contained" color="primary" onClick={handleSaveChanges} sx={{ m: 0.25 }}>

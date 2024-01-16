@@ -40,6 +40,9 @@ export default function Header() {
       case '/gestion-reservas':
         setTitle('Gestión reservas')
         break
+      case '/registro':
+        setTitle('Registro')
+        break
       default:
         setTitle('Error')
         break

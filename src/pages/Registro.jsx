@@ -88,12 +88,9 @@ const Registro = () => {
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5">
-            REGISTRO
-          </Typography>
           {data ? (
             <Typography component="h1" variant="h5">
-              Registro correcto
+              Registro correcto, se ha enviado un email de confirmación.
             </Typography>
           ) : (
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
