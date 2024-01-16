@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Paper, Container, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '../layout/Header'
 import useRegisterRequest from '../services/registro.service'
@@ -13,6 +13,7 @@ const Registro = () => {
   const [surname, setSurname] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
   const [emailError, setEmailError] = useState('')
   const { register, data } = useRegisterRequest()
@@ -23,6 +24,20 @@ const Registro = () => {
       setConfirmPasswordError('Las contraseñas no coinciden')
     } else {
       setConfirmPasswordError('')
+    }
+  }
+  const handlePasswordChange = (e) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/
+    const isValidPassword = passwordRegex.test(e.target.value)
+    setPassword(e.target.value)
+
+    if (!isValidPassword) {
+      // Handle invalid password error
+      setPasswordError(
+        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número'
+      )
+    } else {
+      setPasswordError('')
     }
   }
 
@@ -45,6 +60,12 @@ const Registro = () => {
     const data = Object.fromEntries(formData.entries())
     register(data)
   }
+
+  useEffect(() => {
+    if (data) {
+      navigate('/')
+    }
+  }, [data])
 
   const goToLogin = () => {
     navigate('/')
@@ -70,104 +91,119 @@ const Registro = () => {
           <Typography component="h1" variant="h5">
             REGISTRO
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              label="Username"
-              name="username"
-              fullWidth
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+          {data ? (
+            <Typography component="h1" variant="h5">
+              Registro correcto
+            </Typography>
+          ) : (
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                label="Username"
+                name="username"
+                fullWidth
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
 
-            <TextField
-              name="nombre"
-              margin="normal"
-              label="Nombre"
-              autoComplete="off"
-              fullWidth
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              name="apellidos"
-              margin="normal"
-              fullWidth
-              label="Surname"
-              autoComplete="off"
-              value={surname}
-              onChange={(e) => setSurname(e.target.value)}
-            />
-            <TextField
-              name="email"
-              fullWidth
-              margin="normal"
-              label="Email"
-              type="email"
-              autoComplete="off"
-              value={email}
-              onChange={handleEmailChange}
-              error={!!emailError}
-              helperText={emailError}
-            />
-            <TextField
-              name="telefono"
-              margin="normal"
-              fullWidth
-              label="Phone"
-              autoComplete="off"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              label="Password"
-              name="password"
-              fullWidth
-              type="password"
-              autoComplete="new-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              margin="normal"
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              autoComplete="off"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              error={!!confirmPasswordError}
-              helperText={confirmPasswordError}
-            />
-            <Button
-              type="submit"
-              color="primary"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={
-                username === '' ||
-                password === '' ||
-                confirmPassword === '' ||
-                confirmPasswordError !== '' ||
-                name === '' ||
-                surname === '' ||
-                email === '' ||
-                phone === ''
-              }
-            >
-              <Typography component="h6" variant="h6">
-                Registrarse
-              </Typography>
-            </Button>
-            <Button type="submit" color="inherit" fullWidth variant="text" onClick={goToLogin}>
-              <Typography component="h6" variant="h6">
-                Volver a Login
-              </Typography>
-            </Button>
-          </Box>
+              <TextField
+                name="nombre"
+                required
+                margin="normal"
+                label="Nombre"
+                autoComplete="off"
+                fullWidth
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                name="apellidos"
+                required
+                margin="normal"
+                fullWidth
+                label="Surname"
+                autoComplete="off"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+              />
+              <TextField
+                name="email"
+                required
+                fullWidth
+                margin="normal"
+                label="Email"
+                type="email"
+                autoComplete="off"
+                value={email}
+                onChange={handleEmailChange}
+                error={!!emailError}
+                helperText={emailError}
+              />
+              <TextField
+                name="telefono"
+                required
+                margin="normal"
+                fullWidth
+                label="Phone"
+                autoComplete="off"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                label="Password"
+                name="password"
+                fullWidth
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={handlePasswordChange}
+                error={!!passwordError}
+                helperText={passwordError}
+              />
+              <TextField
+                fullWidth
+                required
+                margin="normal"
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                autoComplete="off"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                error={!!confirmPasswordError}
+                helperText={confirmPasswordError}
+              />
+              <Button
+                type="submit"
+                color="primary"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled={
+                  username === '' ||
+                  password === '' ||
+                  confirmPassword === '' ||
+                  confirmPasswordError !== '' ||
+                  name === '' ||
+                  surname === '' ||
+                  email === '' ||
+                  phone === ''
+                }
+              >
+                <Typography component="h6" variant="h6">
+                  Registrarse
+                </Typography>
+              </Button>
+              <Button type="submit" color="inherit" fullWidth variant="text" onClick={goToLogin}>
+                <Typography component="h6" variant="h6">
+                  Volver a Login
+                </Typography>
+              </Button>
+            </Box>
+          )}
         </Paper>
       </Container>
     </Box>

@@ -20,7 +20,7 @@ const useRegisterRequest = () => {
         setError(response.data.error)
       }
     } catch (error) {
-      setError(error.message)
+      setError(error.response?.data?.error || error.message)
     } finally {
       setIsLoading(false)
     }

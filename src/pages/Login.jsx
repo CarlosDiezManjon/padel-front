@@ -125,7 +125,7 @@ export default function Login() {
             </Button>
             <Grid container color="secondary">
               <Grid item xs>
-                <Button variant="text" color="inherit" sx={{ fontSize: '13px', p: 0, pt: 2 }}>
+                <Button variant="text" color="inherit" sx={{ fontSize: '12px', p: 1, mt: 1 }}>
                   ¿Olvidaste la contraseña?
                 </Button>
               </Grid>
@@ -134,7 +134,7 @@ export default function Login() {
                   variant="text"
                   color="inherit"
                   onClick={goToRegister}
-                  sx={{ fontSize: '13px', p: 0, pt: 2 }}
+                  sx={{ fontSize: '12px', p: 1, mt: 1 }}
                 >
                   Registrarse
                 </Button>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import useStore from '../store/GeneralStore'
+import { baseUrl } from '../constants'
 
 const useGetRequest = () => {
   const [data, setData] = useState(null)
@@ -10,9 +11,15 @@ const useGetRequest = () => {
     setIsLoading(true)
     try {
       const response = await axios.get(baseUrl + url, { params })
-      setData(response.data)
+      if (response.data.success) {
+        setData(response.data)
+        setError(null)
+      } else {
+        setData(null)
+        setError(response.data.error)
+      }
     } catch (error) {
-      setError(error)
+      setError(error.response?.data?.error || error.message)
     } finally {
       setIsLoading(false)
     }

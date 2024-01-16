@@ -15,43 +15,16 @@ import Registro from './pages/Registro'
 import Reservas from './pages/Reservas'
 import Saldo from './pages/Saldo'
 import useStore from './store/GeneralStore'
+import Administracion from './pages/admin/Administracion'
+import GestionPistas from './pages/admin/GestionPistas'
+import GestionUsuarios from './pages/admin/GestionUsuarios'
+import GestionReservas from './pages/admin/GestionReservas'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const getDesignTokens = (mode) => ({
     palette: {
       mode,
-      // ...(mode == 'light'
-      //   ? {
-      //       // palette values for light mode
-      //       primary: {
-      //         main: mainColor,
-      //         contrastText: '#000000'
-      //       },
-      //       secondary:{
-      //         main: '#000000',
-      //         dark: "#000000"
-      //       },
-      //       text: {
-      //         primary: '#000000',
-      //         secondary: '#000000',
-      //       }
-      //     }
-      //   : {
-      //       // palette values for dark mode
-      //       primary:  {
-      //         main: mainColor,
-      //         contrastText: mainColor
-      //       },
-      //       secondary:{
-      //         main: mainColor,
-      //         dark: "#00000"
-      //       },
-      //       text: {
-      //         primary: mainColor,
-      //         secondary: mainColor,
-      //       }
-      //     }),
     },
   })
 
@@ -74,6 +47,10 @@ export default function App() {
             <Route path="/reservas" element={<Reservas />} />
             <Route path="/pistas" element={<Pistas />} />
             <Route path="/historial" element={<Historial />} />
+            <Route path="/administracion" element={<Administracion />} />
+            <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+            <Route path="/gestion-pistas" element={<GestionPistas />} />
+            <Route path="/gestion-reservas" element={<GestionReservas />} />
           </Route>
         ) : (
           <>

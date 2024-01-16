@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function Perfil() {
-  return (
-    <div>Perfil</div>
-  )
+  useEffect(() => {
+    console.log('entro')
+    //getRequest('/usuarios')
+  }, [])
+  return <div>Perfil</div>
 }
