@@ -18,34 +18,38 @@ export default function Header() {
   const location = useLocation()
 
   useEffect(() => {
-    switch (location.pathname) {
-      case '/':
-        setTitle('Inicio')
-        break
-      case '/historial':
-        setTitle('Historial')
-        break
-      case '/perfil':
-        setTitle('Perfil')
-        break
-      case '/administracion':
-        setTitle('Administración')
-        break
-      case '/gestion-usuarios':
-        setTitle('Gestión usuarios')
-        break
-      case '/gestion-pistas':
-        setTitle('Gestión pistas')
-        break
-      case '/gestion-reservas':
-        setTitle('Gestión reservas')
-        break
-      case '/registro':
-        setTitle('Registro')
-        break
-      default:
-        setTitle('Error')
-        break
+    if (/^\/gestion-usuarios\/\d+$/.test(location.pathname)) {
+      setTitle('Ficha usuario')
+    } else {
+      switch (location.pathname) {
+        case '/':
+          setTitle('Inicio')
+          break
+        case '/historial':
+          setTitle('Historial')
+          break
+        case '/perfil':
+          setTitle('Perfil')
+          break
+        case '/administracion':
+          setTitle('Administración')
+          break
+        case '/gestion-usuarios':
+          setTitle('Gestión usuarios')
+          break
+        case '/gestion-pistas':
+          setTitle('Gestión pistas')
+          break
+        case '/gestion-reservas':
+          setTitle('Gestión reservas')
+          break
+        case '/registro':
+          setTitle('Registro')
+          break
+        default:
+          setTitle('Error')
+          break
+      }
     }
   }, [location])
 
@@ -64,6 +68,7 @@ export default function Header() {
   const handleLogout = () => {
     setToken(null)
     setUser(null)
+    localStorage.removeItem('token')
     navigate('/')
   }
 

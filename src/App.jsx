@@ -1,10 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import React, { useMemo } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect, useMemo } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import BackdropComponent from './components/BackdropComponent'
-import CustomDialog from './components/CustomDialog'
+import CustomErrorDialog from './components/CustomErrorDialog'
 import Layout from './layout/Layout'
 import Historial from './pages/Historial'
 import Home from './pages/Home'
@@ -19,6 +19,11 @@ import Administracion from './pages/admin/Administracion'
 import GestionPistas from './pages/admin/GestionPistas'
 import GestionUsuarios from './pages/admin/GestionUsuarios'
 import GestionReservas from './pages/admin/GestionReservas'
+import { parseJwt } from './utils/utils'
+import axios from 'axios'
+import { baseUrl } from './constants'
+import ConfirmationDialog from './components/ConfirmationDialog'
+import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -26,14 +31,39 @@ export default function App() {
     palette: {
       mode,
     },
+    typography: {
+      fontFamily: "'Kanit', fallback-fonts",
+    },
   })
-
+  const navigate = useNavigate()
+  const setToken = useStore((state) => state.setToken)
+  const setUser = useStore((state) => state.setUser)
+  const setAxios = useStore((state) => state.setAxios)
   const token = useStore((state) => state.token)
   const error = useStore((state) => state.error)
   const onCloseError = useStore((state) => state.onCloseError)
   const mode = useStore((state) => state.mode)
   const isLoading = useStore((state) => state.isLoading)
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
+
+  function inicializeSession() {
+    const localToken = localStorage.getItem('token')
+    if (localToken != null) {
+      setToken(localToken)
+      setUser(parseJwt(localToken))
+      const axiosInstance = axios.create({
+        baseURL: baseUrl,
+        headers: { Authorization: `Bearer ${localToken}` },
+      })
+      setAxios(axiosInstance)
+    } else {
+      navigate('/')
+    }
+  }
+
+  useEffect(() => {
+    inicializeSession()
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,6 +79,7 @@ export default function App() {
             <Route path="/historial" element={<Historial />} />
             <Route path="/administracion" element={<Administracion />} />
             <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
+            <Route path="/gestion-usuarios/:id" element={<GestionUsuarioIndividual />} />
             <Route path="/gestion-pistas" element={<GestionPistas />} />
             <Route path="/gestion-reservas" element={<GestionReservas />} />
           </Route>
@@ -59,8 +90,9 @@ export default function App() {
           </>
         )}
       </Routes>
-      <CustomDialog open={error != null} message={error} onClose={onCloseError} />
+      <CustomErrorDialog open={error != null} message={error} onClose={onCloseError} />
       <BackdropComponent open={isLoading} />
+      <ConfirmationDialog />
     </ThemeProvider>
   )
 }

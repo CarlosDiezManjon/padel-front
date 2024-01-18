@@ -46,6 +46,7 @@ export default function Login() {
     if (data) {
       setToken(data)
       setUser(parseJwt(data))
+      localStorage.setItem('token', data)
       const axiosInstance = axios.create({
         baseURL: baseUrl,
         headers: { Authorization: `Bearer ${data}` },
@@ -75,6 +76,7 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              InputLabelProps={{ shrink: true }}
               margin="normal"
               required
               fullWidth
@@ -87,6 +89,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
+              InputLabelProps={{ shrink: true }}
               margin="normal"
               required
               fullWidth

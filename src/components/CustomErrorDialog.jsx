@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
-const CustomDialog = ({ open, onClose, title, message }) => {
+const CustomErrorDialog = ({ open, onClose, title, message }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>
@@ -29,4 +29,4 @@ const CustomDialog = ({ open, onClose, title, message }) => {
   )
 }
 
-export default CustomDialog
+export default CustomErrorDialog

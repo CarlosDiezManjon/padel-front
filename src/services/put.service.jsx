@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import useStore from '../store/GeneralStore'
 import { baseUrl } from '../constants'
 
-const useGetRequest = () => {
+const usePutRequest = () => {
+  const setIsLoading = useStore((state) => state.setIsLoading)
   const [data, setData] = useState(null)
   const setError = useStore((state) => state.setError)
-  const setIsLoading = useStore((state) => state.setIsLoading)
   const axios = useStore((state) => state.axios)
-  const getRequest = async (url, params) => {
+
+  const putRequest = async (url, body) => {
     setIsLoading(true)
     try {
-      const response = await axios.get(baseUrl + url, { params })
+      const response = await axios.put(baseUrl + url, body)
       if (response.data.success) {
         setData(response.data)
         setError(null)
@@ -19,13 +20,13 @@ const useGetRequest = () => {
         setError(response.data.error)
       }
     } catch (error) {
-      setError(error.response?.data?.error || error.message)
+      setError(error.message)
     } finally {
       setIsLoading(false)
     }
   }
 
-  return { getRequest, data }
+  return { putRequest, data }
 }
 
-export default useGetRequest
+export default usePutRequest

@@ -19,6 +19,9 @@ const useStore = create((set, get) => ({
   onCloseError: () => set(() => ({ error: null })),
   axios: null,
   setAxios: (newAxios) => set(() => ({ axios: newAxios })),
+  confirmationDialogContent: null,
+  setConfirmationDialogContent: (newConfirmationDialogContent) =>
+    set(() => ({ confirmationDialogContent: newConfirmationDialogContent })),
 }))
 export default useStore
 
