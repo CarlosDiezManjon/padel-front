@@ -68,15 +68,15 @@ const GestionPistas = () => {
 
   return (
     <Box sx={{ width: '100%' }} id="gestion-pistas">
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, justifyContent: 'space-between' }}>
         <TextField
           size="small"
-          sx={{ width: '50%', ml: 0 }}
+          sx={{ width: '60%', ml: 0 }}
           label="Filtrar nombre"
           value={searchTerm}
           onChange={handleSearch}
         />
-        <FormControlLabel
+        {/* <FormControlLabel
           labelPlacement="start"
           sx={{ ml: 1 }}
           control={
@@ -87,7 +87,7 @@ const GestionPistas = () => {
             />
           }
           label="Activa"
-        />
+        /> */}
         <Button onClick={handleAddPista} sx={{ ml: 1 }} color="success" variant="contained">
           Crear
         </Button>

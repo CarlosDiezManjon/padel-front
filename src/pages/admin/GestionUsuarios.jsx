@@ -63,12 +63,9 @@ const GestionUsuarios = () => {
   return (
     <Box sx={{ width: '100%' }} id="gestion-usuarios">
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-        <IconButton onClick={() => navigate(-1)} sx={{ p: 0 }}>
-          <ArrowBackIcon />
-        </IconButton>
         <TextField
           size="small"
-          sx={{ width: '60%', ml: 1, mr: 2 }}
+          sx={{ width: '60%', ml: 0, mr: 2 }}
           label="Filtrar nombre"
           value={searchTerm}
           onChange={handleSearch}
