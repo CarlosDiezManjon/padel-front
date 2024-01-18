@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import PersonIcon from '@mui/icons-material/Person'
 import {
-  TextField,
+  Avatar,
+  Badge,
+  Box,
+  Chip,
+  Divider,
+  FormControlLabel,
+  IconButton,
   List,
   ListItem,
-  ListItemText,
-  Box,
   ListItemAvatar,
-  Avatar,
   ListItemButton,
-  Divider,
-  IconButton,
+  ListItemText,
   Switch,
-  FormControlLabel,
-  Chip,
-  Badge,
+  TextField,
 } from '@mui/material'
-import ImageIcon from '@mui/icons-material/Image'
-import PersonIcon from '@mui/icons-material/Person'
-import axios from 'axios'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import useGetRequest from '../../services/get.service'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import GestionUsuarioIndividual from './GestionUsuarioIndividual'
+import useGetRequest from '../../services/get.service'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])

@@ -24,6 +24,7 @@ import axios from 'axios'
 import { baseUrl } from './constants'
 import ConfirmationDialog from './components/ConfirmationDialog'
 import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
+import GestionPistaIndividual from './pages/admin/GestionPistaIndividual'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -81,6 +82,7 @@ export default function App() {
             <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
             <Route path="/gestion-usuarios/:id" element={<GestionUsuarioIndividual />} />
             <Route path="/gestion-pistas" element={<GestionPistas />} />
+            <Route path="/gestion-pistas/:id" element={<GestionPistaIndividual />} />
             <Route path="/gestion-reservas" element={<GestionReservas />} />
           </Route>
         ) : (

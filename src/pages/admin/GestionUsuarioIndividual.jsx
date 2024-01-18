@@ -139,31 +139,15 @@ const GestionUsuarioIndividual = () => {
             </FormControl>
           </Box>
 
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <TextField
-              sx={{ mr: '3%', width: '67%' }}
-              margin="normal"
-              name="email"
-              label="Email"
-              value={usuario.email}
-              onChange={handleInputChange}
-            />
-            <TextField
-              sx={{ width: '30%' }}
-              margin="normal"
-              name="telefono"
-              label="Teléfono"
-              value={usuario.telefono}
-              onChange={handleInputChange}
-            />
-          </Box>
+          <TextField
+            sx={{ mr: '3%', width: '67%' }}
+            margin="normal"
+            name="email"
+            label="Email"
+            value={usuario.email}
+            onChange={handleInputChange}
+          />
+
           <Box
             sx={{
               width: '100%',
@@ -194,24 +178,43 @@ const GestionUsuarioIndividual = () => {
               onChange={handleInputChange}
             />
           </Box>
-          <TextField
-            margin="normal"
-            name="saldo"
-            label="Saldo"
-            InputProps={{
-              endAdornment: <InputAdornment position="end">€</InputAdornment>,
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
-            value={usuario.saldo}
-            onChange={handleInputChange}
-          />
-
+          >
+            <TextField
+              sx={{ width: '50%', mr: '3%' }}
+              margin="normal"
+              name="saldo"
+              label="Saldo"
+              InputProps={{
+                endAdornment: <InputAdornment position="end">€</InputAdornment>,
+              }}
+              value={usuario.saldo}
+              onChange={handleInputChange}
+            />
+            <TextField
+              sx={{ width: '50%' }}
+              margin="normal"
+              name="telefono"
+              label="Teléfono"
+              value={usuario.telefono}
+              onChange={handleInputChange}
+            />
+          </Box>
           <Box
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'flex-end',
               width: '100%',
-              mt: 30,
+              position: 'fixed',
+              bottom: '70px',
+              right: 10,
             }}
           >
             <Button variant="outlined" color="inherit" onClick={() => navigate(-1)} sx={{ m: 0.5 }}>

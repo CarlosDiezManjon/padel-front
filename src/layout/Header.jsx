@@ -1,10 +1,12 @@
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useLocation, useNavigate } from 'react-router-dom'
 export default function Header() {
   const toggleMode = useStore((state) => state.toggleMode)
@@ -13,6 +15,7 @@ export default function Header() {
   const setUser = useStore((state) => state.setUser)
   const setToken = useStore((state) => state.setToken)
   const [title, setTitle] = useState('')
+  const [backButton, setBackButton] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
@@ -20,34 +23,47 @@ export default function Header() {
   useEffect(() => {
     if (/^\/gestion-usuarios\/\d+$/.test(location.pathname)) {
       setTitle('Ficha usuario')
+      setBackButton(true)
+    } else if (/^\/gestion-pistas\/(\d+|\w+)$/.test(location.pathname)) {
+      setTitle('Ficha pista')
+      setBackButton(true)
     } else {
       switch (location.pathname) {
         case '/':
+          setBackButton(false)
           setTitle('Inicio')
           break
         case '/historial':
+          setBackButton(false)
           setTitle('Historial')
           break
         case '/perfil':
+          setBackButton(false)
           setTitle('Perfil')
           break
         case '/administracion':
+          setBackButton(false)
           setTitle('Administración')
           break
         case '/gestion-usuarios':
+          setBackButton(true)
           setTitle('Gestión usuarios')
           break
         case '/gestion-pistas':
+          setBackButton(true)
           setTitle('Gestión pistas')
           break
         case '/gestion-reservas':
+          setBackButton(true)
           setTitle('Gestión reservas')
           break
         case '/registro':
+          setBackButton(false)
           setTitle('Registro')
           break
         default:
           setTitle('Error')
+          setBackButton(false)
           break
       }
     }
@@ -97,7 +113,14 @@ export default function Header() {
   return (
     <Box>
       <AppBar position="fixed" color="primary" sx={{ top: 0, bottom: 'auto' }}>
-        <Toolbar>
+        <Toolbar sx={{ pl: 1 }}>
+          {backButton ? (
+            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
+              <ArrowBackIosNewIcon />
+            </IconButton>
+          ) : (
+            <Box sx={{ width: '32px' }}></Box>
+          )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
