@@ -6,6 +6,7 @@ const useDeleteRequest = () => {
   const [data, setData] = useState(null)
   const setError = useStore((state) => state.setError)
   const setIsLoading = useStore((state) => state.setIsLoading)
+  const setMessageRequest = useStore((state) => state.setMessageRequest)
   const axios = useStore((state) => state.axios)
   const deleteRequest = async (url, params) => {
     setIsLoading(true)
@@ -13,6 +14,7 @@ const useDeleteRequest = () => {
       const response = await axios.delete(baseUrl + url + '/' + params)
       if (response.data.success) {
         setData(response.data)
+        setMessageRequest(response.data.message)
         setError(null)
       } else {
         setData(null)

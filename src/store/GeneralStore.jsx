@@ -22,6 +22,8 @@ const useStore = create((set, get) => ({
   confirmationDialogContent: null,
   setConfirmationDialogContent: (newConfirmationDialogContent) =>
     set(() => ({ confirmationDialogContent: newConfirmationDialogContent })),
+  messageRequest: null,
+  setMessageRequest: (newMessageRequest) => set(() => ({ messageRequest: newMessageRequest })),
 }))
 export default useStore
 

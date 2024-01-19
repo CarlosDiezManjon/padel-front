@@ -6,6 +6,7 @@ const usePostRequest = () => {
   const setIsLoading = useStore((state) => state.setIsLoading)
   const [data, setData] = useState(null)
   const setError = useStore((state) => state.setError)
+  const setMessageRequest = useStore((state) => state.setMessageRequest)
   const axios = useStore((state) => state.axios)
 
   const postRequest = async (url, body) => {
@@ -14,6 +15,7 @@ const usePostRequest = () => {
       const response = await axios.post(baseUrl + url, body)
       if (response.data.success) {
         setData(response.data)
+        setMessageRequest(response.data.message)
         setError(null)
       } else {
         setData(null)

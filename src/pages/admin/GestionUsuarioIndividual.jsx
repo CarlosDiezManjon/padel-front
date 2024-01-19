@@ -140,7 +140,7 @@ const GestionUsuarioIndividual = () => {
           </Box>
 
           <TextField
-            sx={{ mr: '3%', width: '67%' }}
+            sx={{ width: '100%' }}
             margin="normal"
             name="email"
             label="Email"

@@ -24,7 +24,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 
 const GestionPistas = () => {
   const [pistas, setPistas] = useState([])
-  const [activo, setActivo] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
@@ -52,18 +51,17 @@ const GestionPistas = () => {
     navigate('/gestion-pistas/nueva')
   }
 
-  const filteredPistas = pistas.filter(
-    (pista) =>
-      pista.nombre
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .includes(
-          searchTerm
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-        ) && (activo ? pista.activo === activo : true)
+  const filteredPistas = pistas.filter((pista) =>
+    pista.nombre
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .includes(
+        searchTerm
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+      )
   )
 
   return (
@@ -89,7 +87,7 @@ const GestionPistas = () => {
           label="Activa"
         /> */}
         <Button onClick={handleAddPista} sx={{ ml: 1 }} color="success" variant="contained">
-          Crear
+          Nueva
         </Button>
       </Box>
       <List>

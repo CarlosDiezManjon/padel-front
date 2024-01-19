@@ -60,12 +60,21 @@ const GestionUsuarios = () => {
         ) && (activo ? user.activo === activo : true)
   )
 
+  const getInitials = (name) => {
+    const splitName = name.split(' ')
+    if (splitName.length === 1) {
+      return { children: splitName[0][0] }
+    } else {
+      return { children: splitName[0][0] + splitName[1][0] }
+    }
+  }
+
   return (
     <Box sx={{ width: '100%' }} id="gestion-usuarios">
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
         <TextField
           size="small"
-          sx={{ width: '60%', ml: 0, mr: 2 }}
+          sx={{ width: '60%' }}
           label="Filtrar nombre"
           value={searchTerm}
           onChange={handleSearch}
@@ -91,8 +100,8 @@ const GestionUsuarios = () => {
                 onClick={() => navigate('/gestion-usuarios/' + user.id)}
               >
                 <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
+                  <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}>
+                    {/* <PersonIcon /> */}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

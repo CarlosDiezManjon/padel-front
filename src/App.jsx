@@ -1,11 +1,22 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import axios from 'axios'
 import React, { useEffect, useMemo } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
+import AlertComponent from './components/AlertComponent'
 import BackdropComponent from './components/BackdropComponent'
+import ConfirmationDialog from './components/ConfirmationDialog'
 import CustomErrorDialog from './components/CustomErrorDialog'
+import { baseUrl } from './constants'
 import Layout from './layout/Layout'
+import Administracion from './pages/admin/Administracion'
+import GestionPistaIndividual from './pages/admin/GestionPistaIndividual'
+import GestionPistas from './pages/admin/GestionPistas'
+import GestionReservas from './pages/admin/GestionReservas'
+import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
+import GestionUsuarios from './pages/admin/GestionUsuarios'
+import Cartera from './pages/Cartera'
 import Historial from './pages/Historial'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -13,18 +24,8 @@ import Perfil from './pages/Perfil'
 import Pistas from './pages/Pistas'
 import Registro from './pages/Registro'
 import Reservas from './pages/Reservas'
-import Saldo from './pages/Saldo'
 import useStore from './store/GeneralStore'
-import Administracion from './pages/admin/Administracion'
-import GestionPistas from './pages/admin/GestionPistas'
-import GestionUsuarios from './pages/admin/GestionUsuarios'
-import GestionReservas from './pages/admin/GestionReservas'
 import { parseJwt } from './utils/utils'
-import axios from 'axios'
-import { baseUrl } from './constants'
-import ConfirmationDialog from './components/ConfirmationDialog'
-import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
-import GestionPistaIndividual from './pages/admin/GestionPistaIndividual'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -73,7 +74,7 @@ export default function App() {
         {token != null ? (
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/saldo" element={<Saldo />} />
+            <Route path="/cartera" element={<Cartera />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/reservas" element={<Reservas />} />
             <Route path="/pistas" element={<Pistas />} />
@@ -95,6 +96,7 @@ export default function App() {
       <CustomErrorDialog open={error != null} message={error} onClose={onCloseError} />
       <BackdropComponent open={isLoading} />
       <ConfirmationDialog />
+      <AlertComponent />
     </ThemeProvider>
   )
 }
