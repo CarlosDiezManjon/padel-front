@@ -25,3 +25,27 @@ export function datetimeToStringMinutes(date) {
 
   return dateStr
 }
+
+export function datetimeToStringDate(date) {
+  if (!date) {
+    return ''
+  }
+  date = new Date(date)
+  const mes = ('' + (date.getMonth() + 1)).padStart(2, '0')
+  const dia = ('' + date.getDate()).padStart(2, '0')
+  const dateStr = `${dia}/${mes}/${date.getFullYear()}`
+
+  return dateStr
+}
+
+export function datetimeToStringTime(date) {
+  if (!date) {
+    return ''
+  }
+  date = new Date(date)
+  const hora = ('' + date.getHours()).padStart(2, '0')
+  const minuto = ('' + date.getMinutes()).padStart(2, '0')
+  const dateStr = `${hora}:${minuto}`
+
+  return dateStr
+}

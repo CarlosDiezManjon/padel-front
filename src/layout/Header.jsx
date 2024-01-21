@@ -6,7 +6,6 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useLocation, useNavigate } from 'react-router-dom'
 export default function Header() {
   const toggleMode = useStore((state) => state.toggleMode)
