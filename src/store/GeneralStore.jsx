@@ -24,6 +24,18 @@ const useStore = create((set, get) => ({
     set(() => ({ confirmationDialogContent: newConfirmationDialogContent })),
   messageRequest: null,
   setMessageRequest: (newMessageRequest) => set(() => ({ messageRequest: newMessageRequest })),
+  reservasSelected: [],
+  addReservaSelected: (newReserva) =>
+    set((state) => ({ reservasSelected: [...state.reservasSelected, newReserva] })),
+  removeReservaSelected: (reservaToRemove) =>
+    set((state) => ({
+      reservasSelected: state.reservasSelected.filter(
+        (reserva) =>
+          reserva.startTime !== reservaToRemove.startTime &&
+          reserva.pista_id !== reservaToRemove.pista_id
+      ),
+    })),
+  clearReservasSelected: () => set(() => ({ reservasSelected: [] })),
 }))
 export default useStore
 

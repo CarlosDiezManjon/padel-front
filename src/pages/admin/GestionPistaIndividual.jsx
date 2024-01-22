@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import usePutRequest from '../../services/put.service'
 import usePostRequest from '../../services/post.service'
+import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../utils/utils'
 
 const emptyPista = {
   nombre: '',
@@ -22,7 +23,6 @@ const GestionPistaIndividual = () => {
   const [pista, setPista] = useState(emptyPista)
   const setConfirmationDialogContent = useStore((state) => state.setConfirmationDialogContent)
   const navigate = useNavigate()
-
   const { deleteRequest, data: deleteData } = useDeleteRequest()
   const { getRequest, data: getData } = useGetRequest()
   const { putRequest, data: putData } = usePutRequest()
@@ -37,7 +37,7 @@ const GestionPistaIndividual = () => {
 
   useEffect(() => {
     if (putData) {
-      setPista(putData.pista)
+      navigate(-1)
     }
   }, [putData])
 
@@ -49,13 +49,16 @@ const GestionPistaIndividual = () => {
 
   useEffect(() => {
     if (deleteData) {
-      setPista(deleteData.pista)
+      navigate(-1)
     }
   }, [deleteData])
 
   useEffect(() => {
     if (getData) {
-      setPista(getData.pista)
+      let copy = { ...getData.pista }
+      copy.hora_fin = UTCTimeToLocalTime(copy.hora_fin)
+      copy.hora_inicio = UTCTimeToLocalTime(copy.hora_inicio)
+      setPista(copy)
     }
   }, [getData])
 
@@ -81,10 +84,13 @@ const GestionPistaIndividual = () => {
   }
 
   const handleSave = () => {
+    let copy = { ...pista }
+    copy.hora_fin = localTimeToUTCTime(pista.hora_fin)
+    copy.hora_inicio = localTimeToUTCTime(pista.hora_inicio)
     if (id === 'nueva') {
-      postRequest('/pistas', pista)
+      postRequest('/pistas', copy)
     } else {
-      putRequest('/pistas/' + pista.id, pista)
+      putRequest('/pistas/' + pista.id, copy)
     }
   }
 

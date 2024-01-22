@@ -1,10 +1,27 @@
-import React from 'react'
-import { Box, Grid, Typography } from '@mui/material'
-import { datetimeToStringTime } from '../utils/utils'
+import { Box, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
+import { UTCDateTimeToLocalDateTime } from '../utils/utils'
+import useStore from '../store/GeneralStore'
 
-export default function Parrilla({ pista }) {
-  const handleItemClick = (index) => {
-    // Handle item click logic here
+export default function Parrilla({ pista, handleItemClick, reservasSelected }) {
+  useEffect(() => {
+    console.log(reservasSelected)
+  }, [reservasSelected])
+
+  const isSelected = (item) => {
+    return reservasSelected.find(
+      (reserva) => reserva.startTime === item.startTime && reserva.pista_id === pista.id
+    )
+  }
+
+  const getBackgroundColor = (item) => {
+    if (item.reserva == null) {
+      return 'lightgrey'
+    } else if (isSelected(item)) {
+      return '#1976d2'
+    } else {
+      return '#fd4646'
+    }
   }
 
   return (
@@ -16,7 +33,7 @@ export default function Parrilla({ pista }) {
           borderRadius: '5px',
           bgcolor: '#1976d2',
           p: 1,
-          py: 0.5,
+          py: 0,
           m: 0.5,
           width: '95%',
           alignContent: 'center',
@@ -30,16 +47,18 @@ export default function Parrilla({ pista }) {
           <Box
             sx={{
               borderRadius: '5px',
-              bgcolor: item.reserva == null ? 'lightgrey' : '#fd4646',
+              bgcolor: getBackgroundColor(item),
               p: 0.5,
-              m: 0.5,
+              m: 0.25,
               width: '95%',
             }}
             key={index}
-            onClick={() => handleItemClick(index)}
+            onClick={() => handleItemClick(index, pista.id)}
           >
             <Typography variant="body1" align="center">
-              {datetimeToStringTime(item.startTime) + ' - ' + datetimeToStringTime(item.endTime)}
+              {UTCDateTimeToLocalDateTime(item.startTime) +
+                ' - ' +
+                UTCDateTimeToLocalDateTime(item.endTime)}
             </Typography>
           </Box>
         ))}

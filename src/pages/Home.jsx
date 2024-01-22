@@ -6,6 +6,7 @@ import { datetimeToStringDate } from '../utils/utils'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import Parrilla from '../components/Parrilla'
+import useStore from '../store/GeneralStore'
 
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
@@ -14,6 +15,8 @@ export default function Home() {
   const [pistas, setPistas] = React.useState([])
   const [fecha, setFecha] = React.useState(new Date().toISOString().slice(0, 10))
   const [options, setOptions] = React.useState([])
+  const addReservaSelected = useStore((state) => state.addReservaSelected)
+  const reservasSelected = useStore((state) => state.reservasSelected)
 
   const { getRequest, data } = useGetRequest()
 
@@ -47,6 +50,12 @@ export default function Home() {
   useEffect(() => {
     getRequest('/parrilla/' + fecha)
   }, [fecha])
+
+  const handleItemClick = (index, pistaId) => {
+    const reserva = pistas.find((pista) => pista.id === pistaId).parrilla[index]
+    reserva.pista_id = pistaId
+    addReservaSelected(reserva)
+  }
 
   const handleChangeFecha = (event) => {
     setFecha(event.target.value)
@@ -98,7 +107,12 @@ export default function Home() {
         id="container-parrillas"
       >
         {pistas.map((pista) => (
-          <Parrilla pista={pista} />
+          <Parrilla
+            pista={pista}
+            handleItemClick={handleItemClick}
+            key={pista.id}
+            reservasSelected={reservasSelected}
+          />
         ))}
       </Box>
     </Box>
