@@ -3,7 +3,7 @@ import { Box, Card, CardContent, CardHeader, Chip, IconButton, Typography } from
 import useGetRequest from '../services/get.service'
 import { datetimeToStringMinutes } from '../utils/utils'
 import EditIcon from '@mui/icons-material/Edit'
-import Reservas from './Reservas'
+import PerfilReservas from './PerfilReservas'
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null)
@@ -65,7 +65,7 @@ const Perfil = () => {
           </CardContent>
         </Card>
       )}
-      <Reservas />
+      <PerfilReservas />
     </Box>
   )
 }

@@ -23,9 +23,10 @@ import Login from './pages/Login'
 import Perfil from './pages/Perfil'
 import Pistas from './pages/Pistas'
 import Registro from './pages/Registro'
-import Reservas from './pages/Reservas'
+import Reservas from './pages/PerfilReservas'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
+import Reserva from './pages/Reserva'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -76,7 +77,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="/cartera" element={<Cartera />} />
             <Route path="/perfil" element={<Perfil />} />
-            <Route path="/reservas" element={<Reservas />} />
+            <Route path="/reserva" element={<Reserva />} />
             <Route path="/pistas" element={<Pistas />} />
             <Route path="/historial" element={<Historial />} />
             <Route path="/administracion" element={<Administracion />} />

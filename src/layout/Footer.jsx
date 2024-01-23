@@ -15,10 +15,6 @@ export default function Footer() {
   const currentTab = useStore((state) => state.currentTab)
   const setCurrentTab = useStore((state) => state.setCurrentTab)
   const user = useStore((state) => state.user)
-
-  useEffect(() => {
-    setCurrentTab(0)
-  }, [])
   return (
     <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
       <BottomNavigation

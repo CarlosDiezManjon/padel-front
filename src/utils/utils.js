@@ -53,7 +53,7 @@ export function datetimeToStringTime(date) {
   return dateStr
 }
 
-export function localDateTimeToUTCDateTime(date) {
+export function dateLocalToUTC(date) {
   if (!date) {
     return ''
   }
@@ -64,7 +64,18 @@ export function localDateTimeToUTCDateTime(date) {
   return utcDateStr
 }
 
-export function UTCDateTimeToLocalDateTime(date) {
+export function dateUTCToLocalDate(date) {
+  if (!date) {
+    return ''
+  }
+
+  const utcDate = moment.utc(date)
+  const localDateStr = utcDate.local().format('DD-MM-YYYY HH:mm')
+
+  return localDateStr
+}
+
+export function dateUTCToLocalTime(date) {
   if (!date) {
     return ''
   }

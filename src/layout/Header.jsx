@@ -13,6 +13,7 @@ export default function Header() {
   const user = useStore((state) => state.user)
   const setUser = useStore((state) => state.setUser)
   const setToken = useStore((state) => state.setToken)
+  const setCurrentTab = useStore((state) => state.setCurrentTab)
   const [title, setTitle] = useState('')
   const [backButton, setBackButton] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
@@ -31,18 +32,22 @@ export default function Header() {
         case '/':
           setBackButton(false)
           setTitle('Inicio')
+          setCurrentTab(0)
           break
         case '/historial':
           setBackButton(false)
           setTitle('Historial')
+          setCurrentTab(1)
           break
         case '/perfil':
           setBackButton(false)
           setTitle('Perfil')
+          setCurrentTab(2)
           break
         case '/administracion':
           setBackButton(false)
           setTitle('Administración')
+          setCurrentTab(3)
           break
         case '/gestion-usuarios':
           setBackButton(true)
@@ -59,6 +64,11 @@ export default function Header() {
         case '/registro':
           setBackButton(false)
           setTitle('Registro')
+          break
+        case '/reserva':
+          setBackButton(false)
+          setTitle('Reserva')
+          setBackButton(true)
           break
         default:
           setTitle('Error')

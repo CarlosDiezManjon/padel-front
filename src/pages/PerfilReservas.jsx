@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
   }),
 }))
 
-export default function Reservas() {
+export default function PerfilReservas() {
   const [reservas, setReservas] = useState([])
   const { getRequest, data } = useGetRequest()
   const [expanded, setExpanded] = React.useState(false)

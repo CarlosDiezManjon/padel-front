@@ -1,24 +1,37 @@
 import { Box, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
-import { UTCDateTimeToLocalDateTime } from '../utils/utils'
+import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
+import { dateUTCToLocalTime } from '../utils/utils'
 
-export default function Parrilla({ pista, handleItemClick, reservasSelected }) {
+export default function Parrilla({ pista, handleItemClick }) {
+  const reservasSelected = useStore((state) => state.reservasSelected)
+  const [slots, setSlots] = useState(pista.parrilla)
+
   useEffect(() => {
-    console.log(reservasSelected)
+    setSlots(pista.parrilla)
+  }, [pista])
+
+  useEffect(() => {
+    let copy = [...slots]
+    copy.forEach((slot) => {
+      slot.selected = false
+    })
+    reservasSelected.forEach((reserva) => {
+      const index = slots.findIndex(
+        (slot) => slot.startTime === reserva.startTime && slot.pista_id === reserva.pista_id
+      )
+      if (index !== -1) {
+        copy[index].selected = true
+      }
+    })
+    setSlots(copy)
   }, [reservasSelected])
 
-  const isSelected = (item) => {
-    return reservasSelected.find(
-      (reserva) => reserva.startTime === item.startTime && reserva.pista_id === pista.id
-    )
-  }
-
   const getBackgroundColor = (item) => {
-    if (item.reserva == null) {
+    if (item.selected) {
+      return '#35b73b'
+    } else if (item.reserva == null) {
       return 'lightgrey'
-    } else if (isSelected(item)) {
-      return '#1976d2'
     } else {
       return '#fd4646'
     }
@@ -32,9 +45,8 @@ export default function Parrilla({ pista, handleItemClick, reservasSelected }) {
         sx={{
           borderRadius: '5px',
           bgcolor: '#1976d2',
-          p: 1,
-          py: 0,
-          m: 0.5,
+          p: 0.5,
+          m: 0.25,
           width: '95%',
           alignContent: 'center',
           color: 'white',
@@ -42,8 +54,8 @@ export default function Parrilla({ pista, handleItemClick, reservasSelected }) {
       >
         {pista.nombre}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-        {pista.parrilla.map((item, index) => (
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        {slots.map((item, index) => (
           <Box
             sx={{
               borderRadius: '5px',
@@ -53,12 +65,10 @@ export default function Parrilla({ pista, handleItemClick, reservasSelected }) {
               width: '95%',
             }}
             key={index}
-            onClick={() => handleItemClick(index, pista.id)}
+            onClick={() => handleItemClick(index, pista)}
           >
             <Typography variant="body1" align="center">
-              {UTCDateTimeToLocalDateTime(item.startTime) +
-                ' - ' +
-                UTCDateTimeToLocalDateTime(item.endTime)}
+              {dateUTCToLocalTime(item.startTime) + ' - ' + dateUTCToLocalTime(item.endTime)}
             </Typography>
           </Box>
         ))}

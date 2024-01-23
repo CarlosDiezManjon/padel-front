@@ -31,8 +31,10 @@ const useStore = create((set, get) => ({
     set((state) => ({
       reservasSelected: state.reservasSelected.filter(
         (reserva) =>
-          reserva.startTime !== reservaToRemove.startTime &&
-          reserva.pista_id !== reservaToRemove.pista_id
+          !(
+            reserva.startTime === reservaToRemove.startTime &&
+            reserva.pista_id === reservaToRemove.pista_id
+          )
       ),
     })),
   clearReservasSelected: () => set(() => ({ reservasSelected: [] })),
