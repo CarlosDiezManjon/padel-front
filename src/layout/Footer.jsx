@@ -10,6 +10,7 @@ import SportsBaseballIcon from '@mui/icons-material/SportsBaseball'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import HistoryIcon from '@mui/icons-material/History'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
+import WalletIcon from '@mui/icons-material/Wallet'
 
 export default function Footer() {
   const currentTab = useStore((state) => state.currentTab)
@@ -33,9 +34,9 @@ export default function Footer() {
         />
         <BottomNavigationAction
           color="primary"
-          icon={<HistoryIcon fontSize="large" />}
+          icon={<WalletIcon fontSize="large" />}
           component={Link}
-          to="/historial"
+          to="/cartera"
         />
         <BottomNavigationAction
           color="primary"

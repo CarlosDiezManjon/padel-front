@@ -34,9 +34,9 @@ export default function Header() {
           setTitle('Inicio')
           setCurrentTab(0)
           break
-        case '/historial':
+        case '/cartera':
           setBackButton(false)
-          setTitle('Historial')
+          setTitle('Cartera')
           setCurrentTab(1)
           break
         case '/perfil':
@@ -66,10 +66,10 @@ export default function Header() {
           setTitle('Registro')
           break
         case '/reserva':
-          setBackButton(false)
           setTitle('Reserva')
           setBackButton(true)
           break
+
         default:
           setTitle('Error')
           setBackButton(false)
@@ -154,7 +154,7 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <ToggleModeItem />
+                {/* <ToggleModeItem /> */}
                 <MenuItem onClick={handleMyAccount}>
                   {' '}
                   <AccountCircle sx={{ mr: 1 }} />

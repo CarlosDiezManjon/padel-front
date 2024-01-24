@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, MenuItem, Select } from '@mui/material'
+import { Box, Button, IconButton, MenuItem, Select, Zoom } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetRequest from '../services/get.service'
@@ -15,9 +15,8 @@ export default function Home() {
   const [pistas, setPistas] = React.useState([])
   const [fecha, setFecha] = React.useState(new Date().toISOString().slice(0, 10))
   const [options, setOptions] = React.useState([])
-  const addReservaSelected = useStore((state) => state.addReservaSelected)
   const reservasSelected = useStore((state) => state.reservasSelected)
-  const removeReservaSelected = useStore((state) => state.removeReservaSelected)
+
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
 
   const { getRequest, data } = useGetRequest()
@@ -38,7 +37,6 @@ export default function Home() {
       }
       return options
     }
-
     setOptions(getNextSevenDays())
     getRequest('/parrilla/' + fecha)
   }, [])
@@ -53,21 +51,6 @@ export default function Home() {
   useEffect(() => {
     getRequest('/parrilla/' + fecha)
   }, [fecha])
-
-  const handleItemClick = (index, pista) => {
-    const reserva = pistas.find((p) => p.id === pista.id).parrilla[index]
-    if (reserva.reserva !== null) return
-    reserva.pista_id = pista.id
-    reserva.pista = pista
-    const indexReserva = reservasSelected.findIndex(
-      (r) => r.startTime === reserva.startTime && r.pista_id === reserva.pista_id
-    )
-    if (indexReserva === -1) {
-      addReservaSelected(reserva)
-    } else {
-      removeReservaSelected(reserva)
-    }
-  }
 
   const handleChangeFecha = (event) => {
     setFecha(event.target.value)
@@ -119,22 +102,17 @@ export default function Home() {
         id="container-parrillas"
       >
         {pistas.map((pista) => (
-          <Parrilla
-            pista={pista}
-            handleItemClick={handleItemClick}
-            key={pista.id}
-            reservasSelected={reservasSelected}
-          />
+          <Parrilla pista={pista} key={pista.id} />
         ))}
       </Box>
       <Box
         sx={{ display: 'flex', justifyContent: 'end', position: 'fixed', bottom: 70, right: 10 }}
       >
-        {reservasSelected.length !== 0 && (
+        <Zoom in={reservasSelected.length !== 0}>
           <Button variant="contained" onClick={() => navigate('/reserva')}>
             Reservar
           </Button>
-        )}
+        </Zoom>
       </Box>
     </Box>
   )
