@@ -15,16 +15,26 @@ import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
 import { dateUTCToLocalDate, dateUTCToLocalTime } from '../utils/utils'
 import useGetRequest from '../services/get.service'
+import usePostRequest from '../services/post.service'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
   const [total, setTotal] = useState(0)
   const reservasSelected = useStore((state) => state.reservasSelected)
   const { getRequest, data } = useGetRequest()
+  const { postRequest, data: dataPost } = usePostRequest()
 
   useEffect(() => {
     getRequest('/saldo')
   }, [])
+
+  const handleConfirmar = () => {
+    let reservaToServer = [...reservasSelected]
+    reservaToServer.forEach((reserva) => {
+      delete reserva.pista.parrilla
+    })
+    postRequest('/reservas', { reservas: reservaToServer })
+  }
 
   useEffect(() => {
     if (data) {
@@ -79,7 +89,12 @@ export default function Reserva() {
           )}
 
           <CardActions sx={{ justifyContent: 'flex-end' }}>
-            <Button variant="contained" color="primary" disabled={total > saldo}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={total > saldo}
+              onClick={handleConfirmar}
+            >
               Confirmar
             </Button>
           </CardActions>

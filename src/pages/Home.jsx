@@ -98,11 +98,18 @@ export default function Home() {
         </IconButton>
       </Box>
       <Box
-        sx={{ display: 'flex', width: '100%', justifyContent: 'center', mt: 1 }}
+        sx={{
+          display: 'grid',
+          width: '100%',
+          justifyContent: 'center',
+          mt: 1,
+          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', // Ajusta el valor de 200px a la anchura mínima que deseas para las columnas
+          gap: 1,
+        }}
         id="container-parrillas"
       >
-        {pistas.map((pista) => (
-          <Parrilla pista={pista} key={pista.id} />
+        {pistas.map((pista, index) => (
+          <Parrilla pista={pista} key={pista.id} index={index} />
         ))}
       </Box>
       <Box

@@ -1,13 +1,16 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Collapse, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
 import { dateUTCToLocalTime } from '../utils/utils'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { ExpandMore } from '@mui/icons-material'
 
-export default function Parrilla({ pista }) {
+export default function Parrilla({ pista, index }) {
   const reservasSelected = useStore((state) => state.reservasSelected)
   const removeReservaSelected = useStore((state) => state.removeReservaSelected)
   const addReservaSelected = useStore((state) => state.addReservaSelected)
   const [slots, setSlots] = useState(pista.parrilla)
+  const [expanded, setExpanded] = useState(index < 2 ? true : false)
 
   useEffect(() => {
     setSlots(pista.parrilla)
@@ -54,41 +57,58 @@ export default function Parrilla({ pista }) {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '50%' }}>
-      <Typography
-        variant="h6"
-        align="center"
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <Box
         sx={{
+          display: 'flex',
           borderRadius: '5px',
           bgcolor: '#1976d2',
           p: 0.5,
+          pl: 2,
+          pr: 1,
           m: 0.25,
           width: '95%',
           alignContent: 'center',
           color: 'white',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          cursor: 'pointer',
         }}
       >
-        {pista.nombre}
-      </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-        {slots.map((slot, index) => (
-          <Box
-            sx={{
-              borderRadius: '5px',
-              bgcolor: getBackgroundColor(slot),
-              p: 0.5,
-              m: 0.25,
-              width: '95%',
-            }}
-            key={index}
-            onClick={() => handleItemClick(slot)}
-          >
-            <Typography variant="body1" align="center">
-              {dateUTCToLocalTime(slot.startTime) + ' - ' + dateUTCToLocalTime(slot.endTime)}
-            </Typography>
-          </Box>
-        ))}
+        <Typography variant="h6" align="center" sx={{}}>
+          {pista.nombre}
+        </Typography>
+        <ExpandMore
+          expand={expanded}
+          onClick={() => setExpanded(!expanded)}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
       </Box>
+      <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ width: '100%' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+          {slots.map((slot, index) => (
+            <Box
+              sx={{
+                borderRadius: '5px',
+                bgcolor: getBackgroundColor(slot),
+                p: 0.5,
+                m: 0.25,
+                width: '95%',
+                cursor: slot.reserva == null ? 'pointer' : 'default',
+              }}
+              key={index}
+              onClick={() => handleItemClick(slot)}
+            >
+              <Typography variant="body1" align="center">
+                {dateUTCToLocalTime(slot.startTime) + ' - ' + dateUTCToLocalTime(slot.endTime)}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Collapse>
     </Box>
   )
 }
