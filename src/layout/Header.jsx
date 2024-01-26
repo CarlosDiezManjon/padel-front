@@ -120,56 +120,54 @@ export default function Header() {
     )
   }
   return (
-    <Box>
-      <AppBar position="fixed" color="primary" sx={{ top: 0, bottom: 'auto' }}>
-        <Toolbar sx={{ pl: 1 }}>
-          {backButton ? (
-            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
-              <ArrowBackIosNewIcon />
+    <AppBar position="fixed" id="header">
+      <Toolbar sx={{ pl: 1 }} variant="dense">
+        {backButton ? (
+          <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
+            <ArrowBackIosNewIcon />
+          </IconButton>
+        ) : (
+          <Box sx={{ width: '32px' }}></Box>
+        )}
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {title}
+        </Typography>
+        {user && (
+          <>
+            <IconButton onClick={handleMenu} color="inherit" edge="end">
+              <AccountCircle />
             </IconButton>
-          ) : (
-            <Box sx={{ width: '32px' }}></Box>
-          )}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-          {user && (
-            <>
-              <IconButton onClick={handleMenu} color="inherit" edge="end">
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                color="inherit"
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {/* <ToggleModeItem /> */}
-                <MenuItem onClick={handleMyAccount}>
-                  {' '}
-                  <AccountCircle sx={{ mr: 1 }} />
-                  Mi cuenta
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>
-                  {' '}
-                  <LogoutIcon sx={{ mr: 1 }} />
-                  Cerrar sesión
-                </MenuItem>
-              </Menu>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+            <Menu
+              color="inherit"
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {/* <ToggleModeItem /> */}
+              <MenuItem onClick={handleMyAccount}>
+                {' '}
+                <AccountCircle sx={{ mr: 1 }} />
+                Mi cuenta
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                {' '}
+                <LogoutIcon sx={{ mr: 1 }} />
+                Cerrar sesión
+              </MenuItem>
+            </Menu>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   )
 }

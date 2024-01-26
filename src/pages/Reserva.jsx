@@ -16,6 +16,7 @@ import useStore from '../store/GeneralStore'
 import { dateUTCToLocalDate, dateUTCToLocalTime } from '../utils/utils'
 import useGetRequest from '../services/get.service'
 import usePostRequest from '../services/post.service'
+import { useNavigate } from 'react-router-dom'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
@@ -23,6 +24,7 @@ export default function Reserva() {
   const reservasSelected = useStore((state) => state.reservasSelected)
   const { getRequest, data } = useGetRequest()
   const { postRequest, data: dataPost } = usePostRequest()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getRequest('/saldo')
@@ -35,6 +37,12 @@ export default function Reserva() {
     })
     postRequest('/reservas', { reservas: reservaToServer })
   }
+
+  useEffect(() => {
+    if (dataPost) {
+      navigate(-1)
+    }
+  }, [dataPost])
 
   useEffect(() => {
     if (data) {

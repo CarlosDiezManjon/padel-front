@@ -70,7 +70,7 @@ export default function PerfilReservas() {
             {reservas.map((reserva) => (
               <ListItem key={reserva.id}>
                 <ListItemText
-                  primary={datetimeToStringMinutes(reserva.fecha)}
+                  primary={datetimeToStringMinutes(reserva.fecha_inicio)}
                   secondary={
                     <Box sx={{ display: 'flex' }}>
                       <Typography

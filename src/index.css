@@ -8,3 +8,18 @@
 body {
   font-family: 'Kanit', fallback-fonts;
 }
+
+:root {
+  --black: #000000;
+  --semiblack: #414040;
+  --main-green: #3e9436;
+  --gradiante-negro: linear-gradient(to right, var(--black), var(--semiblack));
+}
+
+.btn-parrilla {
+  background: var(--gradiante-negro);
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}

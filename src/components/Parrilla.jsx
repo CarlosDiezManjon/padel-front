@@ -1,9 +1,21 @@
-import { Box, Collapse, Typography } from '@mui/material'
+import { Box, Collapse, IconButton, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
 import { dateUTCToLocalTime } from '../utils/utils'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { ExpandMore } from '@mui/icons-material'
+import styled from '@emotion/styled'
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props
+  return <IconButton {...other} />
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  padding: 0,
+  color: 'inherit',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}))
 
 export default function Parrilla({ pista, index }) {
   const reservasSelected = useStore((state) => state.reservasSelected)
@@ -33,22 +45,26 @@ export default function Parrilla({ pista, index }) {
   }, [reservasSelected])
 
   const handleItemClick = (slot) => {
-    if (slot.reserva !== null) return
-    slot.pista_id = pista.id
-    slot.pista = pista
-    const indexReserva = reservasSelected.findIndex(
-      (r) => r.startTime === slot.startTime && r.pista_id === slot.pista_id
-    )
-    if (indexReserva === -1) {
-      addReservaSelected(slot)
+    if (slot.reserva !== null && slot.propia === false) return
+    if (slot.propia === true) {
+      console.log('No se puede reservar una pista propia')
     } else {
-      removeReservaSelected(slot)
+      slot.pista_id = pista.id
+      slot.pista = pista
+      const indexReserva = reservasSelected.findIndex(
+        (r) => r.startTime === slot.startTime && r.pista_id === slot.pista_id
+      )
+      if (indexReserva === -1) {
+        addReservaSelected(slot)
+      } else {
+        removeReservaSelected(slot)
+      }
     }
   }
 
   const getBackgroundColor = (item) => {
     if (item.selected) {
-      return '#35b73b'
+      return '#3e9436'
     } else if (item.reserva == null) {
       return 'lightgrey'
     } else {
@@ -56,34 +72,38 @@ export default function Parrilla({ pista, index }) {
     }
   }
 
+  const getSlotContent = (slot) => {
+    if (slot.reserva !== null && slot.reserva?.username !== undefined) {
+      return slot.reserva?.username
+    } else if (slot.reserva !== null && slot.reserva?.username === undefined) {
+      return 'Reservado'
+    } else {
+      return dateUTCToLocalTime(slot.startTime) + ' - ' + dateUTCToLocalTime(slot.endTime)
+    }
+  }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
       <Box
+        className="btn-parrilla"
         sx={{
           display: 'flex',
-          borderRadius: '5px',
-          bgcolor: '#1976d2',
           p: 0.5,
           pl: 2,
           pr: 1,
           m: 0.25,
           width: '95%',
           alignContent: 'center',
-          color: 'white',
           justifyContent: 'space-between',
           alignItems: 'center',
           cursor: 'pointer',
         }}
+        onClick={() => setExpanded(!expanded)}
       >
         <Typography variant="h6" align="center" sx={{}}>
           {pista.nombre}
         </Typography>
-        <ExpandMore
-          expand={expanded}
-          onClick={() => setExpanded(!expanded)}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
+        <ExpandMore expand={expanded} aria-expanded={expanded} aria-label="show more">
           <ExpandMoreIcon />
         </ExpandMore>
       </Box>
@@ -102,8 +122,8 @@ export default function Parrilla({ pista, index }) {
               key={index}
               onClick={() => handleItemClick(slot)}
             >
-              <Typography variant="body1" align="center">
-                {dateUTCToLocalTime(slot.startTime) + ' - ' + dateUTCToLocalTime(slot.endTime)}
+              <Typography variant="body1" align="center" color={slot.propia ? 'white' : 'inherit'}>
+                {getSlotContent(slot)}
               </Typography>
             </Box>
           ))}

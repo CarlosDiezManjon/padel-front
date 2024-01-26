@@ -7,7 +7,6 @@ export default function Content() {
     <Box
       sx={{
         width: '100%',
-        height: '100dvh',
         p: 1,
         pt: 8,
         pb: 8,

@@ -80,7 +80,7 @@ export default function Home() {
         </IconButton>
         <Select
           size="small"
-          sx={{ width: '60%' }}
+          sx={{ width: '60%', maxWidth: 300 }}
           labelId="fecha"
           id="fecha"
           name="fecha"
@@ -101,9 +101,8 @@ export default function Home() {
         sx={{
           display: 'grid',
           width: '100%',
-          justifyContent: 'center',
           mt: 1,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', // Ajusta el valor de 200px a la anchura mínima que deseas para las columnas
+          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
           gap: 1,
         }}
         id="container-parrillas"
@@ -113,7 +112,7 @@ export default function Home() {
         ))}
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'end', position: 'fixed', bottom: 70, right: 10 }}
+        sx={{ display: 'flex', justifyContent: 'end', position: 'fixed', bottom: 80, right: 10 }}
       >
         <Zoom in={reservasSelected.length !== 0}>
           <Button variant="contained" onClick={() => navigate('/reserva')}>
