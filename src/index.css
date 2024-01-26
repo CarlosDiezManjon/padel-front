@@ -11,7 +11,7 @@ body {
 
 :root {
   --black: #000000;
-  --semiblack: #414040;
+  --semiblack: #2d2c2c;
   --main-green: #3e9436;
   --gradiante-negro: linear-gradient(to right, var(--black), var(--semiblack));
 }
@@ -22,4 +22,10 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  height: 100dvh;
 }

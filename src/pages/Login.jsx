@@ -56,7 +56,6 @@ export default function Login() {
   }, [data])
   return (
     <Box>
-      <Header />
       <Container component="main" maxWidth="sm">
         <Paper
           color="primary"

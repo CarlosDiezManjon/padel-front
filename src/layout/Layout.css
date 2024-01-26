@@ -18,7 +18,7 @@
   max-width: 900px;
   left: auto;
   right: auto;
-  background: linear-gradient(to right, var(--black), var(--semiblack));
+  background: var(--gradiante-negro);
   color: white;
 }
 #footer {
@@ -26,7 +26,7 @@
   width: 100%;
   height: 70px;
   max-width: 900px;
-  background: linear-gradient(to right, var(--black), var(--semiblack));
+  background: var(--gradiante-negro);
   display: flex;
   justify-content: center;
   align-items: center;
