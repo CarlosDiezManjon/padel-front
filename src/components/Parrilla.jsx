@@ -22,7 +22,7 @@ export default function Parrilla({ pista, index }) {
   const removeReservaSelected = useStore((state) => state.removeReservaSelected)
   const addReservaSelected = useStore((state) => state.addReservaSelected)
   const [slots, setSlots] = useState(pista.parrilla)
-  const [expanded, setExpanded] = useState(index < 2 ? true : false)
+  const [expanded, setExpanded] = useState(true)
 
   useEffect(() => {
     setSlots(pista.parrilla)
@@ -35,7 +35,7 @@ export default function Parrilla({ pista, index }) {
     })
     reservasSelected.forEach((reserva) => {
       const index = slots.findIndex(
-        (slot) => slot.startTime === reserva.startTime && slot.pista_id === reserva.pista_id
+        (slot) => slot.startTime === reserva.startTime && slot.pista_id === reserva.pista_id,
       )
       if (index !== -1) {
         copy[index].selected = true
@@ -52,7 +52,7 @@ export default function Parrilla({ pista, index }) {
       slot.pista_id = pista.id
       slot.pista = pista
       const indexReserva = reservasSelected.findIndex(
-        (r) => r.startTime === slot.startTime && r.pista_id === slot.pista_id
+        (r) => r.startTime === slot.startTime && r.pista_id === slot.pista_id,
       )
       if (indexReserva === -1) {
         addReservaSelected(slot)
@@ -62,13 +62,13 @@ export default function Parrilla({ pista, index }) {
     }
   }
 
-  const getBackgroundColor = (item) => {
-    if (item.selected) {
-      return '#3e9436'
-    } else if (item.reserva == null) {
-      return 'lightgrey'
+  const getStyleSlot = (slot) => {
+    if (slot.selected) {
+      return 'text-white bg-main-500'
+    } else if (slot.reserva == null) {
+      return 'text-black bg-gray-200'
     } else {
-      return '#fd4646'
+      return 'text-white bg-red-500'
     }
   }
 
@@ -111,9 +111,9 @@ export default function Parrilla({ pista, index }) {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           {slots.map((slot, index) => (
             <Box
+              className={getStyleSlot(slot)}
               sx={{
                 borderRadius: '5px',
-                bgcolor: getBackgroundColor(slot),
                 p: 0.5,
                 m: 0.25,
                 width: '95%',

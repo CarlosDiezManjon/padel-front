@@ -5,7 +5,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { Slide } from '@mui/material'
 
 function SlideTransition(props) {
-  return <Slide {...props} direction="up" />
+  return <Slide {...props} direction="left" />
 }
 
 export default function AlertComponent() {
@@ -13,17 +13,16 @@ export default function AlertComponent() {
   const setMessageRequest = useStore((state) => state.setMessageRequest)
   return (
     <Snackbar
-      sx={{ bottom: '70px', width: '100%' }}
+      sx={{ bottom: '110px !important', width: '100%' }}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       onClose={() => setMessageRequest(null)}
       autoHideDuration={2500}
       TransitionComponent={SlideTransition}
       open={messageRequest != null}
-      //   message={messageRequest}
     >
-      <Alert severity="success" variant="filled" sx={{ width: '80%' }}>
+      <div className="bg-main-500 text-white w-full p-3 rounded-md mr-4 max-w-96">
         {messageRequest}
-      </Alert>
+      </div>
     </Snackbar>
   )
 }

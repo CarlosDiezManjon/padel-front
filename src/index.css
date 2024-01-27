@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'Kanit';
   /* src: url('./../public/Kanit-Regular.ttf') format('truetype'); */
@@ -24,8 +28,9 @@ body {
   transition: 0.3s;
 }
 
-#root {
-  display: flex;
-  justify-content: center;
-  height: 100dvh;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 20px white inset !important;
 }

@@ -27,6 +27,7 @@ import Reservas from './pages/PerfilReservas'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
 import Reserva from './pages/Reserva'
+import Parrillas from './pages/Parrillas'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -76,6 +77,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/cartera" element={<Cartera />} />
+            <Route path="/parrillas" element={<Parrillas />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/reserva" element={<Reserva />} />
             <Route path="/pistas" element={<Pistas />} />

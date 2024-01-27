@@ -56,8 +56,8 @@ const GestionUsuarios = () => {
           searchTerm
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-        ) && (activo ? user.activo === activo : true)
+            .toLowerCase(),
+        ) && (activo ? user.activo === activo : true),
   )
 
   const getInitials = (name) => {

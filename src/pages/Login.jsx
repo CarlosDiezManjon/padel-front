@@ -1,24 +1,12 @@
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  IconButton,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ButtonCustom from '../components/ButtonCustom'
+import InputCustom from '../components/InputCustom'
 import { baseUrl } from '../constants'
-import Header from '../layout/Header'
 import useLoginRequest from '../services/login.service'
 import useStore from '../store/GeneralStore'
 import { parseJwt } from '../utils/utils'
-import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -55,96 +43,63 @@ export default function Login() {
     }
   }, [data])
   return (
-    <Box>
-      <Container component="main" maxWidth="sm">
-        <Paper
-          color="primary"
-          sx={{
-            boxShadow: 3,
-            borderRadius: 2,
-            px: 4,
-            py: 6,
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            PADEL
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              InputLabelProps={{ shrink: true }}
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Usuario"
-              name="username"
-              autoComplete="Usuario"
-              autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              InputLabelProps={{ shrink: true }}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type={showPassword ? 'text' : 'password'}
-              id="password"
-              autoComplete="current-password"
-              InputProps={{
-                // <-- This is where the toggle button is added.
-                endAdornment: (
-                  <IconButton
-                    color="default"
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </IconButton>
-                ),
-              }}
-            />
-            <Button
-              type="submit"
-              color="primary"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={username === '' || password === ''}
-            >
-              <Typography component="h6" variant="h6">
-                Entrar
-              </Typography>
-            </Button>
-            <Grid container color="secondary">
-              <Grid item xs>
-                <Button variant="text" color="inherit" sx={{ fontSize: '12px', p: 1, mt: 1 }}>
-                  ¿Olvidaste la contraseña?
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="text"
-                  color="inherit"
-                  onClick={goToRegister}
-                  sx={{ fontSize: '12px', p: 1, mt: 1 }}
-                >
-                  Registrarse
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Paper>
-      </Container>
-    </Box>
+    <div
+      className="from-black to-semiblack text-white flex h-full min-h-full flex-col 
+    justify-center bg-gradient-to-r px-6 py-12 lg:px-8 w-full"
+    >
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        {/* <img
+          className="mx-auto h-10 w-auto"
+          src="https://tailwindui.com/img/logos/mark.svg?color=white&shade=600"
+          alt="Your Company"
+        /> */}
+        <h2 className=" mt-10 text-center text-4xl font-bold leading-9 tracking-tight">Padel</h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <InputCustom
+            required
+            id="username"
+            label="Usuario"
+            name="username"
+            autoComplete="Usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <InputCustom
+            required
+            name="password"
+            label="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            autoComplete="current-password"
+          />
+
+          <ButtonCustom type="submit">Entrar</ButtonCustom>
+        </form>
+
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={goToRegister}
+            className="border-2 text-white hover:bg-white-500 focus-visible:outline-white flex w-full justify-center 
+            rounded-md px-3 py-1.5 text-base font-medium leading-6 shadow-sm focus-visible:outline focus-visible:outline-2
+             focus-visible:outline-offset-2"
+          >
+            Registrarse
+          </button>
+        </div>
+
+        <p className="text-gray-500 mt-10 text-center text-base font-medium">
+          Olvidaste la contraseña?
+          <a href="#" className="text-white-600 hover:text-white-500 font-semibold leading-6 pl-2">
+            Recuperar contraseña
+          </a>
+        </p>
+      </div>
+    </div>
   )
 }

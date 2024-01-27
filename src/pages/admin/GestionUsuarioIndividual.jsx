@@ -35,12 +35,14 @@ const GestionUsuarioIndividual = () => {
   useEffect(() => {
     if (putData) {
       setUsuario(putData.usuario)
+      navigate(-1)
     }
   }, [putData])
 
   useEffect(() => {
     if (deleteData) {
       setUsuario(deleteData.usuario)
+      navigate(-1)
     }
   }, [deleteData])
 

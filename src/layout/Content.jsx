@@ -4,19 +4,12 @@ import { Outlet } from 'react-router-dom'
 
 export default function Content() {
   return (
-    <Box
-      sx={{
-        width: '100%',
-        p: 1,
-        pt: 8,
-        pb: 8,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-      }}
+    <div
+      className="flex-grow overflow-auto mt-16 px-2"
       id="content"
+      style={{ maxHeight: 'calc(100dvh -  70px - 64px)' }}
     >
       <Outlet />
-    </Box>
+    </div>
   )
 }

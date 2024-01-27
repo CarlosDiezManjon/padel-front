@@ -1,7 +1,8 @@
-import { Box, Button, TextField, Paper, Container, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../layout/Header'
+import ButtonCustom from '../components/ButtonCustom'
+import InputCustom from '../components/InputCustom'
 import useRegisterRequest from '../services/registro.service'
 
 const Registro = () => {
@@ -34,7 +35,7 @@ const Registro = () => {
     if (!isValidPassword) {
       // Handle invalid password error
       setPasswordError(
-        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número'
+        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número',
       )
     } else {
       setPasswordError('')
@@ -72,138 +73,112 @@ const Registro = () => {
   }
 
   return (
-    <Box>
-      <Header />
-      <Container component="main" maxWidth="sm">
-        <Paper
-          color="primary"
-          sx={{
-            boxShadow: 3,
-            borderRadius: 2,
-            px: 4,
-            py: 6,
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          {data ? (
-            <Typography component="h1" variant="h5">
-              Registro correcto, se ha enviado un email de confirmación.
-            </Typography>
-          ) : (
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                label="Username"
-                name="username"
-                fullWidth
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+    <div
+      className="from-black to-semiblack text-white flex h-full min-h-full flex-col 
+    justify-center bg-gradient-to-r px-6 py-12 lg:px-8 w-full"
+    >
+      {data ? (
+        <Typography component="h1" variant="h5">
+          Registro correcto, se ha enviado un email de confirmación.
+        </Typography>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4 sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="text-gray-900  text-center text-4xl font-bold leading-9 tracking-tight mb-10">
+            Registro
+          </h2>
+          <InputCustom
+            required
+            label="Username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <InputCustom
+            name="nombre"
+            required
+            label="Nombre"
+            autoComplete="off"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <InputCustom
+            name="apellidos"
+            required
+            label="Surname"
+            autoComplete="off"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+          />
+          <InputCustom
+            name="email"
+            required
+            label="Email"
+            type="email"
+            autoComplete="off"
+            value={email}
+            onChange={handleEmailChange}
+            error={emailError}
+          />
+          <InputCustom
+            name="telefono"
+            required
+            label="Phone"
+            autoComplete="off"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <InputCustom
+            required
+            label="Password"
+            name="password"
+            type="password"
+            autoComplete="new-password"
+            value={password}
+            onChange={handlePasswordChange}
+            error={passwordError}
+          />
 
-              <TextField
-                name="nombre"
-                required
-                margin="normal"
-                label="Nombre"
-                autoComplete="off"
-                fullWidth
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <TextField
-                name="apellidos"
-                required
-                margin="normal"
-                fullWidth
-                label="Surname"
-                autoComplete="off"
-                value={surname}
-                onChange={(e) => setSurname(e.target.value)}
-              />
-              <TextField
-                name="email"
-                required
-                fullWidth
-                margin="normal"
-                label="Email"
-                type="email"
-                autoComplete="off"
-                value={email}
-                onChange={handleEmailChange}
-                error={!!emailError}
-                helperText={emailError}
-              />
-              <TextField
-                name="telefono"
-                required
-                margin="normal"
-                fullWidth
-                label="Phone"
-                autoComplete="off"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <TextField
-                margin="normal"
-                required
-                label="Password"
-                name="password"
-                fullWidth
-                type="password"
-                autoComplete="new-password"
-                value={password}
-                onChange={handlePasswordChange}
-                error={!!passwordError}
-                helperText={passwordError}
-              />
-              <TextField
-                fullWidth
-                required
-                margin="normal"
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                autoComplete="off"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                error={!!confirmPasswordError}
-                helperText={confirmPasswordError}
-              />
-              <Button
-                type="submit"
-                color="primary"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                disabled={
-                  username === '' ||
-                  password === '' ||
-                  confirmPassword === '' ||
-                  confirmPasswordError !== '' ||
-                  name === '' ||
-                  surname === '' ||
-                  email === '' ||
-                  phone === ''
-                }
-              >
-                <Typography component="h6" variant="h6">
-                  Registrarse
-                </Typography>
-              </Button>
-              <Button type="submit" color="inherit" fullWidth variant="text" onClick={goToLogin}>
-                <Typography component="h6" variant="h6">
-                  Volver a Login
-                </Typography>
-              </Button>
-            </Box>
-          )}
-        </Paper>
-      </Container>
-    </Box>
+          <InputCustom
+            required
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            autoComplete="off"
+            value={confirmPassword}
+            error={confirmPasswordError}
+            onChange={handleConfirmPasswordChange}
+          />
+
+          <ButtonCustom
+            type="submit"
+            disabled={
+              username === '' ||
+              password === '' ||
+              confirmPassword === '' ||
+              confirmPasswordError !== '' ||
+              name === '' ||
+              surname === '' ||
+              email === '' ||
+              phone === ''
+            }
+          >
+            Registrarse
+          </ButtonCustom>
+
+          <div className="mt-6">
+            <button
+              type="button"
+              onClick={() => goToLogin()}
+              className="border-2 text-white hover:bg-white-500 focus-visible:outline-white flex w-full justify-center 
+            rounded-md px-3 py-1.5 text-base font-medium leading-6 shadow-sm focus-visible:outline focus-visible:outline-2
+             focus-visible:outline-offset-2"
+            >
+              Volver al login
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
   )
 }
 

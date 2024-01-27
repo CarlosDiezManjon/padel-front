@@ -11,7 +11,7 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import HistoryIcon from '@mui/icons-material/History'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import WalletIcon from '@mui/icons-material/Wallet'
-import './Layout.css'
+import './Footer.css'
 
 export default function Footer() {
   const currentTab = useStore((state) => state.currentTab)
@@ -24,7 +24,7 @@ export default function Footer() {
   }
   const listFooter = [
     {
-      label: 'Home',
+      label: 'Inicio',
       icon: 'home-outline',
       link: '/',
       admin: false,
@@ -61,12 +61,12 @@ export default function Footer() {
               className={index === currentTab ? 'list active' : 'list'}
               onClick={() => handleChangeTab(item, index)}
             >
-              <a>
+              <div>
                 <span className="icon">
                   <ion-icon name={item.icon}></ion-icon>
                 </span>
                 <span className="text">{item.label}</span>
-              </a>
+              </div>
             </li>
           ))}
         <div className="indicator"></div>
@@ -74,40 +74,3 @@ export default function Footer() {
     </div>
   )
 }
-// <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
-//   <BottomNavigation
-//     color="primary"
-//     showLabels
-//     value={currentTab}
-//     onChange={(event, newValue) => {
-//       setCurrentTab(newValue)
-//     }}
-//   >
-//     <BottomNavigationAction
-//       color="primary"
-//       icon={<HomeIcon fontSize="large" />}
-//       component={Link}
-//       to="/"
-//     />
-//     <BottomNavigationAction
-//       color="primary"
-//       icon={<WalletIcon fontSize="large" />}
-//       component={Link}
-//       to="/cartera"
-//     />
-//     <BottomNavigationAction
-//       color="primary"
-//       icon={<PermIdentityIcon fontSize="large" />}
-//       component={Link}
-//       to="/perfil"
-//     />
-//     {user?.tipo == 2 && (
-//       <BottomNavigationAction
-//         color="primary"
-//         icon={<AdminPanelSettingsIcon fontSize="large" />}
-//         component={Link}
-//         to="/administracion"
-//       />
-//     )}
-//   </BottomNavigation>
-// </AppBar>
