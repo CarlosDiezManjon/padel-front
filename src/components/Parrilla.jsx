@@ -85,14 +85,14 @@ export default function Parrilla({ pista, index }) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
       <Box
-        className="btn-parrilla"
+        className="rounded cursor-pointer text-white  bg-main-800 w-full"
         sx={{
           display: 'flex',
           p: 0.5,
           pl: 2,
           pr: 1,
           m: 0.25,
-          width: '95%',
+
           alignContent: 'center',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -111,12 +111,8 @@ export default function Parrilla({ pista, index }) {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           {slots.map((slot, index) => (
             <Box
-              className={getStyleSlot(slot)}
+              className={getStyleSlot(slot) + ' w-full m-0.5 p-1 rounded'}
               sx={{
-                borderRadius: '5px',
-                p: 0.5,
-                m: 0.25,
-                width: '95%',
                 cursor: slot.reserva == null ? 'pointer' : 'default',
               }}
               key={index}

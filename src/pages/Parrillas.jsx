@@ -114,7 +114,13 @@ export default function Parrillas() {
         ))}
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'end', position: 'fixed', bottom: 80, right: 10 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'end',
+          position: 'fixed',
+          bottom: 80,
+          right: { xs: 10, sm: 'calc(50vw - 450px)' },
+        }}
       >
         <Zoom in={reservasSelected.length !== 0}>
           <ButtonCustom onClick={() => navigate('/reserva')}>Reservar</ButtonCustom>
