@@ -42,7 +42,7 @@ export default function Footer() {
       admin: false,
     },
     {
-      label: 'Administración',
+      label: 'Admin',
       icon: 'settings-outline',
       link: '/administracion',
       admin: true,
@@ -51,26 +51,52 @@ export default function Footer() {
   // Reemplaza esto con tu lista de enlaces
 
   return (
-    <div className="navigation" id="footer" style={{ top: 'auto', bottom: 0 }}>
-      <ul>
-        {listFooter
-          .filter((item) => (user.tipo == 2 ? true : item.admin === false))
-          .map((item, index) => (
-            <li
-              key={index}
-              className={index === currentTab ? 'list active' : 'list'}
-              onClick={() => handleChangeTab(item, index)}
+    // <div className="navigation" id="footer" style={{ top: 'auto', bottom: 0 }}>
+    //   <ul>
+    //     {listFooter
+    //       .filter((item) => (user.tipo == 2 ? true : item.admin === false))
+    //       .map((item, index) => (
+    //         <li
+    //           key={index}
+    //           className={index === currentTab ? 'list active' : 'list'}
+    //           onClick={() => handleChangeTab(item, index)}
+    //         >
+    //           <div>
+    //             <span className="icon">
+    //               <ion-icon name={item.icon}></ion-icon>
+    //             </span>
+    //             <span className="text">{item.label}</span>
+    //           </div>
+    //         </li>
+    //       ))}
+    //     <div className="indicator"></div>
+    //   </ul>
+    // </div>
+    <div className="fixed top-auto bottom-0 h-16 text-white bg-gradient-to-tr from-black to-semiblack w-full flex justify-center py-1">
+      {listFooter
+        .filter((item) => (user.tipo == 2 ? true : item.admin === false))
+        .map((item, index) => (
+          <div
+            key={index}
+            className={
+              'h-full  w-20 flex flex-col items-center justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl' +
+              (index === currentTab ? ' bg-main-500 text-xl' : '')
+            }
+            onClick={() => handleChangeTab(item, index)}
+          >
+            <div
+              className={
+                'flex flex-col items-center ' +
+                (index === currentTab ? ' text-xl justify-center' : 'text-3xl justify-center')
+              }
             >
-              <div>
-                <span className="icon">
-                  <ion-icon name={item.icon}></ion-icon>
-                </span>
-                <span className="text">{item.label}</span>
-              </div>
-            </li>
-          ))}
-        <div className="indicator"></div>
-      </ul>
+              <ion-icon name={item.icon}></ion-icon>
+              <span className={index === currentTab ? 'flex text-base' : 'hidden'}>
+                {item.label}
+              </span>
+            </div>
+          </div>
+        ))}
     </div>
   )
 }

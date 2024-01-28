@@ -81,21 +81,13 @@ export default function Login() {
           <ButtonCustom type="submit">Entrar</ButtonCustom>
         </form>
 
-        <div className="mt-6">
-          <button
-            type="button"
-            onClick={goToRegister}
-            className="border-2 text-white hover:bg-white-500 focus-visible:outline-white flex w-full justify-center 
-            rounded-md px-3 py-1.5 text-base font-medium leading-6 shadow-sm focus-visible:outline focus-visible:outline-2
-             focus-visible:outline-offset-2"
-          >
-            Registrarse
-          </button>
-        </div>
+        <ButtonCustom onClick={goToRegister} tipo="white" sx="mt-6">
+          Registrarse
+        </ButtonCustom>
 
-        <p className="text-gray-500 mt-10 text-center text-base font-medium">
+        <p className="text-main-500 mt-10 text-center text-base font-medium">
           Olvidaste la contraseña?
-          <a href="#" className="text-white-600 hover:text-white-500 font-semibold leading-6 pl-2">
+          <a href="#" className="text-white-600 hover:text-white font-semibold leading-6 pl-2">
             Recuperar contraseña
           </a>
         </p>

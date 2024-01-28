@@ -148,7 +148,7 @@ export default function Header() {
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (
-        <Toolbar sx={{ pl: 1 }}>
+        <div className="max-w-4xl flex h-14 items-center px-1 pr-4 min-w-full xl:min-w-main lg:min-w-main ">
           {backButton ? (
             <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
               <ArrowBackIosNewIcon />
@@ -194,7 +194,7 @@ export default function Header() {
               </Menu>
             </>
           )}
-        </Toolbar>
+        </div>
       )}
     </AppBar>
   )

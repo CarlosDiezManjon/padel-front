@@ -17,6 +17,7 @@ body {
   --black: #000000;
   --semiblack: #2d2c2c;
   --main-green: #3e9436;
+  --main-green-hover: #2e662b;
   --gradiante-negro: linear-gradient(to right, var(--black), var(--semiblack));
 }
 
@@ -25,4 +26,24 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 20px white inset !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--main-green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-green-hover);
 }

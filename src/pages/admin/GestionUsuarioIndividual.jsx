@@ -17,6 +17,7 @@ import useDeleteRequest from '../../services/delete.service'
 import { useNavigate, useParams } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import usePutRequest from '../../services/put.service'
+import ButtonCustom from '../../components/ButtonCustom'
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
@@ -159,7 +160,7 @@ const GestionUsuarioIndividual = () => {
             }}
           >
             <TextField
-              sx={{ mr: '3%' }}
+              sx={{ mr: '3%', width: '50%' }}
               margin="normal"
               name="fecha_alta"
               label="Fecha alta"
@@ -168,6 +169,7 @@ const GestionUsuarioIndividual = () => {
               onChange={handleInputChange}
             />
             <TextField
+              sx={{ width: '50%' }}
               margin="normal"
               name="fecha_baja"
               label="Fecha baja"
@@ -211,28 +213,25 @@ const GestionUsuarioIndividual = () => {
           <Box
             sx={{
               display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'flex-end',
+              justifyContent: 'center',
               width: '100%',
               position: 'fixed',
               bottom: '70px',
-              right: 10,
+              maxWidth: '900px',
+              pl: 2,
+              right: { xs: 10, sm: 'calc(50vw - 450px)' },
             }}
           >
-            <Button variant="outlined" color="inherit" onClick={() => navigate(-1)} sx={{ m: 0.5 }}>
-              Volver
-            </Button>
-            <Button
-              variant="contained"
-              color={usuario.activo ? 'error' : 'success'}
+            <ButtonCustom
               onClick={toggleUserActive}
-              sx={{ m: 0.5 }}
+              sx="mx-1"
+              tipo={usuario.activo ? 'white-red' : 'white-green'}
             >
               {usuario.activo ? 'Dar de baja' : 'Dar de alta'}
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleSave} sx={{ m: 0.5 }}>
+            </ButtonCustom>
+            <ButtonCustom onClick={handleSave} sx="mx-1" tipo="green">
               Guardar
-            </Button>
+            </ButtonCustom>
           </Box>
         </>
       )}

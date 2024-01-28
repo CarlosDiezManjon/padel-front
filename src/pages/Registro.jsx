@@ -83,7 +83,7 @@ const Registro = () => {
         </Typography>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4 sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="text-gray-900  text-center text-4xl font-bold leading-9 tracking-tight mb-10">
+          <h2 className="text-white  text-center text-4xl font-bold leading-9 tracking-tight mb-10">
             Registro
           </h2>
           <InputCustom

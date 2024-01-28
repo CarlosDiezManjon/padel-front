@@ -1,10 +1,11 @@
+import { Divider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ButtonCustom from '../components/ButtonCustom'
 import useGetRequest from '../services/get.service'
 import usePostRequest from '../services/post.service'
 import useStore from '../store/GeneralStore'
-import { dateUTCToLocalDate, dateUTCToLocalTime } from '../utils/utils'
+import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../utils/utils'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
@@ -24,7 +25,11 @@ export default function Reserva() {
     reservaToServer.forEach((reserva) => {
       delete reserva.pista.parrilla
     })
-    postRequest('/reservas', { reservas: reservaToServer })
+    let importeTotal = reservaToServer.reduce(
+      (acc, reserva) => acc + parseFloat(reserva.pista.precio),
+      0,
+    )
+    postRequest('/reservas', { reservas: reservaToServer, importeTotal: importeTotal })
   }
 
   useEffect(() => {
@@ -41,43 +46,66 @@ export default function Reserva() {
   }, [data])
 
   return (
-    <div className="w-full p-4">
-      <h5 className="font-bold text-xl mb-4">Aquí tienes tu reserva {user.nombre}</h5>
-      <ul>
+    <div className="w-full p-2">
+      <h5 className="font-bold text-2xl mb-4 text-main-500">
+        Aquí tienes tu reserva {user.nombre}
+      </h5>
+      <ul className="max-h-reserva min-h-reserva overflow-auto shadow-sm shadow-main-100">
         {reservasSelected
           .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
           .map((reserva, index) => (
-            <li key={reserva.startTime + '-' + index} className="pl-1 mb-2">
-              {reserva.pista.nombre} : {dateUTCToLocalDate(reserva.startTime)} -
-              {dateUTCToLocalTime(reserva.endTime)} {reserva.pista.precio} €
-            </li>
+            <div className="w-full flex flex-col" key={reserva.startTime + '-' + index}>
+              <div className="w-full p-2 flex justify-between">
+                <p className="flex w-6/12">
+                  <p className="font-bold mr-1">Fecha</p>
+                  {dateUTCToLocalDateOnly(reserva.startTime)}
+                </p>
+                <p className="flex w-6/12">
+                  <p className="font-bold mr-1">Hora</p>
+                  {dateUTCToLocalTime(reserva.startTime)} - {dateUTCToLocalTime(reserva.endTime)}
+                </p>
+              </div>
+              <div className="w-full p-2 flex justify-between">
+                <p className="flex w-6/12">
+                  <p className="font-bold mr-1">Lugar</p>
+                  {reserva.pista.nombre}
+                </p>
+                <p className="flex w-6/12">
+                  <p className="font-bold mr-1">Precio</p>
+                  {reserva.pista.precio} €
+                </p>
+              </div>
+              <hr className="w-full border-main-500" />
+            </div>
           ))}
       </ul>
 
-      <p className="my-2 text-right text-gray-600">Importe total: {total} €</p>
-      <p className="my-2 text-right text-gray-600">Saldo: {saldo} €</p>
+      <p className="my-2 text-right text-black pr-1 text-lg">Importe total: {total} €</p>
+      <p className="my-2 text-right text-black pr-1 text-lg">Saldo: {saldo} €</p>
 
       {total <= saldo && (
-        <p className="my-2 text-right text-gray-600">Saldo tras reserva: {saldo - total} €</p>
+        <p className="my-2 text-right text-black pr-1 text-lg">
+          Saldo tras reserva: {saldo - total} €
+        </p>
       )}
 
       {total > saldo && (
-        <div className="w-full flex justify-between my-2">
-          <p className="my-2 text-red-600">No tienes saldo suficiente</p>
-          <button
-            className="w-2/5 px-2 py-1 border border-blue-500 text-blue-500 rounded"
-            onClick={() => setSaldo(100)}
-          >
+        <div className="w-full flex justify-end my-2">
+          <p className="my-2 text-red-600">Saldo insuficiente</p>
+          <ButtonCustom onClick={() => setSaldo(saldo + 100)} tipo="white-green" sx="max-w-48 ml-2">
             Añadir saldo
-          </button>
+          </ButtonCustom>
         </div>
       )}
 
-      <div className="flex justify-end">
-        <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" type="red">
+      <div className="flex justify-end mt-4">
+        <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
           Cancelar
         </ButtonCustom>
-        <ButtonCustom disabled={total > saldo} onClick={handleConfirmar}>
+        <ButtonCustom
+          disabled={total > saldo || reservasSelected.length == 0}
+          onClick={handleConfirmar}
+        >
           Confirmar
         </ButtonCustom>
       </div>

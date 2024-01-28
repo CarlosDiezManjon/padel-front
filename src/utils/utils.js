@@ -9,7 +9,7 @@ export function parseJwt(token) {
       .map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
       })
-      .join('')
+      .join(''),
   )
   return JSON.parse(jsonPayload)
 }
@@ -64,7 +64,7 @@ export function dateLocalToUTC(date) {
   return utcDateStr
 }
 
-export function dateUTCToLocalDate(date) {
+export function dateUTCToLocalDateTime(date) {
   if (!date) {
     return ''
   }
@@ -106,4 +106,15 @@ export function UTCTimeToLocalTime(time) {
   const localTimeStr = utcTime.local().format('HH:mm')
 
   return localTimeStr
+}
+
+export function dateUTCToLocalDateOnly(date) {
+  if (!date) {
+    return ''
+  }
+
+  const utcDate = moment.utc(date)
+  const localDateStr = utcDate.local().format('DD-MM-YYYY')
+
+  return localDateStr
 }

@@ -14,9 +14,12 @@
 #header {
   top: 0;
   bottom: auto;
-  max-width: 900px;
+  width: 100%;
   left: auto;
   right: auto;
   background: var(--gradiante-negro);
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

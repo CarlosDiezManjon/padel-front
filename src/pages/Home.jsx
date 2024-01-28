@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <div>
       Home
-      <ButtonCustom onClick={() => navigate('/parrillas')}>Reservas</ButtonCustom>
+      <ButtonCustom onClick={() => navigate('/parrillas')} tipo="green">
+        Reservas
+      </ButtonCustom>
     </div>
   )
 }

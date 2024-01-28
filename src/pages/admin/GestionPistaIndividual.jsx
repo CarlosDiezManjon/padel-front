@@ -195,7 +195,7 @@ const GestionPistaIndividual = () => {
               width: '100%',
               position: 'fixed',
               bottom: '70px',
-              right: 10,
+              right: { xs: 10, sm: 'calc(50vw - 450px)' },
             }}
           >
             <Button variant="outlined" color="inherit" onClick={() => navigate(-1)} sx={{ m: 0.5 }}>

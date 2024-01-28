@@ -18,10 +18,20 @@ export default {
           900: '#1d381f',
         },
       },
-    },
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      minWidth: {
+        main: '900px',
+        medium: '768px',
+      },
+      maxHeight: {
+        reserva: 'calc(100vh - 400px)',
+      },
+      minHeight: {
+        reserva: 'calc(100vh - 400px)',
+      },
+      fontFamily: {
+        sans: ['Graphik', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+      },
     },
   },
 }
