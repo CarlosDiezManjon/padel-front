@@ -85,7 +85,7 @@ export default function Login() {
           Registrarse
         </ButtonCustom>
 
-        <p className="text-main-500 mt-10 text-center text-base font-medium">
+        <p className="text-main-500 mt-8 text-center text-sm font-normal">
           Olvidaste la contraseña?
           <a href="#" className="text-white-600 hover:text-white font-semibold leading-6 pl-2">
             Recuperar contraseña

@@ -58,12 +58,10 @@
 }
 .indicator {
   position: absolute;
-  top: -50%;
+  top: 4%;
   width: 70px;
   height: 70px;
-  background: var(--main-green);
-  border-radius: 50%;
-  border: 3px solid white;
+  border: 2px solid white;
   transition: 0.5s;
 }
 .indicator::before {
@@ -89,19 +87,32 @@
   box-shadow: -1px -10px 0 0 transparent;
 }
 
+.first {
+  transform: translateX(calc((100px * 0) + 12px));
+}
+.second {
+  transform: translateX(calc(100px * 1));
+}
+.third {
+  transform: translateX(calc(95px * 2));
+}
+.fourth {
+  transform: translateX(calc(92px * 3));
+}
+
 /* Indicator Transitions */
-.navigation ul li:nth-child(1).active ~ .indicator {
-  transform: translateX(calc(70px * 0));
+li:nth-child(1).text-xl ~ .indicator {
+  transform: translateX(calc(100px * 0));
 }
-.navigation ul li:nth-child(2).active ~ .indicator {
-  transform: translateX(calc(70px * 1));
+li:nth-child(2).text-xl ~ .indicator {
+  transform: translateX(calc(100px * 1));
 }
-.navigation ul li:nth-child(3).active ~ .indicator {
-  transform: translateX(calc(70px * 2));
+li:nth-child(3).text-xl ~ .indicator {
+  transform: translateX(calc(100px * 2));
 }
-.navigation ul li:nth-child(4).active ~ .indicator {
-  transform: translateX(calc(70px * 3));
+li:nth-child(4).text-xl ~ .indicator {
+  transform: translateX(calc(100px * 3));
 }
-.navigation ul li:nth-child(5).active ~ .indicator {
-  transform: translateX(calc(70px * 4));
+li:nth-child(5).text-xl ~ .indicator {
+  transform: translateX(calc(100px * 4));
 }

@@ -72,31 +72,52 @@ export default function Footer() {
     //     <div className="indicator"></div>
     //   </ul>
     // </div>
-    <div className="fixed top-auto bottom-0 h-16 text-white bg-gradient-to-tr from-black to-semiblack w-full flex justify-center py-1">
-      {listFooter
-        .filter((item) => (user.tipo == 2 ? true : item.admin === false))
-        .map((item, index) => (
-          <div
-            key={index}
-            className={
-              'h-full  w-20 flex flex-col items-center justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl' +
-              (index === currentTab ? ' bg-main-500 text-xl' : '')
-            }
-            onClick={() => handleChangeTab(item, index)}
-          >
-            <div
+    <div className="fixed top-auto bottom-0 h-16 text-white bg-gradient-to-tr from-black to-semiblack w-full flex justify-center py-1 z-50">
+      <div className="flex just">
+        {listFooter
+          .filter((item) => (user.tipo == 2 ? true : item.admin === false))
+          .map((item, index) => (
+            <li
+              key={index}
               className={
-                'flex flex-col items-center ' +
-                (index === currentTab ? ' text-xl justify-center' : 'text-3xl justify-center')
+                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl z-50' +
+                (index === currentTab ? ' text-xl' : '')
               }
+              onClick={() => handleChangeTab(item, index)}
             >
-              <ion-icon name={item.icon}></ion-icon>
-              <span className={index === currentTab ? 'flex text-base' : 'hidden'}>
-                {item.label}
-              </span>
-            </div>
-          </div>
-        ))}
+              <div
+                className={
+                  'flex flex-col items-center transition-all duration-500 ' +
+                  (index === currentTab ? 'text-2xl justify-center' : 'text-3xl pt-4')
+                }
+              >
+                <ion-icon name={item.icon}></ion-icon>
+                <span
+                  className={
+                    index === currentTab
+                      ? 'transform translate-y-0.5 opacity-1 text-base '
+                      : 'transform translate-y-4 opacity-0 ' +
+                        'transition-all duration-700 text-base flex transform translate-y-6'
+                  }
+                >
+                  {item.label}
+                </span>
+              </div>
+            </li>
+          ))}
+        <div
+          className={
+            'h-14 w-16 rounded bg-main-500 absolute z-1 transition duration-700 ' +
+            (currentTab == 0
+              ? 'first'
+              : currentTab == 1
+                ? 'second'
+                : currentTab == 2
+                  ? 'third'
+                  : 'fourth')
+          }
+        ></div>
+      </div>
     </div>
   )
 }
