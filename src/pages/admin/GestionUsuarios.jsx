@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import ToggleCustom from '../../components/ToggleCustom'
 import BadgeCustom from '../../components/BadgeCustom'
+import InputCustom from '../../components/InputCustom'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])
@@ -82,12 +83,12 @@ const GestionUsuarios = () => {
           pr: 2,
         }}
       >
-        <TextField
-          size="small"
-          sx={{ width: '60%' }}
-          label="Filtrar nombre"
+        <InputCustom
+          placeholder="Filtrar"
+          tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
+          sx="md:!w-6/12  mr-4"
         />
         <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} />
         {/* <FormControlLabel
@@ -120,6 +121,7 @@ const GestionUsuarios = () => {
                 />
 
                 <Badge
+                  sx={{ mr: 2 }}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',

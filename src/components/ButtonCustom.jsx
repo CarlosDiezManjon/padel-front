@@ -37,7 +37,7 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', sx, ...props }, ref) =>
   return (
     <button
       ref={ref}
-      className={`flex w-full 
+      className={`flex w-full shadow-sm  shadow-neutral-700 
       justify-center rounded-md px-3 py-1 text-base font-medium leading-6 focus-visible:outline focus-visible:outline-2
       focus-visible:outline-offset-2 transition duration-300 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed ${style} ${sx}`}
       {...props}

@@ -1,11 +1,13 @@
+import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { TextField, Button, Box, InputAdornment, FormControl } from '@mui/material'
-import useStore from '../../store/GeneralStore'
-import useDeleteRequest from '../../services/delete.service'
 import { useNavigate, useParams } from 'react-router-dom'
+import ButtonCustom from '../../components/ButtonCustom'
+import InputCustom from '../../components/InputCustom'
+import useDeleteRequest from '../../services/delete.service'
 import useGetRequest from '../../services/get.service'
-import usePutRequest from '../../services/put.service'
 import usePostRequest from '../../services/post.service'
+import usePutRequest from '../../services/put.service'
+import useStore from '../../store/GeneralStore'
 import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../utils/utils'
 
 const emptyPista = {
@@ -98,21 +100,19 @@ const GestionPistaIndividual = () => {
     <Box sx={{ width: '100%' }}>
       {pista && (
         <>
-          <TextField
-            sx={{ width: '100%' }}
-            margin="normal"
+          <InputCustom
             name="nombre"
             label="Nombre"
             value={pista.nombre}
             onChange={handleInputChange}
+            tipo="negro"
           />
-          <TextField
-            sx={{ width: '100%' }}
-            margin="normal"
+          <InputCustom
             name="ubicacion"
             label="Ubicación"
             value={pista.ubicacion}
             onChange={handleInputChange}
+            tipo="negro"
           />
           <Box
             sx={{
@@ -122,29 +122,22 @@ const GestionPistaIndividual = () => {
               alignItems: 'center',
             }}
           >
-            <TextField
-              sx={{ mr: '3%', width: '50%' }}
-              type="number"
-              margin="normal"
+            <InputCustom
               name="duracion_reserva"
-              label="Duración Reserva"
+              type="number"
+              label="Duración Reserva(min)"
               value={pista.duracion_reserva}
               onChange={handleInputChange}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">h</InputAdornment>,
-              }}
+              tipo="negro"
             />
-            <TextField
-              sx={{ width: '50%' }}
-              type="number"
-              margin="normal"
+            <InputCustom
               name="precio"
-              label="Precio"
-              InputProps={{
-                endAdornment: <InputAdornment position="end">€</InputAdornment>,
-              }}
+              label="Precio(€)"
+              type="number"
               value={pista.precio}
               onChange={handleInputChange}
+              tipo="negro"
+              labelSx="ml-2"
             />
           </Box>
 
@@ -156,7 +149,7 @@ const GestionPistaIndividual = () => {
               alignItems: 'center',
             }}
           >
-            <TextField
+            {/* <TextField
               sx={{ mr: '3%', width: '50%' }}
               margin="normal"
               name="hora_inicio"
@@ -170,51 +163,47 @@ const GestionPistaIndividual = () => {
               inputProps={{
                 step: 300, // 5 min
               }}
+            /> */}
+            <InputCustom
+              name="hora_inicio"
+              label="Hora Inicio"
+              type="time"
+              value={pista.hora_inicio}
+              onChange={handleInputChange}
+              tipo="negro"
             />
-            <TextField
-              sx={{ width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="hora_fin"
               label="Hora Fin"
               type="time"
               value={pista.hora_fin}
               onChange={handleInputChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
+              tipo="negro"
+              labelSx="ml-2"
             />
           </Box>
           <Box
             sx={{
               display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'flex-end',
+              justifyContent: 'center',
               width: '100%',
               position: 'fixed',
               bottom: '70px',
+              maxWidth: '900px',
+              pl: 2,
               right: { xs: 10, sm: 'calc(50vw - 450px)' },
             }}
           >
-            <Button variant="outlined" color="inherit" onClick={() => navigate(-1)} sx={{ m: 0.5 }}>
-              Volver
-            </Button>
-            {id !== 'nueva' && (
-              <Button
-                variant="contained"
-                color={pista.activo ? 'error' : 'success'}
-                onClick={togglePistaActive}
-                sx={{ m: 0.5 }}
-              >
-                {pista.activo ? 'Desactivar' : 'Activar'}
-              </Button>
-            )}
-
-            <Button variant="contained" color="primary" onClick={handleSave} sx={{ m: 0.5 }}>
+            <ButtonCustom
+              onClick={togglePistaActive}
+              sx="mx-1"
+              tipo={pista.activo ? 'white-red' : 'white-green'}
+            >
+              {pista.activo ? 'Desactivar' : 'Activar'}
+            </ButtonCustom>
+            <ButtonCustom onClick={handleSave} sx="mx-1" tipo="green">
               Guardar
-            </Button>
+            </ButtonCustom>
           </Box>
         </>
       )}

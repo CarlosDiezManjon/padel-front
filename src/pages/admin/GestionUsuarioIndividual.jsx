@@ -101,7 +101,7 @@ const GestionUsuarioIndividual = () => {
               label="Username"
               value={usuario.username}
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
             />
             <InputCustom
               name="nombre"
@@ -109,7 +109,7 @@ const GestionUsuarioIndividual = () => {
               value={usuario.nombre}
               onChange={handleInputChange}
               labelSx="ml-2"
-              tipo="verde"
+              tipo="negro"
             />
           </Box>
           <Box
@@ -126,14 +126,14 @@ const GestionUsuarioIndividual = () => {
               label="Apellidos"
               value={usuario.apellidos}
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
             />
             <SelectCustom
               id="tipo"
               name="tipo"
               value={usuario.tipo}
               label="Tipo usuario"
-              tipo="verde"
+              tipo="negro"
               labelSx="ml-2"
               onChange={handleInputChange}
               options={[
@@ -171,7 +171,7 @@ const GestionUsuarioIndividual = () => {
               label="Email"
               value={usuario.email}
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
             />
           </Box>
 
@@ -190,7 +190,7 @@ const GestionUsuarioIndividual = () => {
               disabled
               value={datetimeToStringMinutes(usuario.fecha_alta)}
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
             />
 
             <InputCustom
@@ -203,7 +203,7 @@ const GestionUsuarioIndividual = () => {
                   : 'N/A'
               }
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
               labelSx="ml-2"
             />
           </Box>
@@ -222,15 +222,14 @@ const GestionUsuarioIndividual = () => {
               disabled
               value={usuario.saldo + ' €'}
               onChange={handleInputChange}
-              tipo="verde"
-              sx="text-right"
+              tipo="negro"
             />
             <InputCustom
               name="telefono"
               label="Teléfono"
               value={usuario.telefono}
               onChange={handleInputChange}
-              tipo="verde"
+              tipo="negro"
               labelSx="ml-2"
             />
           </Box>

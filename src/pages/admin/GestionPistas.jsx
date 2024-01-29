@@ -21,6 +21,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import AddBoxIcon from '@mui/icons-material/AddBox'
+import InputCustom from '../../components/InputCustom'
+import ButtonCustom from '../../components/ButtonCustom'
+import BadgeCustom from '../../components/BadgeCustom'
 
 const GestionPistas = () => {
   const [pistas, setPistas] = useState([])
@@ -60,40 +63,36 @@ const GestionPistas = () => {
         searchTerm
           .normalize('NFD')
           .replace(/[\u0300-\u036f]/g, '')
-          .toLowerCase()
-      )
+          .toLowerCase(),
+      ),
   )
 
   return (
     <Box sx={{ width: '100%' }} id="gestion-pistas">
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, justifyContent: 'space-between' }}>
-        <TextField
-          size="small"
-          sx={{ width: '60%', ml: 0 }}
-          label="Filtrar nombre"
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          mt: 2,
+          justifyContent: 'space-between',
+          pr: 4,
+        }}
+      >
+        <InputCustom
+          placeholder="Filtrar"
+          tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
+          sx="md:!w-6/12  mr-4"
         />
-        {/* <FormControlLabel
-          labelPlacement="start"
-          sx={{ ml: 1 }}
-          control={
-            <Switch
-              checked={activo}
-              onChange={handleSwitchChange}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-          }
-          label="Activa"
-        /> */}
-        <Button onClick={handleAddPista} sx={{ ml: 1 }} color="success" variant="contained">
+        <ButtonCustom onClick={handleAddPista} sx="!w-fit !py-2">
           Nueva
-        </Button>
+        </ButtonCustom>
       </Box>
       <List>
         {filteredPistas.map((pista) => (
           <React.Fragment key={pista.id}>
-            <ListItem>
+            <ListItem sx="pr-2">
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
                 onClick={() => navigate('/gestion-pistas/' + pista.id)}
@@ -105,16 +104,16 @@ const GestionPistas = () => {
                 </ListItemAvatar>
                 <ListItemText primary={pista.nombre} secondary={pista.ubicacion} />
                 <Badge
+                  sx={{ mr: 2 }}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
                   }}
                   badgeContent={
                     <>
-                      <Chip
-                        size="small"
-                        label={pista.activo ? 'Activo' : 'Inactivo'}
-                        color={pista.activo ? 'primary' : 'error'}
+                      <BadgeCustom
+                        tipo={pista.activo ? 'verde' : 'rojo'}
+                        label={pista.activo ? 'Activa' : 'Inactiva'}
                       />
                     </>
                   }

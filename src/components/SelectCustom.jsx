@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 export default function SelectCustom({
   error,
+  label,
+  name,
   value,
   tipo = 'blanco',
   sx = '',
   labelSx = '',
   options,
+  onChange,
   ...props
 }) {
   const [inputStyle, setInputStyle] = useState('')
@@ -27,7 +30,7 @@ export default function SelectCustom({
         setLabelStyle('text-white')
         break
       case 'negro':
-        setInputStyle('bg-white text-main-800 ring-gray-500 focus:ring-black')
+        setInputStyle('bg-white text-black ring-neutral-500 focus:ring-main-400')
         setLabelStyle('text-black')
         break
       default:
@@ -37,24 +40,81 @@ export default function SelectCustom({
     }
   }, [tipo])
 
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    console.log(isOpen)
+  }, [isOpen])
+
+  const handleChangeValue = (option) => {
+    let event = {
+      target: {
+        value: option.value,
+        name: name,
+      },
+    }
+    onChange(event)
+    setIsOpen(false)
+  }
+  const toggleOpen = () => {
+    console.log('Cambio')
+    setIsOpen(!isOpen)
+  }
+
   return (
-    <label
-      for={props.name}
-      className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
-    >
-      {props.label}
-      <select
-        {...props}
-        id={props.name}
-        className={`shadow-xs placeholder:text-gray block w-full text-black
-        bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset 
-       focus:outline-none focus:ring-2 focus:ring-inset  
-       sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
+    <div className={`relative block w-full h-full mb-2 ${labelStyle} ${labelSx}`}>
+      {label}
+      <button
+        onClick={toggleOpen}
+        className={`shadow-xs placeholder:text-gray block w-full text-black text-start
+        bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset
+        focus:outline-none focus:ring-2 focus:ring-inset
+        sm:text-sm sm:leading-6 appearance-none  ${inputStyle}`}
       >
-        {options.map((opt) => {
-          return <option value={opt.value}>{opt.label}</option>
-        })}
-      </select>
-    </label>
+        {options.find((opt) => opt.value == value)?.label}
+      </button>
+      {isOpen && (
+        <div className="absolute z-10 mt-1 w-full bg-white border rounded-md shadow">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => handleChangeValue(option)}
+              className={
+                'block w-full text-sm text-left px-3 py-2 text-black hover:bg-main-300 ' +
+                (value == option.value ? 'bg-main-200' : '')
+              }
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   )
+
+  // return (
+  //   <label
+  //     for={props.name}
+  //     className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
+  //   >
+  //     {props.label}
+  //     <select
+  //       data-dropdown-toggle="dropdown"
+  //       {...props}
+  //       id={props.name}
+  //       className={`shadow-xs placeholder:text-gray block w-full text-black
+  //       bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset
+  //      focus:outline-none focus:ring-2 focus:ring-inset
+  //      sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
+  //     >
+  //       {options.map((opt) => {
+  //         return (
+  //           <option value={opt.value}>
+  //             {opt.label}
+  //           </option>
+  //         )
+  //       })}
+  //     </select>
+  //   </label>
+  // )
 }
