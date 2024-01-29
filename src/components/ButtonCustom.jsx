@@ -22,6 +22,12 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', sx, ...props }, ref) =>
       case 'white-red':
         setStyle('text-red-500 border-2 border-red-500 hover:bg-red-200 hover:text-red-500')
         break
+
+      case 'icon':
+        setStyle(
+          'text-main-500 !rounded-full border-2 border-main-500 hover:bg-main-200 hover:!text-main-500 items-center justify-center !w-fit',
+        )
+        break
       default:
         setStyle('border-2 text-white hover:bg-white')
         break

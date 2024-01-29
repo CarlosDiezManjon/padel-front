@@ -83,7 +83,7 @@ export default function Parrilla({ pista, index }) {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+    <div className="flex flex-col items-center w-full max-w-64">
       <Box
         className="rounded cursor-pointer text-white  bg-main-800 w-full"
         sx={{
@@ -125,6 +125,6 @@ export default function Parrilla({ pista, index }) {
           ))}
         </Box>
       </Collapse>
-    </Box>
+    </div>
   )
 }

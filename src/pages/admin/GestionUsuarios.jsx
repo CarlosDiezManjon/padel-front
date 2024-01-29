@@ -19,6 +19,8 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
+import ToggleCustom from '../../components/ToggleCustom'
+import BadgeCustom from '../../components/BadgeCustom'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])
@@ -71,7 +73,15 @@ const GestionUsuarios = () => {
 
   return (
     <Box sx={{ width: '100%' }} id="gestion-usuarios">
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          mt: 2,
+          pr: 2,
+        }}
+      >
         <TextField
           size="small"
           sx={{ width: '60%' }}
@@ -79,7 +89,8 @@ const GestionUsuarios = () => {
           value={searchTerm}
           onChange={handleSearch}
         />
-        <FormControlLabel
+        <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} />
+        {/* <FormControlLabel
           labelPlacement="end"
           control={
             <Switch
@@ -88,8 +99,7 @@ const GestionUsuarios = () => {
               inputProps={{ 'aria-label': 'controlled' }}
             />
           }
-          label="Activo"
-        />
+        /> */}
       </Box>
       <List>
         {filteredUsers.map((user) => (
@@ -108,6 +118,7 @@ const GestionUsuarios = () => {
                   primary={user.nombre + ' ' + user.apellidos}
                   secondary={user.username}
                 />
+
                 <Badge
                   anchorOrigin={{
                     vertical: 'top',
@@ -115,14 +126,12 @@ const GestionUsuarios = () => {
                   }}
                   badgeContent={
                     <>
-                      <Chip
-                        size="small"
+                      <BadgeCustom
+                        sx="mb-2"
+                        tipo={user.activo ? 'verde' : 'rojo'}
                         label={user.activo ? 'Activo' : 'Inactivo'}
-                        color={user.activo ? 'primary' : 'error'}
                       />
-                      {user.tipo == 2 && (
-                        <Chip size="small" label="Admin" color="secondary" sx={{ mt: 1 }} />
-                      )}
+                      {user.tipo == 2 && <BadgeCustom tipo="azul" label="Admin" />}
                     </>
                   }
                 ></Badge>

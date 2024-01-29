@@ -18,6 +18,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import usePutRequest from '../../services/put.service'
 import ButtonCustom from '../../components/ButtonCustom'
+import InputCustom from '../../components/InputCustom'
+import SelectCustom from '../../components/SelectCustom'
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
@@ -91,23 +93,23 @@ const GestionUsuarioIndividual = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              pr: 1,
             }}
           >
-            <TextField
-              sx={{ mr: '3%', width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="username"
               label="Username"
               value={usuario.username}
               onChange={handleInputChange}
+              tipo="verde"
             />
-            <TextField
-              sx={{ width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="nombre"
               label="Nombre"
               value={usuario.nombre}
               onChange={handleInputChange}
+              labelSx="ml-2"
+              tipo="verde"
             />
           </Box>
           <Box
@@ -116,17 +118,31 @@ const GestionUsuarioIndividual = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              pr: 1,
             }}
           >
-            <TextField
-              sx={{ mr: '3%', width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="apellidos"
               label="Apellidos"
               value={usuario.apellidos}
               onChange={handleInputChange}
+              tipo="verde"
             />
-            <FormControl sx={{ width: '50%' }} margin="normal">
+            <SelectCustom
+              id="tipo"
+              name="tipo"
+              value={usuario.tipo}
+              label="Tipo usuario"
+              tipo="verde"
+              labelSx="ml-2"
+              onChange={handleInputChange}
+              options={[
+                { value: 1, label: 'Usuario' },
+                { value: 2, label: 'Administrador' },
+              ]}
+            />
+
+            {/* <FormControl sx={{ width: '50%' }} margin="normal">
               <InputLabel id="tipo">Tipo usuario</InputLabel>
               <Select
                 labelId="tipo"
@@ -139,17 +155,25 @@ const GestionUsuarioIndividual = () => {
                 <MenuItem value={1}>Usuario</MenuItem>
                 <MenuItem value={2}>Administrador</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Box>
-
-          <TextField
-            sx={{ width: '100%' }}
-            margin="normal"
-            name="email"
-            label="Email"
-            value={usuario.email}
-            onChange={handleInputChange}
-          />
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              pr: 1,
+            }}
+          >
+            <InputCustom
+              name="email"
+              label="Email"
+              value={usuario.email}
+              onChange={handleInputChange}
+              tipo="verde"
+            />
+          </Box>
 
           <Box
             sx={{
@@ -157,20 +181,19 @@ const GestionUsuarioIndividual = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              pr: 1,
             }}
           >
-            <TextField
-              sx={{ mr: '3%', width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="fecha_alta"
               label="Fecha alta"
               disabled
               value={datetimeToStringMinutes(usuario.fecha_alta)}
               onChange={handleInputChange}
+              tipo="verde"
             />
-            <TextField
-              sx={{ width: '50%' }}
-              margin="normal"
+
+            <InputCustom
               name="fecha_baja"
               label="Fecha baja"
               disabled
@@ -180,6 +203,8 @@ const GestionUsuarioIndividual = () => {
                   : 'N/A'
               }
               onChange={handleInputChange}
+              tipo="verde"
+              labelSx="ml-2"
             />
           </Box>
           <Box
@@ -188,26 +213,25 @@ const GestionUsuarioIndividual = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              pr: 1,
             }}
           >
-            <TextField
-              sx={{ width: '50%', mr: '3%' }}
-              margin="normal"
+            <InputCustom
               name="saldo"
               label="Saldo"
-              InputProps={{
-                endAdornment: <InputAdornment position="end">€</InputAdornment>,
-              }}
-              value={usuario.saldo}
+              disabled
+              value={usuario.saldo + ' €'}
               onChange={handleInputChange}
+              tipo="verde"
+              sx="text-right"
             />
-            <TextField
-              sx={{ width: '50%' }}
-              margin="normal"
+            <InputCustom
               name="telefono"
               label="Teléfono"
               value={usuario.telefono}
               onChange={handleInputChange}
+              tipo="verde"
+              labelSx="ml-2"
             />
           </Box>
           <Box

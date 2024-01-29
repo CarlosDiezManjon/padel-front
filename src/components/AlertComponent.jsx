@@ -2,7 +2,9 @@ import React from 'react'
 import Alert from '@mui/material/Alert'
 import useStore from '../store/GeneralStore'
 import Snackbar from '@mui/material/Snackbar'
-import { Slide } from '@mui/material'
+import { IconButton, Slide } from '@mui/material'
+
+import CloseIcon from '@mui/icons-material/Close'
 
 function SlideTransition(props) {
   return <Slide {...props} direction="left" />
@@ -20,8 +22,16 @@ export default function AlertComponent() {
       TransitionComponent={SlideTransition}
       open={messageRequest != null}
     >
-      <div className="bg-main-500 text-white w-full p-3 rounded-md mr-4 max-w-96">
+      <div className="bg-main-400 text-white w-11/12 p-3 py-2 rounded-md mr-4 max-w-96 flex items-center justify-between">
         {messageRequest}
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={() => setMessageRequest(null)}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
       </div>
     </Snackbar>
   )

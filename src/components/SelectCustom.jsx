@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
 
-export default function InputCustom({ error, tipo = 'blanco', sx = '', labelSx = '', ...props }) {
+export default function SelectCustom({
+  error,
+  value,
+  tipo = 'blanco',
+  sx = '',
+  labelSx = '',
+  options,
+  ...props
+}) {
   const [inputStyle, setInputStyle] = useState('')
   const [labelStyle, setLabelStyle] = useState('')
 
   useEffect(() => {
     switch (tipo) {
       case 'verde':
-        setInputStyle('ring-main-400 focus:ring-main-500 text-main-900')
+        setInputStyle('ring-main-400 focus:ring-main-500 !text-main-900')
         setLabelStyle('text-main-800')
         break
       case 'rojo':
@@ -30,21 +38,23 @@ export default function InputCustom({ error, tipo = 'blanco', sx = '', labelSx =
   }, [tipo])
 
   return (
-    <>
-      <label
-        className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
-        htmlFor={props.id}
+    <label
+      for={props.name}
+      className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
+    >
+      {props.label}
+      <select
+        {...props}
+        id={props.name}
+        className={`shadow-xs placeholder:text-gray block w-full text-black
+        bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset 
+       focus:outline-none focus:ring-2 focus:ring-inset  
+       sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
       >
-        {props.label}
-        <input
-          {...props}
-          className={`shadow-xs placeholder:text-gray block w-full 
-           bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset 
-          focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
-          sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
-        />
-        {error && <p className="text-red-500 text-xs italic mt-1">{error}</p>}
-      </label>
-    </>
+        {options.map((opt) => {
+          return <option value={opt.value}>{opt.label}</option>
+        })}
+      </select>
+    </label>
   )
 }

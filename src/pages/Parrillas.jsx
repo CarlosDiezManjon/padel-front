@@ -103,9 +103,10 @@ export default function Parrillas() {
           display: 'grid',
           width: '100%',
           mt: 1,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
           gap: 1,
           justifyContent: 'center',
+          justifyItems: 'center',
         }}
         id="container-parrillas"
       >
