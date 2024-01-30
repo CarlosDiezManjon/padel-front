@@ -16,18 +16,18 @@ import GestionPistas from './pages/admin/GestionPistas'
 import GestionReservas from './pages/admin/GestionReservas'
 import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
 import GestionUsuarios from './pages/admin/GestionUsuarios'
+import Cancelacion from './pages/Cancelacion'
 import Cartera from './pages/Cartera'
 import Historial from './pages/Historial'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Parrillas from './pages/Parrillas'
 import Perfil from './pages/Perfil'
 import Pistas from './pages/Pistas'
 import Registro from './pages/Registro'
-import Reservas from './pages/PerfilReservas'
+import Reserva from './pages/Reserva'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
-import Reserva from './pages/Reserva'
-import Parrillas from './pages/Parrillas'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -80,6 +80,7 @@ export default function App() {
             <Route path="/parrillas" element={<Parrillas />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/reserva" element={<Reserva />} />
+            <Route path="/cancelacion" element={<Cancelacion />} />
             <Route path="/pistas" element={<Pistas />} />
             <Route path="/historial" element={<Historial />} />
             <Route path="/administracion" element={<Administracion />} />
@@ -96,7 +97,12 @@ export default function App() {
           </>
         )}
       </Routes>
-      <CustomErrorDialog open={error != null} message={error} onClose={onCloseError} />
+      <CustomErrorDialog
+        open={error != null}
+        message={error?.message}
+        onClose={onCloseError}
+        tipo={error?.tipo}
+      />
       <BackdropComponent open={isLoading} />
       <ConfirmationDialog />
       <AlertComponent />

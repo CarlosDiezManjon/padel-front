@@ -17,47 +17,56 @@ const ExpandMore = styled((props) => {
   }),
 }))
 
-export default function Parrilla({ pista, index }) {
+export default function Parrilla({ pista }) {
+  const user = useStore((state) => state.user)
   const reservasSelected = useStore((state) => state.reservasSelected)
   const removeReservaSelected = useStore((state) => state.removeReservaSelected)
   const addReservaSelected = useStore((state) => state.addReservaSelected)
-  const [slots, setSlots] = useState(pista.parrilla)
+  const reservasToCancel = useStore((state) => state.reservasToCancel)
+  const removeReservaToCancel = useStore((state) => state.removeReservaToCancel)
+  const addReservaToCancel = useStore((state) => state.addReservaToCancel)
   const [expanded, setExpanded] = useState(true)
 
-  useEffect(() => {
-    setSlots(pista.parrilla)
-  }, [pista])
-
-  useEffect(() => {
+  const updateSlots = (slots) => {
     let copy = [...slots]
     copy.forEach((slot) => {
-      slot.selected = false
-    })
-    reservasSelected.forEach((reserva) => {
-      const index = slots.findIndex(
-        (slot) => slot.startTime === reserva.startTime && slot.pista_id === reserva.pista_id,
+      slot.selected = reservasSelected.some(
+        (reserva) => slot.startTime == reserva.startTime && slot.pista.id == reserva.pista.id,
       )
-      if (index !== -1) {
-        copy[index].selected = true
-      }
+      slot.toCancel = reservasToCancel.some(
+        (reserva) => slot.startTime == reserva.startTime && slot.pista.id == reserva.pista.id,
+      )
     })
-    setSlots(copy)
-  }, [reservasSelected])
+    return copy
+  }
+
+  const [slots, setSlots] = useState(updateSlots(pista.parrilla))
+
+  useEffect(() => {
+    setSlots(updateSlots(pista.parrilla))
+  }, [pista, reservasSelected, reservasToCancel])
 
   const handleItemClick = (slot) => {
-    if (slot.reserva !== null && slot.propia === false) return
-    if (slot.propia === true) {
-      console.log('No se puede reservar una pista propia')
-    } else {
-      slot.pista_id = pista.id
-      slot.pista = pista
-      const indexReserva = reservasSelected.findIndex(
-        (r) => r.startTime === slot.startTime && r.pista_id === slot.pista_id,
+    if (slot.past) return
+    if ((user.tipo === 2 && slot.reserva !== null) || slot.propia === true) {
+      const indexReserva = reservasToCancel.findIndex(
+        (r) => r.startTime === slot.startTime && r.pista.id === slot.pista.id,
       )
       if (indexReserva === -1) {
-        addReservaSelected(slot)
+        addReservaToCancel(slot)
       } else {
-        removeReservaSelected(slot)
+        removeReservaToCancel(slot)
+      }
+    } else {
+      if (slot.reserva == null) {
+        const indexReserva = reservasSelected.findIndex(
+          (r) => r.startTime === slot.startTime && r.pista.id === slot.pista.id,
+        )
+        if (indexReserva === -1) {
+          addReservaSelected(slot)
+        } else {
+          removeReservaSelected(slot)
+        }
       }
     }
   }
@@ -67,8 +76,10 @@ export default function Parrilla({ pista, index }) {
       return 'text-white bg-main-500'
     } else if (slot.reserva == null) {
       return 'text-black bg-gray-200'
+    } else if (slot.toCancel) {
+      return 'text-white bg-red-600'
     } else {
-      return 'text-white bg-red-500'
+      return 'text-white bg-red-400'
     }
   }
 
@@ -111,9 +122,12 @@ export default function Parrilla({ pista, index }) {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           {slots.map((slot, index) => (
             <Box
-              className={getStyleSlot(slot) + ' w-full m-0.5 p-1 rounded'}
+              className={
+                getStyleSlot(slot) + ' w-full m-0.5 p-1 rounded' + (slot.past ? ' opacity-60' : '')
+              }
               sx={{
-                cursor: slot.reserva == null ? 'pointer' : 'default',
+                cursor:
+                  slot.reserva == null || user.tipo == 2 || slot.propia ? 'pointer' : 'default',
               }}
               key={index}
               onClick={() => handleItemClick(slot)}

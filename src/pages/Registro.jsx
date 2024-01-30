@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import ButtonCustom from '../components/ButtonCustom'
 import InputCustom from '../components/InputCustom'
 import useRegisterRequest from '../services/registro.service'
+import useStore from '../store/GeneralStore'
 
 const Registro = () => {
   const navigate = useNavigate()
@@ -17,6 +18,7 @@ const Registro = () => {
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
   const [emailError, setEmailError] = useState('')
+  const setError = useStore((state) => state.setError)
   const { register, data } = useRegisterRequest()
 
   const handleConfirmPasswordChange = (e) => {
@@ -64,6 +66,10 @@ const Registro = () => {
 
   useEffect(() => {
     if (data) {
+      setError({
+        message: 'Se ha enviado un email de confirmación a ' + email,
+        tipo: 'success',
+      })
       navigate('/')
     }
   }, [data])
@@ -74,7 +80,7 @@ const Registro = () => {
 
   return (
     <div
-      className="from-black to-semiblack text-white flex h-full min-h-full flex-col 
+      className="from-black to-semiblack  flex h-full min-h-full flex-col 
     justify-center bg-gradient-to-r px-6 py-12 lg:px-8 w-full"
     >
       {data ? (
@@ -86,6 +92,7 @@ const Registro = () => {
           <h2 className="text-white  text-center text-4xl font-bold leading-9 tracking-tight mb-10">
             Registro
           </h2>
+
           <InputCustom
             required
             label="Username"

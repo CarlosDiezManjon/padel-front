@@ -17,8 +17,12 @@ export default function Parrillas() {
   const [fecha, setFecha] = React.useState(new Date().toISOString().slice(0, 10))
   const [options, setOptions] = React.useState([])
   const reservasSelected = useStore((state) => state.reservasSelected)
+  const reservasToCancel = useStore((state) => state.reservasToCancel)
+  const reloadReservasSelected = useStore((state) => state.reloadReservasSelected)
+  const reloadReservasToCancel = useStore((state) => state.reloadReservasToCancel)
 
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
+  const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
 
   const { getRequest, data } = useGetRequest()
 
@@ -44,7 +48,6 @@ export default function Parrillas() {
 
   React.useEffect(() => {
     if (data) {
-      clearReservasSelected()
       setPistas(data.pistas)
     }
   }, [data])
@@ -110,8 +113,8 @@ export default function Parrillas() {
         }}
         id="container-parrillas"
       >
-        {pistas.map((pista, index) => (
-          <Parrilla pista={pista} key={pista.id} index={index} />
+        {pistas.map((pista) => (
+          <Parrilla pista={pista} key={pista.id} />
         ))}
       </Box>
       <Box
@@ -120,11 +123,18 @@ export default function Parrillas() {
           justifyContent: 'end',
           position: 'fixed',
           bottom: 80,
-          right: { xs: 10, sm: 'calc(50vw - 450px)' },
+          right: { xs: 10, sm: 'calc(50vw - 120px)' },
         }}
       >
+        <Zoom in={reservasToCancel.length !== 0}>
+          <ButtonCustom tipo="red" onClick={() => navigate('/cancelacion')} sx="mr-2 min-w-48">
+            Cancelar reserva
+          </ButtonCustom>
+        </Zoom>
         <Zoom in={reservasSelected.length !== 0}>
-          <ButtonCustom onClick={() => navigate('/reserva')}>Reservar</ButtonCustom>
+          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40">
+            Reservar
+          </ButtonCustom>
         </Zoom>
       </Box>
     </Box>

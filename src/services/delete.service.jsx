@@ -18,10 +18,10 @@ const useDeleteRequest = () => {
         setError(null)
       } else {
         setData(null)
-        setError(response.data.error)
+        setError({ message: response.data.error })
       }
     } catch (error) {
-      setError(error.response?.data?.error || error.message)
+      setError({ message: error.response?.data?.error || error.message })
     } finally {
       setIsLoading(false)
     }

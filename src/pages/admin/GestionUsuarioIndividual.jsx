@@ -218,9 +218,8 @@ const GestionUsuarioIndividual = () => {
           >
             <InputCustom
               name="saldo"
-              label="Saldo"
-              disabled
-              value={usuario.saldo + ' €'}
+              label="Saldo (€)"
+              value={usuario.saldo}
               onChange={handleInputChange}
               tipo="negro"
             />

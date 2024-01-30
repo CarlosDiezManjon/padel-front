@@ -80,14 +80,14 @@ export default function Footer() {
             <li
               key={index}
               className={
-                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl z-50' +
+                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-700 cursor-pointer text-3xl z-50' +
                 (index === currentTab ? ' text-xl' : '')
               }
               onClick={() => handleChangeTab(item, index)}
             >
               <div
                 className={
-                  'flex flex-col items-center transition-all duration-500 ' +
+                  'flex flex-col items-center transition-all duration-700 ' +
                   (index === currentTab ? 'text-2xl justify-center' : 'text-3xl pt-4')
                 }
               >
@@ -97,7 +97,7 @@ export default function Footer() {
                     index === currentTab
                       ? 'transform translate-y-0.5 opacity-1 text-base '
                       : 'transform translate-y-4 opacity-0 ' +
-                        'transition-all duration-700 text-base flex transform translate-y-6'
+                        'transition-all duration-400 text-base flex transform translate-y-6'
                   }
                 >
                   {item.label}

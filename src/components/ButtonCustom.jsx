@@ -20,7 +20,9 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', sx, ...props }, ref) =>
         setStyle('text-main-500 border-2 border-main-500 hover:bg-main-200 hover:text-main-500')
         break
       case 'white-red':
-        setStyle('text-red-500 border-2 border-red-500 hover:bg-red-200 hover:text-red-500')
+        setStyle(
+          'text-red-500 border-2 border-red-500 hover:bg-red-200 hover:text-red-500 shadow-none',
+        )
         break
 
       case 'icon':
@@ -37,7 +39,7 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', sx, ...props }, ref) =>
   return (
     <button
       ref={ref}
-      className={`flex w-full shadow-sm  shadow-neutral-700 
+      className={`flex w-full shadow-sm  shadow-neutral-700 items-center
       justify-center rounded-md px-3 py-1 text-base font-medium leading-6 focus-visible:outline focus-visible:outline-2
       focus-visible:outline-offset-2 transition duration-300 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed ${style} ${sx}`}
       {...props}

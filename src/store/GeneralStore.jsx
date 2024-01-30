@@ -34,10 +34,26 @@ const useStore = create((set, get) => ({
           !(
             reserva.startTime === reservaToRemove.startTime &&
             reserva.pista_id === reservaToRemove.pista_id
-          )
+          ),
       ),
     })),
   clearReservasSelected: () => set(() => ({ reservasSelected: [] })),
+  reloadReservasSelected: () => set((state) => ({ reservasSelected: [...state.reservasSelected] })),
+  reservasToCancel: [],
+  addReservaToCancel: (newReserva) =>
+    set((state) => ({ reservasToCancel: [...state.reservasToCancel, newReserva] })),
+  removeReservaToCancel: (reservaToRemove) =>
+    set((state) => ({
+      reservasToCancel: state.reservasToCancel.filter(
+        (reserva) =>
+          !(
+            reserva.startTime === reservaToRemove.startTime &&
+            reserva.pista_id === reservaToRemove.pista_id
+          ),
+      ),
+    })),
+  clearReservasToCancel: () => set(() => ({ reservasToCancel: [] })),
+  reloadReservasToCancel: () => set((state) => ({ reservasToCancel: [...state.reservasToCancel] })),
 }))
 export default useStore
 
