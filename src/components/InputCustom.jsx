@@ -15,7 +15,7 @@ export default function InputCustom({
     switch (tipo) {
       case 'verde':
         setInputStyle('ring-main-400 focus:ring-main-500 text-main-900')
-        setLabelStyle('text-main-800')
+        setLabelStyle('text-white')
         break
       case 'rojo':
         setInputStyle('ring-red-600 focus:ring-red-500')
@@ -27,7 +27,7 @@ export default function InputCustom({
         break
       case 'negro':
         setInputStyle('bg-white text-black ring-neutral-300 focus:ring-main-400')
-        setLabelStyle('text-black')
+        setLabelStyle('text-white')
         break
       default:
         setInputStyle('bg-main-100 text-main-800 text-black')
@@ -47,7 +47,7 @@ export default function InputCustom({
           <input
             {...props}
             className={`shadow-xs placeholder:text-gray block w-full text-main-900
-           bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset 
+           bg-white rounded-md border-0 px-3 py-2 ring-inset 
           focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />

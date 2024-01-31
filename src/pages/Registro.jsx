@@ -172,17 +172,9 @@ const Registro = () => {
             Registrarse
           </ButtonCustom>
 
-          <div className="mt-6">
-            <button
-              type="button"
-              onClick={() => goToLogin()}
-              className="border-2 text-white hover:bg-white-500 focus-visible:outline-white flex w-full justify-center 
-            rounded-md px-3 py-1.5 text-base font-medium leading-6 shadow-sm focus-visible:outline focus-visible:outline-2
-             focus-visible:outline-offset-2"
-            >
-              Volver al login
-            </button>
-          </div>
+          <ButtonCustom onClick={() => goToLogin()} tipo="white" sx="mt-6">
+            Volver al login
+          </ButtonCustom>
         </form>
       )}
     </div>

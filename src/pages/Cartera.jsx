@@ -57,7 +57,7 @@ export default function Cartera() {
                   >
                     {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
                   </h1>
-                  <h1 className="text-md text-right">
+                  <h1 className="text-sm text-right">
                     {movimiento.nombre_pista +
                       ' ' +
                       datetimeToStringMinutes(movimiento.fecha_reserva)}

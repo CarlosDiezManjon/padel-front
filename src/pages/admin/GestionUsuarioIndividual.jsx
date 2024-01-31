@@ -133,7 +133,7 @@ const GestionUsuarioIndividual = () => {
               name="tipo"
               value={usuario.tipo}
               label="Tipo usuario"
-              tipo="negro"
+              tipo="verde"
               labelSx="ml-2"
               onChange={handleInputChange}
               options={[

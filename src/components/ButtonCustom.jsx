@@ -14,14 +14,14 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', badge, sx, ...props }, 
         setStyle('text-white bg-red-500 hover:bg-red-700 hover:text-white ')
         break
       case 'white':
-        setStyle('text-white border-2 hover:bg-neutral-700 hover:!text-white')
+        setStyle('text-white border-2 hover:bg-white hover:!text-black')
         break
       case 'white-green':
         setStyle('text-main-500 border-2 border-main-500 hover:bg-main-200 hover:text-main-500')
         break
       case 'white-red':
         setStyle(
-          'text-red-500 border-2 border-red-500 hover:bg-red-200 hover:text-red-500 shadow-none',
+          'bg-red-500 border-2 border-none text-white hover:bg-red-700 hover:text-white shadow-none',
         )
         break
 
@@ -39,7 +39,7 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', badge, sx, ...props }, 
   return (
     <button
       ref={ref}
-      className={`flex w-full shadow-sm  shadow-neutral-400 items-center
+      className={`flex w-full  items-center
       justify-center rounded-md px-3 py-1 text-base font-medium leading-6 focus-visible:outline focus-visible:outline-2
       focus-visible:outline-offset-2 transition duration-300 ease-in-out disabled:opacity-70 disabled:cursor-not-allowed ${style} ${sx}`}
       {...props}

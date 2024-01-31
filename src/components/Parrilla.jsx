@@ -73,13 +73,13 @@ export default function Parrilla({ pista }) {
 
   const getStyleSlot = (slot) => {
     if (slot.selected) {
-      return 'text-white bg-main-400'
+      return 'text-white bg-main-500'
     } else if (slot.reserva == null) {
-      return 'text-black bg-gray-200'
+      return 'text-black bg-white'
     } else if (slot.toCancel) {
-      return 'text-white bg-red-700'
+      return 'text-white bg-red-900'
     } else {
-      return 'text-white bg-red-400'
+      return 'text-white bg-red-500'
     }
   }
 
@@ -95,20 +95,8 @@ export default function Parrilla({ pista }) {
 
   return (
     <div className="flex flex-col items-center w-full max-w-64">
-      <Box
-        className="rounded cursor-pointer text-main-900  bg-main-200 w-full"
-        sx={{
-          display: 'flex',
-          p: 0.5,
-          pl: 2,
-          pr: 1,
-          m: 0.25,
-
-          alignContent: 'center',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          cursor: 'pointer',
-        }}
+      <div
+        className="flex p-0.5 pl-2 pr-1 m-0.5 align-middle justify-between rounded cursor-pointer text-white  bg-neutral-500 w-full"
         onClick={() => setExpanded(!expanded)}
       >
         <Typography variant="h6" align="center" sx={{}}>
@@ -117,7 +105,7 @@ export default function Parrilla({ pista }) {
         <ExpandMore expand={expanded} aria-expanded={expanded} aria-label="show more">
           <ExpandMoreIcon />
         </ExpandMore>
-      </Box>
+      </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ width: '100%' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           {slots.map((slot, index) => (

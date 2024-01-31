@@ -1,5 +1,5 @@
 import { Box, IconButton, MenuItem, Select, Zoom } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useGetRequest from '../services/get.service'
 import { datetimeToStringDate } from '../utils/utils'
@@ -8,14 +8,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import Parrilla from '../components/Parrilla'
 import useStore from '../store/GeneralStore'
 import ButtonCustom from '../components/ButtonCustom'
+import SelectCustom from '../components/SelectCustom'
 
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 export default function Parrillas() {
   const navigate = useNavigate()
-  const [pistas, setPistas] = React.useState([])
-  const [fecha, setFecha] = React.useState(new Date().toISOString().slice(0, 10))
-  const [options, setOptions] = React.useState([])
+  const [pistas, setPistas] = useState([])
+  const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 10))
+  const [options, setOptions] = useState([])
   const reservasSelected = useStore((state) => state.reservasSelected)
   const reservasToCancel = useStore((state) => state.reservasToCancel)
   const reloadReservasSelected = useStore((state) => state.reloadReservasSelected)
@@ -78,15 +79,14 @@ export default function Parrillas() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <div className="flex justify-center w-full text-white">
+      <div className="flex justify-center w-full text-white items-center">
         <IconButton onClick={handleSetPreviousFecha}>
           <ArrowBackIosNewIcon className="text-white" />
         </IconButton>
-        <Select
+        {/* <Select
           className="bg-white"
           size="small"
           sx={{ width: '60%', maxWidth: 300 }}
-          labelId="fecha"
           id="fecha"
           name="fecha"
           value={fecha}
@@ -97,7 +97,22 @@ export default function Parrillas() {
               {option.dayOfWeek + ' ' + datetimeToStringDate(option.date)}
             </MenuItem>
           ))}
-        </Select>
+        </Select> */}
+
+        <SelectCustom
+          id="fecha"
+          name="fecha"
+          value={fecha}
+          label=""
+          tipo="verde"
+          labelSx=" w-7/12 max-w-72"
+          onChange={handleChangeFecha}
+          options={options.map((option) => ({
+            value: option.date,
+            label: option.dayOfWeek + ' ' + datetimeToStringDate(option.date),
+          }))}
+        />
+
         <IconButton onClick={handleSetNextFecha}>
           <ArrowForwardIosIcon className="text-white" />
         </IconButton>

@@ -19,7 +19,7 @@ export default function SelectCustom({
     switch (tipo) {
       case 'verde':
         setInputStyle('ring-main-400 focus:ring-main-500 !text-main-900')
-        setLabelStyle('text-main-800')
+        setLabelStyle('text-white')
         break
       case 'rojo':
         setInputStyle('ring-red-600 focus:ring-red-500')
@@ -57,12 +57,16 @@ export default function SelectCustom({
   }
 
   return (
-    <div className={`relative block w-full h-full mb-2 ${labelStyle} ${labelSx}`}>
+    <div
+      className={
+        `relative block w-full  h-full ${labelStyle} ${labelSx} ` + (label ? ' mb-2' : 'mb-0')
+      }
+    >
       {label}
       <button
         onClick={toggleOpen}
         className={`shadow-xs placeholder:text-gray block w-full text-black text-start
-        bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset
+        bg-white rounded-md border-0 px-3 py-2  ring-inset
         focus:outline-none focus:ring-2 focus:ring-inset
         sm:text-sm sm:leading-6 appearance-none  ${inputStyle}`}
       >
@@ -70,13 +74,15 @@ export default function SelectCustom({
       </button>
       {isOpen && (
         <div className="absolute z-10 mt-1 w-full bg-white border rounded-md shadow">
-          {options.map((option) => (
+          {options.map((option, idx) => (
             <button
               key={option.value}
               onClick={() => handleChangeValue(option)}
               className={
                 'block w-full text-sm text-left px-3 py-2 text-black hover:bg-main-300 ' +
-                (value == option.value ? 'bg-main-200' : '')
+                (value == option.value ? 'bg-main-200 ' : '') +
+                (idx == 0 ? 'rounded-t-md ' : '') +
+                (idx == options.length - 1 ? 'rounded-b-md ' : '')
               }
             >
               {option.label}

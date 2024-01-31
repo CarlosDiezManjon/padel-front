@@ -89,7 +89,7 @@ const GestionUsuarios = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12  mr-4"
+          sx="md:!w-6/12  mr-4 !ring-0"
         />
         <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} />
         {/* <FormControlLabel
@@ -103,7 +103,7 @@ const GestionUsuarios = () => {
           }
         /> */}
       </Box>
-      <List className="max-h-listado overflow-auto">
+      <List className="max-h-listado overflow-auto text-white">
         {filteredUsers.map((user) => (
           <React.Fragment key={user.id}>
             <ListItem>
@@ -122,8 +122,9 @@ const GestionUsuarios = () => {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
+                  className="text-white"
                   primary={user.nombre + ' ' + user.apellidos}
-                  secondary={user.username}
+                  secondary={<span className="text-white">{user.username}</span>}
                 />
 
                 <Badge

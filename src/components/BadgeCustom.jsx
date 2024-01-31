@@ -6,7 +6,7 @@ export default function BadgeCustom({ tipo, label, sx }) {
   useEffect(() => {
     switch (tipo) {
       case 'verde':
-        setStyle('bg-main-100 text-main-800')
+        setStyle('bg-main-500 text-white')
         break
       case 'rojo':
         setStyle('bg-red-100 text-red-800')
@@ -15,7 +15,7 @@ export default function BadgeCustom({ tipo, label, sx }) {
         setStyle('bg-yellow-100 text-yellow-800')
         break
       case 'azul':
-        setStyle('bg-blue-100 text-blue-800')
+        setStyle('bg-blue-500 text-white')
         break
       default:
         setStyle('bg-gray-100 text-gray-800')
