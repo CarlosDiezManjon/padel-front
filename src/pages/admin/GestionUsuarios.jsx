@@ -81,6 +81,7 @@ const GestionUsuarios = () => {
           justifyContent: 'space-between',
           mt: 2,
           pr: 2,
+          mb: 1,
         }}
       >
         <InputCustom
@@ -102,7 +103,7 @@ const GestionUsuarios = () => {
           }
         /> */}
       </Box>
-      <List>
+      <List className="max-h-listado overflow-auto">
         {filteredUsers.map((user) => (
           <React.Fragment key={user.id}>
             <ListItem>

@@ -98,10 +98,7 @@ export default function Cancelacion() {
             <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
               Cancelar
             </ButtonCustom>
-            <ButtonCustom
-              disabled={total > saldo || reservasToCancel.length == 0}
-              onClick={handleCancelar}
-            >
+            <ButtonCustom disabled={reservasToCancel.length == 0} onClick={handleCancelar}>
               Confirmar
             </ButtonCustom>
           </div>

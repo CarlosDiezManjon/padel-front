@@ -25,10 +25,12 @@ export default {
       maxHeight: {
         reserva: 'calc(100vh - 400px)',
         movimientos: 'calc(100vh - 330px)',
+        listado: 'calc(100vh - 200px)',
       },
       minHeight: {
         reserva: 'calc(100vh - 400px)',
         movimientos: 'calc(100vh - 330px)',
+        listado: 'calc(100vh - 300px)',
       },
       fontFamily: {
         sans: ['Graphik', 'sans-serif'],

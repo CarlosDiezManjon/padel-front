@@ -30,7 +30,7 @@ export default function SelectCustom({
         setLabelStyle('text-white')
         break
       case 'negro':
-        setInputStyle('bg-white text-black ring-neutral-500 focus:ring-main-400')
+        setInputStyle('bg-white text-black ring-neutral-300 focus:ring-main-400')
         setLabelStyle('text-black')
         break
       default:
@@ -41,10 +41,6 @@ export default function SelectCustom({
   }, [tipo])
 
   const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    console.log(isOpen)
-  }, [isOpen])
 
   const handleChangeValue = (option) => {
     let event = {
@@ -57,7 +53,6 @@ export default function SelectCustom({
     setIsOpen(false)
   }
   const toggleOpen = () => {
-    console.log('Cambio')
     setIsOpen(!isOpen)
   }
 

@@ -45,7 +45,6 @@ export function datetimeToStringTime(date) {
     return ''
   }
   date = new Date(date)
-  console.log(date.toISOString())
   const hora = ('' + date.getHours()).padStart(2, '0')
   const minuto = ('' + date.getMinutes()).padStart(2, '0')
   const dateStr = `${hora}:${minuto}`

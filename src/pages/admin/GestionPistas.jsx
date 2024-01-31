@@ -76,6 +76,7 @@ const GestionPistas = () => {
           mt: 2,
           justifyContent: 'space-between',
           pr: 4,
+          mb: 1,
         }}
       >
         <InputCustom
@@ -89,10 +90,10 @@ const GestionPistas = () => {
           Nueva
         </ButtonCustom>
       </Box>
-      <List>
+      <List className="max-h-listado overflow-auto">
         {filteredPistas.map((pista) => (
           <React.Fragment key={pista.id}>
-            <ListItem sx="pr-2">
+            <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
                 onClick={() => navigate('/gestion-pistas/' + pista.id)}
