@@ -238,20 +238,20 @@ const GestionUsuarioIndividual = () => {
               justifyContent: 'center',
               width: '100%',
               position: 'fixed',
-              bottom: '70px',
+              bottom: '90px',
               maxWidth: '900px',
               pl: 2,
-              right: { xs: 10, sm: 'calc(50vw - 450px)' },
+              right: { xs: 10, sm: 'calc(50vw - 670px)' },
             }}
           >
             <ButtonCustom
               onClick={toggleUserActive}
-              sx="mx-1"
+              sx="mx-1 max-w-48"
               tipo={usuario.activo ? 'white-red' : 'white-green'}
             >
               {usuario.activo ? 'Dar de baja' : 'Dar de alta'}
             </ButtonCustom>
-            <ButtonCustom onClick={handleSave} sx="mx-1" tipo="green">
+            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
               Guardar
             </ButtonCustom>
           </Box>

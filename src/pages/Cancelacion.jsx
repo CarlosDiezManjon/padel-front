@@ -89,7 +89,7 @@ export default function Cancelacion() {
           </ul>
 
           <p className="my-2 text-right text-black pr-1 text-lg">Importe a devolver: {total} €</p>
-          <p className="my-2 text-right text-black pr-1 text-lg">Saldo: {saldo} €</p>
+          <p className="my-2 text-right text-black pr-1 text-lg">Saldo actual: {saldo} €</p>
           <p className="my-2 text-right text-black pr-1 text-lg">
             Saldo tras cancelación: {saldo + total} €
           </p>

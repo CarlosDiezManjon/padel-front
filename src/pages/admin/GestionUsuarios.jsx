@@ -112,7 +112,12 @@ const GestionUsuarios = () => {
               >
                 <ListItemAvatar>
                   <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}>
-                    {/* <PersonIcon /> */}
+                    <img
+                      key={user.id}
+                      src="https://xsgames.co/randomusers/avatar.php?g=male"
+                      height={50}
+                      width={50}
+                    ></img>
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText

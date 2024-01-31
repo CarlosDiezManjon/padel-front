@@ -6,7 +6,10 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { useLocation, useNavigate } from 'react-router-dom'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import { datetimeToStringTime } from '../utils/utils'
 export default function Header() {
   const toggleMode = useStore((state) => state.toggleMode)
   const mode = useStore((state) => state.mode)
@@ -20,6 +23,18 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
+
+  const [currentTime, setCurrentTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 1000)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
 
   useEffect(() => {
     if (/^\/gestion-usuarios\/\d+$/.test(location.pathname)) {
@@ -43,6 +58,18 @@ export default function Header() {
         case '/parrillas':
           setBackButton(true)
           setTitle('Parrillas')
+          setCurrentTab(0)
+          setBigHeader(false)
+          break
+        case '/reserva':
+          setTitle('Reserva')
+          setBackButton(true)
+          setBigHeader(false)
+          setCurrentTab(0)
+          break
+        case '/cancelacion':
+          setBackButton(true)
+          setTitle('Cancelación')
           setCurrentTab(0)
           setBigHeader(false)
           break
@@ -87,12 +114,6 @@ export default function Header() {
           setTitle('Registro')
           setBigHeader(false)
           break
-        case '/reserva':
-          setTitle('Reserva')
-          setBackButton(true)
-          setBigHeader(false)
-          break
-
         default:
           setTitle('Error')
           setBigHeader(false)
@@ -121,49 +142,55 @@ export default function Header() {
     navigate('/')
   }
 
-  // const ToggleModeItem = () => {
-  //   const handleToggle = () => {
-  //     toggleMode()
-  //     handleClose()
-  //   }
-  //   return (
-  //     <MenuItem onClick={handleToggle}>
-  //       {mode == 'light' ? (
-  //         <>
-  //           {' '}
-  //           <Brightness4Icon color="inherit" sx={{ mr: 1 }} />
-  //           Modo oscuro
-  //         </>
-  //       ) : (
-  //         <>
-  //           <Brightness7Icon sx={{ mr: 1 }} color="inherit" />
-  //           Modo claro
-  //         </>
-  //       )}
-  //     </MenuItem>
-  //   )
-  // }
+  const ToggleModeItem = () => {
+    const handleToggle = () => {
+      toggleMode()
+      handleClose()
+    }
+    return (
+      <MenuItem onClick={handleToggle}>
+        {mode == 'light' ? (
+          <>
+            {' '}
+            <Brightness4Icon color="inherit" sx={{ mr: 1 }} />
+            Modo oscuro
+          </>
+        ) : (
+          <>
+            <Brightness7Icon sx={{ mr: 1 }} color="inherit" />
+            Modo claro
+          </>
+        )}
+      </MenuItem>
+    )
+  }
   return (
     <AppBar position="fixed" id="header">
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (
-        <div className="max-w-4xl flex h-14 items-center px-1 pr-4 min-w-full xl:min-w-main lg:min-w-main ">
+        <div className="max-w-4xl flex h-14 items-center px-1 min-w-full xl:min-w-main lg:min-w-main ">
           {backButton ? (
-            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
+            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 0 }} color="inherit">
               <ArrowBackIosNewIcon />
             </IconButton>
           ) : (
-            <Box sx={{ width: '32px' }}></Box>
+            <div className="w-5"></div>
           )}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
+          <div className="flex-grow">
+            <h1 className="text-xl">{title}</h1>
+          </div>
           {user && (
             <>
-              <IconButton onClick={handleMenu} color="inherit" edge="end">
-                <AccountCircle />
-              </IconButton>
+              <AccessTimeIcon />
+              <h1 className="text-xl mr-2 px-1 max-w-20 min-w-20 text-white">
+                {datetimeToStringTime(currentTime)}
+              </h1>
+              <div className="flex items-center text-xl mr-0 text-white cursor-pointer">
+                <h1 onClick={handleMenu}>{user.nombre}</h1>
+                <MoreVertIcon />
+              </div>
+
               <Menu
                 color="inherit"
                 id="menu-appbar"
@@ -180,12 +207,8 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                {/* <ToggleModeItem /> */}
-                <MenuItem onClick={handleMyAccount}>
-                  {' '}
-                  <AccountCircle sx={{ mr: 1 }} />
-                  Mi cuenta
-                </MenuItem>
+                <ToggleModeItem />
+
                 <MenuItem onClick={handleLogout}>
                   {' '}
                   <LogoutIcon sx={{ mr: 1 }} />

@@ -129,11 +129,25 @@ export default function Parrillas() {
         <Zoom in={reservasToCancel.length !== 0}>
           <ButtonCustom tipo="red" onClick={() => navigate('/cancelacion')} sx="mr-2 min-w-48">
             Cancelar reserva
+            {reservasToCancel.length > 1 ? (
+              <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
+                {reservasToCancel.length}
+              </span>
+            ) : (
+              ' '
+            )}
           </ButtonCustom>
         </Zoom>
         <Zoom in={reservasSelected.length !== 0}>
-          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40">
+          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10">
             Reservar
+            {reservasSelected.length > 1 ? (
+              <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
+                {reservasSelected.length}
+              </span>
+            ) : (
+              ' '
+            )}
           </ButtonCustom>
         </Zoom>
       </Box>

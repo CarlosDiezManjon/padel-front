@@ -73,11 +73,11 @@ export default function Parrilla({ pista }) {
 
   const getStyleSlot = (slot) => {
     if (slot.selected) {
-      return 'text-white bg-main-500'
+      return 'text-white bg-main-400'
     } else if (slot.reserva == null) {
       return 'text-black bg-gray-200'
     } else if (slot.toCancel) {
-      return 'text-white bg-red-600'
+      return 'text-white bg-red-700'
     } else {
       return 'text-white bg-red-400'
     }
@@ -123,7 +123,9 @@ export default function Parrilla({ pista }) {
           {slots.map((slot, index) => (
             <Box
               className={
-                getStyleSlot(slot) + ' w-full m-0.5 p-1 rounded' + (slot.past ? ' opacity-60' : '')
+                getStyleSlot(slot) +
+                ' w-full m-0.5 p-1 rounded' +
+                (slot.past ? ' opacity-60 text-neutral-400 !cursor-default' : '')
               }
               sx={{
                 cursor:

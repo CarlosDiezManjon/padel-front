@@ -88,7 +88,7 @@ export default function Reserva() {
           </ul>
 
           <p className="my-2 text-right text-black pr-1 text-lg">Importe total: {total} €</p>
-          <p className="my-2 text-right text-black pr-1 text-lg">Saldo: {saldo} €</p>
+          <p className="my-2 text-right text-black pr-1 text-lg">Saldo actual: {saldo} €</p>
 
           {total <= saldo && (
             <p className="my-2 text-right text-black pr-1 text-lg">

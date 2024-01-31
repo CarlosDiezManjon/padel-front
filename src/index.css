@@ -46,6 +46,8 @@ input:-webkit-autofill:active {
 ::-webkit-scrollbar-thumb {
   background: var(--main-green);
   border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 /* Handle on hover */
