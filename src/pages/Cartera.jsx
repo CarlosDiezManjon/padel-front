@@ -25,25 +25,25 @@ export default function Cartera() {
 
   return (
     <div className="flex flex-col items-center w-full pt-1 h-full">
-      <div className="flex items-end rounded shadow-sm shadow-main-500 w-11/12 bg-main-100 p-2">
+      <div className="flex items-end rounded w-11/12 p-2 text-white">
         <div className="flex flex-col w-8/12 items-center">
-          <h1 className="font-bold text-2xl mb-4 text-main-700">Saldo disponible</h1>
-          <h1 className="font-bold text-2xl text-main-700 ">{dataSaldo?.saldo} €</h1>
+          <h1 className="font-bold text-2xl mb-4 ">Saldo disponible</h1>
+          <h1 className="font-bold text-2xl ">{dataSaldo?.saldo} €</h1>
         </div>
         <div className="flex flex-col w-4/12">
-          <button className="rounded-lg p-2 text-white bg-main-700  ml-4 hover:bg-main-800 transition duration-300 h-10 max-w-40">
+          <button className="rounded-lg p-2 text-white bg-transparent border border-white  ml-4 hover:bg-main-800 transition duration-300 h-10 max-w-40">
             Añadir
           </button>
         </div>
       </div>
-      <div className="w-11/12 items-center flex flex-col shadow-sm shadow-main-500 mt-4">
-        <div className="rounded rounded-b-none w-full bg-main-100  items-center flex flex-col mb-0 p-2">
-          <h1 className="font-bold text-2xl  text-main-700">Movimientos</h1>
+      <div className="w-11/12 items-center flex flex-col mt-4">
+        <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-4 p-2">
+          <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
-        <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 shadow-sm shadow-main-100">
+        <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 ">
           {movimientos.map((movimiento) => (
             <React.Fragment key={movimiento.id}>
-              <div className={'flex flex-row justify-between w-full text-black font-medium'}>
+              <div className={'flex flex-row justify-between w-full text-white font-medium'}>
                 <div className="flex flex-col">
                   <h1 className="text-md mb-4 ">{datetimeToStringMinutes(movimiento.fecha)}</h1>
                   <h1 className="text-md">{movimiento.motivo}</h1>
@@ -57,14 +57,14 @@ export default function Cartera() {
                   >
                     {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
                   </h1>
-                  <h1 className="text-md text-right text-neutral-600">
+                  <h1 className="text-md text-right">
                     {movimiento.nombre_pista +
                       ' ' +
                       datetimeToStringMinutes(movimiento.fecha_reserva)}
                   </h1>
                 </div>
               </div>
-              <Divider />
+              <Divider className="bg-main-800" />
             </React.Fragment>
           ))}
         </div>

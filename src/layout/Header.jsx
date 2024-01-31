@@ -165,7 +165,7 @@ export default function Header() {
     )
   }
   return (
-    <AppBar position="fixed" id="header">
+    <AppBar position="fixed" id="header" sx={{ boxShadow: 'none' }}>
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (
@@ -183,10 +183,10 @@ export default function Header() {
           {user && (
             <>
               <AccessTimeIcon />
-              <h1 className="text-xl mr-2 px-1 max-w-20 min-w-20 text-white">
+              <h1 className="text-xl mr-2 px-1 max-w-20 min-w-20">
                 {datetimeToStringTime(currentTime)}
               </h1>
-              <div className="flex items-center text-xl mr-0 text-white cursor-pointer">
+              <div className="flex items-center text-xl mr-0 cursor-pointer">
                 <h1 onClick={handleMenu}>{user.nombre}</h1>
                 <MoreVertIcon />
               </div>

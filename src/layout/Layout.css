@@ -17,7 +17,7 @@
   width: 100%;
   left: auto;
   right: auto;
-  background: var(--gradiante-negro);
+  background: transparent;
   color: white;
   display: flex;
   justify-content: center;

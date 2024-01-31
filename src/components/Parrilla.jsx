@@ -96,7 +96,7 @@ export default function Parrilla({ pista }) {
   return (
     <div className="flex flex-col items-center w-full max-w-64">
       <Box
-        className="rounded cursor-pointer text-white  bg-main-800 w-full"
+        className="rounded cursor-pointer text-main-900  bg-main-200 w-full"
         sx={{
           display: 'flex',
           p: 0.5,

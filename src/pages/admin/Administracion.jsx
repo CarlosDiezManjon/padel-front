@@ -24,33 +24,33 @@ const Administracion = () => {
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <List sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', color: 'white' }}>
+      <List sx={{ width: '100%', color: 'white' }}>
         <ListItem sx={{ borderRadius: '5px', width: '100%' }}>
           <ListItemButton
             sx={{ borderRadius: '5px' }}
             onClick={() => navigate('/gestion-usuarios')}
           >
             <ListItemIcon>
-              <PeopleIcon />
+              <PeopleIcon className="text-white" />
             </ListItemIcon>
             <ListItemText primary="Gestionar usuarios" />
           </ListItemButton>
         </ListItem>
-        <Divider />
+        <Divider className="bg-white" variant="middle" />
         <ListItem>
           <ListItemButton onClick={() => navigate('/gestion-pistas')}>
             <ListItemIcon>
-              <CalendarViewWeekIcon />
+              <CalendarViewWeekIcon className="text-white" />
             </ListItemIcon>
             <ListItemText primary="Gestionar pistas" />
           </ListItemButton>
         </ListItem>
-        <Divider />
+        <Divider className="bg-white" variant="middle" />
         <ListItem>
           <ListItemButton onClick={() => navigate('/gestion-reservas')}>
             <ListItemIcon>
-              <ReceiptIcon />
+              <ReceiptIcon className="text-white" />
             </ListItemIcon>
             <ListItemText primary="Gestionar reservas" />
           </ListItemButton>

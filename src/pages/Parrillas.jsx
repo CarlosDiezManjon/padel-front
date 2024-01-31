@@ -78,11 +78,12 @@ export default function Parrillas() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+      <div className="flex justify-center w-full text-white">
         <IconButton onClick={handleSetPreviousFecha}>
-          <ArrowBackIosNewIcon />
+          <ArrowBackIosNewIcon className="text-white" />
         </IconButton>
         <Select
+          className="bg-white"
           size="small"
           sx={{ width: '60%', maxWidth: 300 }}
           labelId="fecha"
@@ -98,9 +99,9 @@ export default function Parrillas() {
           ))}
         </Select>
         <IconButton onClick={handleSetNextFecha}>
-          <ArrowForwardIosIcon />
+          <ArrowForwardIosIcon className="text-white" />
         </IconButton>
-      </Box>
+      </div>
       <Box
         sx={{
           display: 'grid',
@@ -127,7 +128,11 @@ export default function Parrillas() {
         }}
       >
         <Zoom in={reservasToCancel.length !== 0}>
-          <ButtonCustom tipo="red" onClick={() => navigate('/cancelacion')} sx="mr-2 min-w-48">
+          <ButtonCustom
+            tipo="red"
+            onClick={() => navigate('/cancelacion')}
+            sx="mr-2 min-w-48 !shadow-none"
+          >
             Cancelar reserva
             {reservasToCancel.length > 1 ? (
               <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
@@ -139,7 +144,7 @@ export default function Parrillas() {
           </ButtonCustom>
         </Zoom>
         <Zoom in={reservasSelected.length !== 0}>
-          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10">
+          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10 !shadow-none">
             Reservar
             {reservasSelected.length > 1 ? (
               <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">

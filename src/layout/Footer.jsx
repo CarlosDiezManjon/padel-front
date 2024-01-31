@@ -26,24 +26,28 @@ export default function Footer() {
     {
       label: 'Inicio',
       icon: 'home-outline',
+      iconSelected: 'home',
       link: '/',
       admin: false,
     },
     {
       label: 'Cartera',
       icon: 'wallet-outline',
+      iconSelected: 'wallet',
       link: '/cartera',
       admin: false,
     },
     {
       label: 'Perfil',
       icon: 'person-outline',
+      iconSelected: 'person',
       link: '/perfil',
       admin: false,
     },
     {
       label: 'Admin',
       icon: 'settings-outline',
+      iconSelected: 'settings',
       link: '/administracion',
       admin: true,
     },
@@ -72,7 +76,7 @@ export default function Footer() {
     //     <div className="indicator"></div>
     //   </ul>
     // </div>
-    <div className="fixed top-auto bottom-0 h-16 text-white bg-gradient-to-tr from-black to-semiblack w-full flex justify-center py-1 z-50">
+    <div className="fixed top-auto bottom-0 h-16 text-white bg-transparent from-black to-semiblack w-full flex justify-center py-1 z-50">
       <div className="flex just">
         {listFooter
           .filter((item) => (user.tipo == 2 ? true : item.admin === false))
@@ -88,14 +92,14 @@ export default function Footer() {
               <div
                 className={
                   'flex flex-col items-center transition-all duration-700 ' +
-                  (index === currentTab ? 'text-2xl justify-center' : 'text-3xl pt-4')
+                  (index === currentTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
                 }
               >
-                <ion-icon name={item.icon}></ion-icon>
+                <ion-icon name={index === currentTab ? item.iconSelected : item.icon}></ion-icon>
                 <span
                   className={
                     index === currentTab
-                      ? 'transform translate-y-0.5 opacity-1 text-base '
+                      ? 'transform translate-y-0.5 opacity-1 text-base font-medium '
                       : 'transform translate-y-4 opacity-0 ' +
                         'transition-all duration-400 text-base flex transform translate-y-6'
                   }
@@ -107,7 +111,7 @@ export default function Footer() {
           ))}
         <div
           className={
-            'h-14 w-16 rounded bg-main-500 absolute z-1 transition duration-700 ' +
+            'h-14 w-16 rounded bg-transparent from-main-600 to-main-400 absolute z-1 transition duration-700 ' +
             (currentTab == 0
               ? 'first'
               : currentTab == 1
