@@ -23,6 +23,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
+  const clearState = useStore((state) => state.clearState)
 
   const [currentTime, setCurrentTime] = useState(new Date())
 
@@ -136,8 +137,7 @@ export default function Header() {
   }
 
   const handleLogout = () => {
-    setToken(null)
-    setUser(null)
+    clearState()
     localStorage.removeItem('token')
     navigate('/')
   }
@@ -171,7 +171,7 @@ export default function Header() {
       ) : (
         <div className="max-w-4xl flex h-14 items-center px-1 min-w-full xl:min-w-main lg:min-w-main ">
           {backButton ? (
-            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 0 }} color="inherit">
+            <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
               <ArrowBackIosNewIcon />
             </IconButton>
           ) : (
@@ -182,7 +182,6 @@ export default function Header() {
           </div>
           {user && (
             <>
-              <AccessTimeIcon />
               <h1 className="text-xl mr-2 px-1 max-w-20 min-w-20">
                 {datetimeToStringTime(currentTime)}
               </h1>

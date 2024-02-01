@@ -44,8 +44,8 @@ export default function Login() {
   }, [data])
   return (
     <div
-      className="from-black to-semiblack text-white flex h-full min-h-full flex-col 
-    justify-center bg-gradient-to-r px-6 py-12 lg:px-8 w-full"
+      className=" text-white flex h-full min-h-full flex-col 
+    justify-center  px-6 py-12 lg:px-8 w-full"
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         {/* <img

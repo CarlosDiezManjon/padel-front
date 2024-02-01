@@ -19,11 +19,6 @@ export default function Parrillas() {
   const [options, setOptions] = useState([])
   const reservasSelected = useStore((state) => state.reservasSelected)
   const reservasToCancel = useStore((state) => state.reservasToCancel)
-  const reloadReservasSelected = useStore((state) => state.reloadReservasSelected)
-  const reloadReservasToCancel = useStore((state) => state.reloadReservasToCancel)
-
-  const clearReservasSelected = useStore((state) => state.clearReservasSelected)
-  const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
 
   const { getRequest, data } = useGetRequest()
 
@@ -150,7 +145,7 @@ export default function Parrillas() {
           >
             Cancelar reserva
             {reservasToCancel.length > 1 ? (
-              <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
+              <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
                 {reservasToCancel.length}
               </span>
             ) : (
@@ -162,7 +157,7 @@ export default function Parrillas() {
           <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10 !shadow-none">
             Reservar
             {reservasSelected.length > 1 ? (
-              <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
+              <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
                 {reservasSelected.length}
               </span>
             ) : (

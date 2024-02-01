@@ -38,7 +38,6 @@ const useStore = create((set, get) => ({
       ),
     })),
   clearReservasSelected: () => set(() => ({ reservasSelected: [] })),
-  reloadReservasSelected: () => set((state) => ({ reservasSelected: [...state.reservasSelected] })),
   reservasToCancel: [],
   addReservaToCancel: (newReserva) =>
     set((state) => ({ reservasToCancel: [...state.reservasToCancel, newReserva] })),
@@ -53,7 +52,16 @@ const useStore = create((set, get) => ({
       ),
     })),
   clearReservasToCancel: () => set(() => ({ reservasToCancel: [] })),
-  reloadReservasToCancel: () => set((state) => ({ reservasToCancel: [...state.reservasToCancel] })),
+  clearState: () =>
+    set(() => ({
+      reservasSelected: [],
+      reservasToCancel: [],
+      user: null,
+      token: null,
+      error: null,
+      confirmationDialogContent: null,
+      messageRequest: null,
+    })),
 }))
 export default useStore
 

@@ -17,12 +17,10 @@ const ButtonCustom = React.forwardRef(({ tipo = 'green', badge, sx, ...props }, 
         setStyle('text-white border-2 hover:bg-white hover:!text-black')
         break
       case 'white-green':
-        setStyle('text-main-500 border-2 border-main-500 hover:bg-main-200 hover:text-main-500')
+        setStyle('text-main-500 bg-white border-2 border-main-500 hover:bg-main-200 ')
         break
       case 'white-red':
-        setStyle(
-          'bg-red-500 border-2 border-none text-white hover:bg-red-700 hover:text-white shadow-none',
-        )
+        setStyle('text-red-500 bg-white border-2 border-red-500  hover:bg-red-200  shadow-none')
         break
 
       case 'icon':

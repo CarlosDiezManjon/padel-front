@@ -80,8 +80,8 @@ const Registro = () => {
 
   return (
     <div
-      className="from-black to-semiblack  flex h-full min-h-full flex-col 
-    justify-center bg-gradient-to-r px-6 py-12 lg:px-8 w-full"
+      className="flex h-full min-h-full flex-col 
+    justify-center px-6 py-12 lg:px-8 w-full"
     >
       {data ? (
         <Typography component="h1" variant="h5">

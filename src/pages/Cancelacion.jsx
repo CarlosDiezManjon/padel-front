@@ -54,14 +54,17 @@ export default function Cancelacion() {
     <div className="w-full p-2">
       {reservasToCancel.length != 0 ? (
         <>
-          <h5 className="font-bold text-2xl mb-4 text-red-500 text-center">
+          <h5 className="font-bold text-2xl mb-4 text-white text-center">
             Se van a cancelar las siguientes reservas {user.nombre}
           </h5>
-          <ul className="max-h-reserva min-h-reserva overflow-auto shadow-sm shadow-main-100">
+          <ul className="max-h-reserva min-h-reserva overflow-auto ">
             {reservasToCancel
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
-                <div className="w-full flex flex-col" key={reserva.startTime + '-' + index}>
+                <div
+                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2"
+                  key={reserva.startTime + '-' + index}
+                >
                   <div className="w-full p-2 flex justify-between">
                     <p className="flex w-6/12">
                       <p className="font-bold mr-1">Fecha</p>
@@ -83,23 +86,22 @@ export default function Cancelacion() {
                       {reserva.pista.precio} €
                     </p>
                   </div>
-                  <hr className="w-full border-main-500" />
                 </div>
               ))}
           </ul>
 
-          <p className="my-2 text-right text-black pr-1 text-lg">Importe a devolver: {total} €</p>
-          <p className="my-2 text-right text-black pr-1 text-lg">Saldo actual: {saldo} €</p>
-          <p className="my-2 text-right text-black pr-1 text-lg">
+          <p className="my-2 text-right text-white pr-1 text-lg">Importe a devolver: {total} €</p>
+          <p className="my-2 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
+          <p className="my-2 text-right text-white pr-1 text-lg">
             Saldo tras cancelación: {saldo + total} €
           </p>
 
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-3">
             <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
               Cancelar
             </ButtonCustom>
             <ButtonCustom disabled={reservasToCancel.length == 0} onClick={handleCancelar}>
-              Confirmar
+              Confirmar cancelación
             </ButtonCustom>
           </div>
         </>

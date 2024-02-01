@@ -9,7 +9,7 @@ export default function BadgeCustom({ tipo, label, sx }) {
         setStyle('bg-main-500 text-white')
         break
       case 'rojo':
-        setStyle('bg-red-100 text-red-800')
+        setStyle('bg-red-500 text-white')
         break
       case 'amarillo':
         setStyle('bg-yellow-100 text-yellow-800')

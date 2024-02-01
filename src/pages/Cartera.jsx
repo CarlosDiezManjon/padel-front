@@ -28,7 +28,7 @@ export default function Cartera() {
       <div className="flex items-end rounded w-11/12 p-2 text-white">
         <div className="flex flex-col w-8/12 items-center">
           <h1 className="font-bold text-2xl mb-4 ">Saldo disponible</h1>
-          <h1 className="font-bold text-2xl ">{dataSaldo?.saldo} €</h1>
+          <h1 className="font-bold text-2xl ">{dataSaldo?.saldo ? dataSaldo.saldo : 0} €</h1>
         </div>
         <div className="flex flex-col w-4/12">
           <button className="rounded-lg p-2 text-white bg-transparent border border-white  ml-4 hover:bg-main-800 transition duration-300 h-10 max-w-40">
@@ -40,10 +40,14 @@ export default function Cartera() {
         <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-4 p-2">
           <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
-        <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 ">
+        <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
           {movimientos.map((movimiento) => (
             <React.Fragment key={movimiento.id}>
-              <div className={'flex flex-row justify-between w-full text-white font-medium'}>
+              <div
+                className={
+                  'flex flex-row justify-between w-full text-black font-medium bg-white rounded-md mt-2 p-2'
+                }
+              >
                 <div className="flex flex-col">
                   <h1 className="text-md mb-4 ">{datetimeToStringMinutes(movimiento.fecha)}</h1>
                   <h1 className="text-md">{movimiento.motivo}</h1>
@@ -64,7 +68,6 @@ export default function Cartera() {
                   </h1>
                 </div>
               </div>
-              <Divider className="bg-main-800" />
             </React.Fragment>
           ))}
         </div>

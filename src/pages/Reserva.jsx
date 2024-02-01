@@ -53,14 +53,17 @@ export default function Reserva() {
     <div className="w-full p-2">
       {reservasSelected.length != 0 ? (
         <>
-          <h5 className="font-bold text-2xl mb-4 text-main-500 text-center">
+          <h5 className="font-bold text-2xl mb-4 text-white text-center">
             Aquí tienes tu reserva {user.nombre}
           </h5>
-          <ul className="max-h-reserva min-h-reserva overflow-auto shadow-sm shadow-main-100">
+          <ul className="max-h-reserva min-h-reserva overflow-auto">
             {reservasSelected
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
-                <div className="w-full flex flex-col" key={reserva.startTime + '-' + index}>
+                <div
+                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2"
+                  key={reserva.startTime + '-' + index}
+                >
                   <div className="w-full p-2 flex justify-between">
                     <p className="flex w-6/12">
                       <p className="font-bold mr-1">Fecha</p>
@@ -82,16 +85,15 @@ export default function Reserva() {
                       {reserva.pista.precio} €
                     </p>
                   </div>
-                  <hr className="w-full border-main-500" />
                 </div>
               ))}
           </ul>
 
-          <p className="my-2 text-right text-black pr-1 text-lg">Importe total: {total} €</p>
-          <p className="my-2 text-right text-black pr-1 text-lg">Saldo actual: {saldo} €</p>
+          <p className="my-2 text-right text-white pr-1 text-lg">Importe total: {total} €</p>
+          <p className="my-2 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
 
           {total <= saldo && (
-            <p className="my-2 text-right text-black pr-1 text-lg">
+            <p className="my-2 text-right text-white pr-1 text-lg">
               Saldo tras reserva: {saldo - total} €
             </p>
           )}

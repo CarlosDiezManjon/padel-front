@@ -84,13 +84,13 @@ const GestionPistas = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12  mr-4"
+          sx="md:!w-6/12  mr-4 !ring-0"
         />
         <ButtonCustom onClick={handleAddPista} sx="!w-fit !py-2">
           Nueva
         </ButtonCustom>
       </Box>
-      <List className="max-h-listado overflow-auto">
+      <List className="max-h-listado overflow-auto text-white">
         {filteredPistas.map((pista) => (
           <React.Fragment key={pista.id}>
             <ListItem>
@@ -98,12 +98,15 @@ const GestionPistas = () => {
                 sx={{ borderRadius: '5px' }}
                 onClick={() => navigate('/gestion-pistas/' + pista.id)}
               >
-                <ListItemAvatar>
+                {/* <ListItemAvatar>
                   <Avatar>
                     <PersonIcon />
                   </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={pista.nombre} secondary={pista.ubicacion} />
+                </ListItemAvatar> */}
+                <ListItemText
+                  primary={pista.nombre}
+                  secondary={<span className="text-white">{pista.ubicacion}</span>}
+                />
                 <Badge
                   sx={{ mr: 2 }}
                   anchorOrigin={{

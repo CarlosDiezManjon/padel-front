@@ -15,7 +15,9 @@ const Perfil = () => {
 
   useEffect(() => {
     if (data) {
-      setUsuario(data.usuario)
+      setTimeout(() => {
+        setUsuario(data.usuario)
+      }, 3000)
     }
   }, [data])
 
@@ -30,42 +32,26 @@ const Perfil = () => {
         alignItems: 'center',
       }}
     >
-      {usuario && (
-        <Card sx={{ width: '90%' }}>
-          <CardContent>
-            <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', mb: 3, alignItems: 'center' }}
-            >
-              <Typography variant="h5" component="h2">
-                {usuario.nombre} {usuario.apellidos}
-              </Typography>
-
-              {usuario.tipo == 2 && <Chip size="small" label="Admin" color="secondary" />}
-              {/* <IconButton onClick={handleEditUser} color="primary">
-                <EditIcon />
-              </IconButton> */}
-            </Box>
-
-            <Typography sx={{ my: 0.5 }} color="textSecondary">
-              Username: {usuario.username}
-            </Typography>
-            <Typography sx={{ my: 0.5 }} color="textSecondary">
-              Email: {usuario.email}
-            </Typography>
-            <Typography sx={{ my: 0.5 }} color="textSecondary">
-              Teléfono: {usuario.telefono}
-            </Typography>
-            <Typography sx={{ my: 0.5 }} color="textSecondary">
-              Saldo: {usuario.saldo} €
-            </Typography>
-
-            <Typography sx={{ my: 0.5 }} color="textSecondary">
-              Fecha de alta: {datetimeToStringMinutes(usuario.fecha_alta)}
-            </Typography>
-          </CardContent>
-        </Card>
+      {usuario ? (
+        <div>{usuario.nombre}</div>
+      ) : (
+        <div class="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+          <div class="animate-pulse flex space-x-4">
+            <div class="rounded-full bg-neutral-400 h-32 w-32"></div>
+            <div class="flex-1 space-y-6 py-1">
+              <div class="h-2 bg-neutral-400 rounded"></div>
+              <div class="space-y-3">
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="h-2 bg-neutral-400 rounded col-span-2"></div>
+                  <div class="h-2 bg-neutral-400 rounded col-span-1"></div>
+                </div>
+                <div class="h-2 bg-neutral-400 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
-      <PerfilReservas />
+      {/* <PerfilReservas /> */}
     </Box>
   )
 }
