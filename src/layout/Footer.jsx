@@ -1,16 +1,6 @@
-import { AppBar, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import RestoreIcon from '@mui/icons-material/Restore'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ArchiveIcon from '@mui/icons-material/Archive'
-import HomeIcon from '@mui/icons-material/Home'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import useStore from '../store/GeneralStore'
-import { Link, useNavigate } from 'react-router-dom'
-import SportsBaseballIcon from '@mui/icons-material/SportsBaseball'
-import PermIdentityIcon from '@mui/icons-material/PermIdentity'
-import HistoryIcon from '@mui/icons-material/History'
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import WalletIcon from '@mui/icons-material/Wallet'
 import './Footer.css'
 
 export default function Footer() {
@@ -84,14 +74,14 @@ export default function Footer() {
             <li
               key={index}
               className={
-                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-700 cursor-pointer text-3xl z-50' +
+                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl z-50' +
                 (index === currentTab ? ' text-xl' : '')
               }
               onClick={() => handleChangeTab(item, index)}
             >
               <div
                 className={
-                  'flex flex-col items-center transition-all duration-700 ' +
+                  'flex flex-col items-center transition-all duration-500 ' +
                   (index === currentTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
                 }
               >
@@ -101,7 +91,7 @@ export default function Footer() {
                     index === currentTab
                       ? 'transform translate-y-0.5 opacity-1 text-base font-medium '
                       : 'transform translate-y-4 opacity-0 ' +
-                        'transition-all duration-400 text-base flex transform translate-y-6'
+                        'transition-all duration-500 text-base flex transform translate-y-6'
                   }
                 >
                   {item.label}
@@ -111,7 +101,7 @@ export default function Footer() {
           ))}
         <div
           className={
-            'h-14 w-16 rounded bg-transparent from-main-600 to-main-400 absolute z-1 transition duration-700 ' +
+            'h-14 w-16 rounded bg-transparent from-main-600 to-main-400 absolute z-1 transition duration-500 ' +
             (currentTab == 0
               ? 'first'
               : currentTab == 1

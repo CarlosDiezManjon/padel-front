@@ -61,29 +61,25 @@ export default function Reserva() {
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
                 <div
-                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2"
+                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2 text-lg"
                   key={reserva.startTime + '-' + index}
                 >
-                  <div className="w-full p-2 flex justify-between">
-                    <p className="flex w-6/12">
+                  <div className="w-full flex justify-between mb-4">
+                    <p className="flex ">
                       <p className="font-bold mr-1">Fecha</p>
                       {dateUTCToLocalDateOnly(reserva.startTime)}
                     </p>
-                    <p className="flex w-6/12">
-                      <p className="font-bold mr-1">Hora</p>
+                    <p className="flex ">
                       {dateUTCToLocalTime(reserva.startTime)} -{' '}
                       {dateUTCToLocalTime(reserva.endTime)}
                     </p>
                   </div>
-                  <div className="w-full p-2 flex justify-between">
-                    <p className="flex w-6/12">
+                  <div className="w-full flex justify-between">
+                    <p className="flex ">
                       <p className="font-bold mr-1">Lugar</p>
                       {reserva.pista.nombre}
                     </p>
-                    <p className="flex w-6/12">
-                      <p className="font-bold mr-1">Precio</p>
-                      {reserva.pista.precio} €
-                    </p>
+                    <p className="flex ">{reserva.pista.precio} €</p>
                   </div>
                 </div>
               ))}
@@ -103,7 +99,7 @@ export default function Reserva() {
               <p className="my-2 text-red-600">Saldo insuficiente</p>
               <ButtonCustom
                 onClick={() => setSaldo(saldo + 100)}
-                tipo="white-green"
+                tipo="text-white"
                 sx="max-w-48 ml-2"
               >
                 Añadir saldo

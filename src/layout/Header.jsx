@@ -165,7 +165,11 @@ export default function Header() {
     )
   }
   return (
-    <AppBar position="fixed" id="header" sx={{ boxShadow: 'none' }}>
+    <AppBar
+      position="fixed"
+      id="header"
+      sx={{ boxShadow: 'none', borderBottom: '1px solid black' }}
+    >
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (

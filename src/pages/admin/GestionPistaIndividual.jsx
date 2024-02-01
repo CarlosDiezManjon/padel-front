@@ -9,6 +9,7 @@ import usePostRequest from '../../services/post.service'
 import usePutRequest from '../../services/put.service'
 import useStore from '../../store/GeneralStore'
 import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../utils/utils'
+import SelectCustom from '../../components/SelectCustom'
 
 const emptyPista = {
   nombre: '',
@@ -122,13 +123,18 @@ const GestionPistaIndividual = () => {
               alignItems: 'center',
             }}
           >
-            <InputCustom
+            <SelectCustom
+              id="duracion_reserva"
               name="duracion_reserva"
-              type="number"
-              label="Duración Reserva(min)"
               value={pista.duracion_reserva}
+              label="Duración Reserva"
+              tipo="verde"
               onChange={handleInputChange}
-              tipo="negro"
+              options={[
+                { value: 60, label: '30 minutos' },
+                { value: 90, label: '1 Hora' },
+                { value: 120, label: '1 Hora y media' },
+              ]}
             />
             <InputCustom
               name="precio"

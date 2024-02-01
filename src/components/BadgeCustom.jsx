@@ -24,6 +24,10 @@ export default function BadgeCustom({ tipo, label, sx }) {
   }, [])
 
   return (
-    <span className={`text-sm font-medium px-2.5 py-0.5 rounded-xl ${style} ${sx}`}>{label}</span>
+    <span
+      className={`flex justify-center items-center text-sm font-medium px-2.5 py-0.5 rounded-xl ${style} ${sx}`}
+    >
+      {label}
+    </span>
   )
 }

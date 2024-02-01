@@ -1,4 +1,5 @@
 import moment from 'moment'
+moment.locale('es-es')
 
 export function parseJwt(token) {
   var base64Url = token.split('.')[1]
@@ -113,7 +114,7 @@ export function dateUTCToLocalDateOnly(date) {
   }
 
   const utcDate = moment.utc(date)
-  const localDateStr = utcDate.local().format('DD-MM-YYYY')
+  const localDateStr = utcDate.local().format('DD MM YYYY')
 
   return localDateStr
 }

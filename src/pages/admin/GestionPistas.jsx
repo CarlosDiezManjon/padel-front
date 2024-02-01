@@ -124,7 +124,7 @@ const GestionPistas = () => {
                 ></Badge>
               </ListItemButton>
             </ListItem>
-            <Divider />
+            <Divider className="bg-white" variant="middle" />
           </React.Fragment>
         ))}
       </List>

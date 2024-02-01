@@ -14,9 +14,9 @@ export default function HomeButton({ title, onClick, image }) {
     duration-300 transform hover:scale-105 flex flex-col  cursor-pointer"
       onClick={onClick}
     >
-      <div className="px-2 w-full">
+      <div className=" w-full">
         <div className="image pt-2 ">
-          <img src={image} alt="" className="w-full h-40 object-cover rounded-md" />
+          <img src={image} alt="" className="w-full h-40 object-cover rounded-t-md" />
         </div>
         <div className="w-full">
           <h3 className="mt-4 text-white text-2xl truncate text-center">{title}</h3>

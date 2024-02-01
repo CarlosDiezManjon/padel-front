@@ -4,11 +4,14 @@ import ButtonCustom from '../components/ButtonCustom'
 import AddIcon from '@mui/icons-material/Add'
 import { datetimeToStringMinutes } from '../utils/utils'
 import { Divider } from '@mui/material'
+import SkeletonCustom from '../components/SkeletonCustom'
+import useStore from '../store/GeneralStore'
 
 export default function Cartera() {
   const { getRequest: getRequestSaldo, data: dataSaldo } = useGetRequest()
   const { getRequest: getRequestMovimientos, data: dataMovimientos } = useGetRequest()
   const [movimientos, setMovimientos] = useState([])
+  const isLoading = useStore((state) => state.isLoading)
 
   useEffect(() => {
     getRequestSaldo('/saldo')
@@ -31,45 +34,58 @@ export default function Cartera() {
           <h1 className="font-bold text-2xl ">{dataSaldo?.saldo ? dataSaldo.saldo : 0} €</h1>
         </div>
         <div className="flex flex-col w-4/12">
-          <button className="rounded-lg p-2 text-white bg-transparent border border-white  ml-4 hover:bg-main-800 transition duration-300 h-10 max-w-40">
-            Añadir
-          </button>
+          <ButtonCustom tipo="text-white" sx="!w-32">
+            Añadir saldo
+          </ButtonCustom>
         </div>
       </div>
-      <div className="w-11/12 items-center flex flex-col mt-4">
+      <div className="w-full items-center flex flex-col mt-4">
         <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-4 p-2">
           <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
         <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
-          {movimientos.map((movimiento) => (
-            <React.Fragment key={movimiento.id}>
-              <div
-                className={
-                  'flex flex-row justify-between w-full text-black font-medium bg-white rounded-md mt-2 p-2'
-                }
-              >
-                <div className="flex flex-col">
-                  <h1 className="text-md mb-4 ">{datetimeToStringMinutes(movimiento.fecha)}</h1>
-                  <h1 className="text-md">{movimiento.motivo}</h1>
-                </div>
-                <div className="flex flex-col">
-                  <h1
+          {movimientos.length == 0 || isLoading ? (
+            <>
+              <SkeletonCustom />
+              <SkeletonCustom />
+              <SkeletonCustom />
+              <SkeletonCustom />
+              <SkeletonCustom />
+            </>
+          ) : (
+            <>
+              {movimientos.map((movimiento) => (
+                <React.Fragment key={movimiento.id}>
+                  <div
                     className={
-                      ' text-md mb-4 text-right ' +
-                      (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
+                      'flex flex-col justify-between w-full text-black text-lg font-medium bg-white rounded-md mb-2 p-2'
                     }
                   >
-                    {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
-                  </h1>
-                  <h1 className="text-sm text-right">
-                    {movimiento.nombre_pista +
-                      ' ' +
-                      datetimeToStringMinutes(movimiento.fecha_reserva)}
-                  </h1>
-                </div>
-              </div>
-            </React.Fragment>
-          ))}
+                    <div className="flex mb-4 justify-between">
+                      <h1>{datetimeToStringMinutes(movimiento.fecha)}</h1>
+                      <h1
+                        className={
+                          'text-right ' +
+                          (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
+                        }
+                      >
+                        {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
+                      </h1>
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <h1>{movimiento.motivo}</h1>
+
+                      <h1 className="text-right">
+                        {movimiento.nombre_pista +
+                          ' ' +
+                          datetimeToStringMinutes(movimiento.fecha_reserva)}
+                      </h1>
+                    </div>
+                  </div>
+                </React.Fragment>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

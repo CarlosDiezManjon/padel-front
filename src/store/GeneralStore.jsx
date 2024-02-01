@@ -33,7 +33,7 @@ const useStore = create((set, get) => ({
         (reserva) =>
           !(
             reserva.startTime === reservaToRemove.startTime &&
-            reserva.pista_id === reservaToRemove.pista_id
+            reserva.pista.id === reservaToRemove.pista.id
           ),
       ),
     })),
@@ -47,7 +47,7 @@ const useStore = create((set, get) => ({
         (reserva) =>
           !(
             reserva.startTime === reservaToRemove.startTime &&
-            reserva.pista_id === reservaToRemove.pista_id
+            reserva.pista.id === reservaToRemove.pista.id
           ),
       ),
     })),
