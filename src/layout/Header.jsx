@@ -48,6 +48,11 @@ export default function Header() {
       setBackButton(true)
       setCurrentTab(3)
       setBigHeader(false)
+    } else if (/^\/gestion-tarifas\/(\d+|\w+)$/.test(location.pathname)) {
+      setTitle('Ficha tarifa')
+      setBackButton(true)
+      setCurrentTab(3)
+      setBigHeader(false)
     } else {
       switch (location.pathname) {
         case '/':
@@ -104,9 +109,9 @@ export default function Header() {
           setCurrentTab(3)
           setBigHeader(false)
           break
-        case '/gestion-reservas':
+        case '/gestion-tarifas':
           setBackButton(true)
-          setTitle('Gestión reservas')
+          setTitle('Gestión tarifas')
           setCurrentTab(3)
           setBigHeader(false)
           break

@@ -11,15 +11,15 @@ import {
   FormControl,
   MenuItem,
 } from '@mui/material'
-import { datetimeToStringMinutes } from '../../utils/utils'
-import useStore from '../../store/GeneralStore'
-import useDeleteRequest from '../../services/delete.service'
+import { datetimeToStringMinutes } from '../../../utils/utils'
+import useStore from '../../../store/GeneralStore'
+import useDeleteRequest from '../../../services/delete.service'
 import { useNavigate, useParams } from 'react-router-dom'
-import useGetRequest from '../../services/get.service'
-import usePutRequest from '../../services/put.service'
-import ButtonCustom from '../../components/ButtonCustom'
-import InputCustom from '../../components/InputCustom'
-import SelectCustom from '../../components/SelectCustom'
+import useGetRequest from '../../../services/get.service'
+import usePutRequest from '../../../services/put.service'
+import ButtonCustom from '../../../components/ButtonCustom'
+import InputCustom from '../../../components/InputCustom'
+import SelectCustom from '../../../components/SelectCustom'
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
@@ -137,8 +137,10 @@ const GestionUsuarioIndividual = () => {
               labelSx="ml-2"
               onChange={handleInputChange}
               options={[
-                { value: 1, label: 'Usuario' },
-                { value: 2, label: 'Administrador' },
+                { value: 0, label: 'Administrador' },
+                { value: 1, label: 'Socio' },
+                { value: 2, label: 'No socio' },
+                { value: 3, label: 'Cuota 0' },
               ]}
             />
 

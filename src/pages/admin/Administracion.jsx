@@ -19,7 +19,7 @@ const Administracion = () => {
   const user = useStore((state) => state.user)
   const navigate = useNavigate()
 
-  if (!user?.tipo == 2) {
+  if (!user?.tipo == 0) {
     return <Navigate to="/" replace />
   }
 
@@ -34,7 +34,7 @@ const Administracion = () => {
             <ListItemIcon>
               <PeopleIcon className="text-white" />
             </ListItemIcon>
-            <ListItemText primary="Gestionar usuarios" />
+            <ListItemText primary="Usuarios" />
           </ListItemButton>
         </ListItem>
         <Divider className="bg-white" variant="middle" />
@@ -43,16 +43,16 @@ const Administracion = () => {
             <ListItemIcon>
               <CalendarViewWeekIcon className="text-white" />
             </ListItemIcon>
-            <ListItemText primary="Gestionar pistas" />
+            <ListItemText primary="Pistas" />
           </ListItemButton>
         </ListItem>
         <Divider className="bg-white" variant="middle" />
         <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion-reservas')}>
+          <ListItemButton onClick={() => navigate('/gestion-tarifas')}>
             <ListItemIcon>
               <ReceiptIcon className="text-white" />
             </ListItemIcon>
-            <ListItemText primary="Gestionar reservas" />
+            <ListItemText primary="Tarifas" />
           </ListItemButton>
         </ListItem>
       </List>

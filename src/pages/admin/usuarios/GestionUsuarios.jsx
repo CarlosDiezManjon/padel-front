@@ -18,10 +18,10 @@ import {
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useGetRequest from '../../services/get.service'
-import ToggleCustom from '../../components/ToggleCustom'
-import BadgeCustom from '../../components/BadgeCustom'
-import InputCustom from '../../components/InputCustom'
+import useGetRequest from '../../../services/get.service'
+import ToggleCustom from '../../../components/ToggleCustom'
+import BadgeCustom from '../../../components/BadgeCustom'
+import InputCustom from '../../../components/InputCustom'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])
@@ -72,38 +72,34 @@ const GestionUsuarios = () => {
     }
   }
 
+  const getUserType = (tipo) => {
+    switch (tipo) {
+      case 0:
+        return 'Admin'
+      case 1:
+        return 'Socio'
+      case 2:
+        return 'No socio'
+      case 3:
+        return 'Cuota 0'
+      default:
+        return 'No socio'
+    }
+  }
+
   return (
-    <Box sx={{ width: '100%' }} id="gestion-usuarios">
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          mt: 2,
-          pr: 2,
-          mb: 1,
-        }}
-      >
+    <div className="w-full">
+      <div className="flex justify-between items-center mt-2 pr-2 mb-1">
         <InputCustom
           placeholder="Filtrar"
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12  mr-4 !ring-0"
+          sx="md:!w-6/12 !ring-0 h-11"
         />
-        <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} />
-        {/* <FormControlLabel
-          labelPlacement="end"
-          control={
-            <Switch
-              checked={activo}
-              onChange={handleSwitchChange}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-          }
-        /> */}
-      </Box>
-      <List className="max-h-listado overflow-auto text-white">
+        <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} sx="ml-4 h-6" />
+      </div>
+      <ul className="max-h-listado overflow-auto text-white">
         {filteredUsers.map((user) => (
           <React.Fragment key={user.id}>
             <ListItem>
@@ -140,7 +136,7 @@ const GestionUsuarios = () => {
                         tipo={user.activo ? 'verde' : 'rojo'}
                         label={user.activo ? 'Activo' : 'Inactivo'}
                       />
-                      {user.tipo == 2 && <BadgeCustom tipo="azul" label="Admin" />}
+                      <BadgeCustom tipo="azul" label={getUserType(user.tipo)} />
                     </>
                   }
                 ></Badge>
@@ -149,8 +145,8 @@ const GestionUsuarios = () => {
             <Divider className="bg-white" variant="middle" />
           </React.Fragment>
         ))}
-      </List>
-    </Box>
+      </ul>
+    </div>
   )
 }
 

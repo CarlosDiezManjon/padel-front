@@ -19,26 +19,26 @@ import {
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useGetRequest from '../../services/get.service'
+import useGetRequest from '../../../services/get.service'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import InputCustom from '../../components/InputCustom'
-import ButtonCustom from '../../components/ButtonCustom'
-import BadgeCustom from '../../components/BadgeCustom'
+import InputCustom from '../../../components/InputCustom'
+import ButtonCustom from '../../../components/ButtonCustom'
+import BadgeCustom from '../../../components/BadgeCustom'
 
-const GestionPistas = () => {
-  const [pistas, setPistas] = useState([])
+const GestionTarifas = () => {
+  const [tarifas, setTarifas] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
   const { getRequest, data } = useGetRequest()
 
   useEffect(() => {
-    getRequest('/pistas')
+    getRequest('/tarifas')
   }, [])
 
   useEffect(() => {
     if (data) {
-      setPistas(data.pistas)
+      setTarifas(data.tarifas)
     }
   }, [data])
 
@@ -51,11 +51,11 @@ const GestionPistas = () => {
   }
 
   const handleAddPista = () => {
-    navigate('/gestion-pistas/nueva')
+    navigate('/gestion-tarifas/nueva')
   }
 
-  const filteredPistas = pistas.filter((pista) =>
-    pista.nombre
+  const filteredTarifas = tarifas.filter((tarifa) =>
+    tarifa.nombre
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
@@ -68,35 +68,26 @@ const GestionPistas = () => {
   )
 
   return (
-    <Box sx={{ width: '100%' }} id="gestion-pistas">
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          mt: 2,
-          justifyContent: 'space-between',
-          pr: 4,
-          mb: 1,
-        }}
-      >
+    <Box sx={{ width: '100%' }} id="gestion-tarifas">
+      <div className="flex justify-between mt-2 pr-2 mb-1">
         <InputCustom
           placeholder="Filtrar"
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12  mr-4 !ring-0"
+          sx="md:!w-6/12 !ring-0 h-full"
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-fit !py-2">
+        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4">
           Nueva
         </ButtonCustom>
-      </Box>
+      </div>
       <List className="max-h-listado overflow-auto text-white">
-        {filteredPistas.map((pista) => (
-          <React.Fragment key={pista.id}>
+        {filteredTarifas.map((tarifa) => (
+          <React.Fragment key={tarifa.id}>
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-pistas/' + pista.id)}
+                onClick={() => navigate('/gestion-tarifas/' + tarifa.id)}
               >
                 {/* <ListItemAvatar>
                   <Avatar>
@@ -104,8 +95,8 @@ const GestionPistas = () => {
                   </Avatar>
                 </ListItemAvatar> */}
                 <ListItemText
-                  primary={pista.nombre}
-                  secondary={<span className="text-white">{pista.ubicacion}</span>}
+                  primary={tarifa.nombre}
+                  secondary={<span className="text-white">{tarifa.precio + ' €'}</span>}
                 />
                 <Badge
                   sx={{ mr: 2 }}
@@ -116,8 +107,8 @@ const GestionPistas = () => {
                   badgeContent={
                     <>
                       <BadgeCustom
-                        tipo={pista.activo ? 'verde' : 'rojo'}
-                        label={pista.activo ? 'Activa' : 'Inactiva'}
+                        tipo={tarifa.activo ? 'verde' : 'rojo'}
+                        label={tarifa.activo ? 'Activa' : 'Inactiva'}
                       />
                     </>
                   }
@@ -132,4 +123,4 @@ const GestionPistas = () => {
   )
 }
 
-export default GestionPistas
+export default GestionTarifas

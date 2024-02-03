@@ -69,7 +69,7 @@ export default function Footer() {
     <div className="fixed top-auto bottom-0 h-16 text-white bg-transparent from-black to-semiblack w-full flex justify-center py-1 z-50">
       <div className="flex just">
         {listFooter
-          .filter((item) => (user.tipo == 2 ? true : item.admin === false))
+          .filter((item) => (user.tipo == 0 ? true : item.admin === false))
           .map((item, index) => (
             <li
               key={index}

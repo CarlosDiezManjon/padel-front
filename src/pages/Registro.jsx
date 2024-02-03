@@ -95,7 +95,7 @@ const Registro = () => {
 
           <InputCustom
             required
-            label="Username"
+            label="Nombre de usuario"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -111,7 +111,7 @@ const Registro = () => {
           <InputCustom
             name="apellidos"
             required
-            label="Surname"
+            label="Apellidos"
             autoComplete="off"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
@@ -129,14 +129,14 @@ const Registro = () => {
           <InputCustom
             name="telefono"
             required
-            label="Phone"
+            label="Teléfono"
             autoComplete="off"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
           <InputCustom
             required
-            label="Password"
+            label="Contraseña"
             name="password"
             type="password"
             autoComplete="new-password"
@@ -148,7 +148,7 @@ const Registro = () => {
           <InputCustom
             required
             name="confirmPassword"
-            label="Confirm Password"
+            label="Confirmar contraseña"
             type="password"
             autoComplete="off"
             value={confirmPassword}

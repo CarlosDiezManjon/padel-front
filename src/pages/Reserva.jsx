@@ -28,7 +28,7 @@ export default function Reserva() {
       delete reserva.pista.parrilla
     })
     let importeTotal = reservaToServer.reduce(
-      (acc, reserva) => acc + parseFloat(reserva.pista.precio),
+      (acc, reserva) => acc + parseFloat(reserva.tarifa.precio),
       0,
     )
     postRequest('/reservas', { reservas: reservaToServer, importeTotal: importeTotal })
@@ -45,7 +45,9 @@ export default function Reserva() {
   useEffect(() => {
     if (data) {
       setSaldo(parseFloat(data.saldo))
-      setTotal(reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.pista.precio), 0))
+      setTotal(
+        reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.tarifa.precio), 0),
+      )
     }
   }, [data])
 
@@ -53,7 +55,7 @@ export default function Reserva() {
     <div className="w-full p-2">
       {reservasSelected.length != 0 ? (
         <>
-          <h5 className="font-bold text-2xl mb-4 text-white text-center">
+          <h5 className="font-medium text-3xl mb-4 text-white text-center">
             Aquí tienes tu reserva {user.nombre}
           </h5>
           <ul className="max-h-reserva min-h-reserva overflow-auto">
@@ -61,7 +63,7 @@ export default function Reserva() {
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
                 <div
-                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2 text-lg"
+                  className="w-full flex flex-col bg-white rounded-md mb-2 p-2 text-lg"
                   key={reserva.startTime + '-' + index}
                 >
                   <div className="w-full flex justify-between mb-4">
@@ -79,7 +81,7 @@ export default function Reserva() {
                       <p className="font-bold mr-1">Lugar</p>
                       {reserva.pista.nombre}
                     </p>
-                    <p className="flex ">{reserva.pista.precio} €</p>
+                    <p className="flex ">{reserva.tarifa.precio} €</p>
                   </div>
                 </div>
               ))}

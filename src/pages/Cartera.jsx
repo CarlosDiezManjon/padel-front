@@ -44,7 +44,7 @@ export default function Cartera() {
           <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
         <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
-          {movimientos.length == 0 || isLoading ? (
+          {isLoading ? (
             <>
               <SkeletonCustom />
               <SkeletonCustom />

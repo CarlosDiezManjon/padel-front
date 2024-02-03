@@ -1,8 +1,10 @@
 import React from 'react'
 
-export default function ToggleCustom({ label, checked, onChange }) {
+export default function ToggleCustom({ label, checked, onChange, sx }) {
   return (
-    <label className="relative inline-flex items-center cursor-pointer transition-all duration-500">
+    <label
+      className={`relative inline-flex items-center cursor-pointer transition-all duration-500 ${sx}`}
+    >
       <input
         type="checkbox"
         value=""

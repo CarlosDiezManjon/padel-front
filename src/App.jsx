@@ -11,11 +11,10 @@ import CustomErrorDialog from './components/CustomErrorDialog'
 import { baseUrl } from './constants'
 import Layout from './layout/Layout'
 import Administracion from './pages/admin/Administracion'
-import GestionPistaIndividual from './pages/admin/GestionPistaIndividual'
-import GestionPistas from './pages/admin/GestionPistas'
-import GestionReservas from './pages/admin/GestionReservas'
-import GestionUsuarioIndividual from './pages/admin/GestionUsuarioIndividual'
-import GestionUsuarios from './pages/admin/GestionUsuarios'
+import GestionPistaIndividual from './pages/admin/pistas/GestionPistaIndividual'
+import GestionPistas from './pages/admin/pistas/GestionPistas'
+import GestionUsuarioIndividual from './pages/admin/usuarios/GestionUsuarioIndividual'
+import GestionUsuarios from './pages/admin/usuarios/GestionUsuarios'
 import Cancelacion from './pages/Cancelacion'
 import Cartera from './pages/Cartera'
 import Historial from './pages/Historial'
@@ -28,6 +27,8 @@ import Registro from './pages/Registro'
 import Reserva from './pages/Reserva'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
+import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
+import GestionTarifaIndividual from './pages/admin/tarifas/GestionTarifaIndividual'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -88,7 +89,8 @@ export default function App() {
             <Route path="/gestion-usuarios/:id" element={<GestionUsuarioIndividual />} />
             <Route path="/gestion-pistas" element={<GestionPistas />} />
             <Route path="/gestion-pistas/:id" element={<GestionPistaIndividual />} />
-            <Route path="/gestion-reservas" element={<GestionReservas />} />
+            <Route path="/gestion-tarifas" element={<GestionTarifas />} />
+            <Route path="/gestion-tarifas/:id" element={<GestionTarifaIndividual />} />
           </Route>
         ) : (
           <>

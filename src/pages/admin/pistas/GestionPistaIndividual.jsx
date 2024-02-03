@@ -1,20 +1,20 @@
 import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import ButtonCustom from '../../components/ButtonCustom'
-import InputCustom from '../../components/InputCustom'
-import useDeleteRequest from '../../services/delete.service'
-import useGetRequest from '../../services/get.service'
-import usePostRequest from '../../services/post.service'
-import usePutRequest from '../../services/put.service'
-import useStore from '../../store/GeneralStore'
-import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../utils/utils'
-import SelectCustom from '../../components/SelectCustom'
+import ButtonCustom from '../../../components/ButtonCustom'
+import InputCustom from '../../../components/InputCustom'
+import useDeleteRequest from '../../../services/delete.service'
+import useGetRequest from '../../../services/get.service'
+import usePostRequest from '../../../services/post.service'
+import usePutRequest from '../../../services/put.service'
+import useStore from '../../../store/GeneralStore'
+import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../../utils/utils'
+import SelectCustom from '../../../components/SelectCustom'
 
 const emptyPista = {
   nombre: '',
   ubicacion: '',
-  duracion_reserva: 0,
+  duracion_reserva: 60,
   precio: 0,
   hora_inicio: '00:00',
   hora_fin: '00:00',
@@ -32,8 +32,7 @@ const GestionPistaIndividual = () => {
   const { postRequest, data: postData } = usePostRequest()
 
   useEffect(() => {
-    if (id === 'nueva') {
-    } else {
+    if (id !== 'nueva') {
       getRequest(`/pistas/${id}`)
     }
   }, [])
@@ -131,19 +130,10 @@ const GestionPistaIndividual = () => {
               tipo="verde"
               onChange={handleInputChange}
               options={[
-                { value: 60, label: '30 minutos' },
-                { value: 90, label: '1 Hora' },
-                { value: 120, label: '1 Hora y media' },
+                { value: 30, label: '30 minutos' },
+                { value: 60, label: '1 Hora' },
+                { value: 90, label: '1 Hora y media' },
               ]}
-            />
-            <InputCustom
-              name="precio"
-              label="Precio(€)"
-              type="number"
-              value={pista.precio}
-              onChange={handleInputChange}
-              tipo="negro"
-              labelSx="ml-2"
             />
           </Box>
 

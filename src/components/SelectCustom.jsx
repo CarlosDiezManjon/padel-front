@@ -59,7 +59,7 @@ export default function SelectCustom({
   return (
     <div
       className={
-        `relative block w-full  h-full ${labelStyle} ${labelSx} ` + (label ? ' mb-2' : 'mb-0')
+        `relative block w-full mt-0 h-full ${labelStyle} ${labelSx} ` + (label ? ' mb-3' : 'mb-0')
       }
     >
       {label}
@@ -68,7 +68,7 @@ export default function SelectCustom({
         className={`shadow-xs placeholder:text-gray block w-full text-black text-start
         bg-white rounded-md border-0 px-3 py-2  ring-inset
         focus:outline-none focus:ring-2 focus:ring-inset
-        sm:text-sm sm:leading-6 appearance-none  ${inputStyle}`}
+        sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
       >
         {options.find((opt) => opt.value == value)?.label}
       </button>

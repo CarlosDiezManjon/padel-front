@@ -61,7 +61,7 @@ export default function Login() {
           <InputCustom
             required
             id="username"
-            label="Usuario"
+            label="Nombre de usuario"
             name="username"
             autoComplete="Usuario"
             value={username}

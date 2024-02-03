@@ -48,7 +48,7 @@ export default function Parrilla({ pista }) {
 
   const handleItemClick = (slot) => {
     if (slot.past) return
-    if ((user.tipo === 2 && slot.reserva !== null) || slot.propia === true) {
+    if ((user.tipo == 0 && slot.reserva !== null) || slot.propia === true) {
       const indexReserva = reservasToCancel.findIndex(
         (r) => r.startTime === slot.startTime && r.pista.id === slot.pista.id,
       )
@@ -117,7 +117,7 @@ export default function Parrilla({ pista }) {
               }
               sx={{
                 cursor:
-                  slot.reserva == null || user.tipo == 2 || slot.propia ? 'pointer' : 'default',
+                  slot.reserva == null || user.tipo == 0 || slot.propia ? 'pointer' : 'default',
               }}
               key={index}
               onClick={() => handleItemClick(slot)}
