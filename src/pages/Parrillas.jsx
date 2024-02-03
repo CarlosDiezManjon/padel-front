@@ -101,7 +101,7 @@ export default function Parrillas() {
           label=""
           tipo="verde"
           labelSx=" w-52 max-w-72"
-          sx="justify-center"
+          sx="!flex justify-center"
           onChange={handleChangeFecha}
           options={options.map((option) => ({
             value: option.date,

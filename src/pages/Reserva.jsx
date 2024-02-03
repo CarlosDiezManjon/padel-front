@@ -6,10 +6,13 @@ import useGetRequest from '../services/get.service'
 import usePostRequest from '../services/post.service'
 import useStore from '../store/GeneralStore'
 import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../utils/utils'
+import InputCustom from '../components/InputCustom'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
   const [total, setTotal] = useState(0)
+  const [motivo, setMotivo] = useState('')
+  const [errorMotivo, setErrorMotivo] = useState(null)
   const user = useStore((state) => state.user)
   const reservasSelected = useStore((state) => state.reservasSelected)
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
@@ -22,7 +25,24 @@ export default function Reserva() {
     getRequest('/saldo')
   }, [])
 
+  const handleChangeMotivo = (e) => {
+    setMotivo(e.target.value)
+    if (e.target.value == '') {
+      setErrorMotivo('El motivo es obligatorio')
+    } else {
+      setErrorMotivo(null)
+    }
+  }
+
   const handleConfirmar = () => {
+    if (user.tipo == 0) {
+      if (motivo == '') {
+        setErrorMotivo('El motivo es obligatorio')
+        return
+      } else {
+        setErrorMotivo(null)
+      }
+    }
     let reservaToServer = [...reservasSelected]
     reservaToServer.forEach((reserva) => {
       delete reserva.pista.parrilla
@@ -31,7 +51,11 @@ export default function Reserva() {
       (acc, reserva) => acc + parseFloat(reserva.tarifa.precio),
       0,
     )
-    postRequest('/reservas', { reservas: reservaToServer, importeTotal: importeTotal })
+    postRequest('/reservas', {
+      reservas: reservaToServer,
+      importeTotal: importeTotal,
+      motivo: motivo,
+    })
   }
 
   useEffect(() => {
@@ -39,6 +63,7 @@ export default function Reserva() {
       clearReservasToCancel()
       clearReservasSelected()
       navigate(-1)
+      setMotivo('')
     }
   }, [dataPost])
 
@@ -52,12 +77,28 @@ export default function Reserva() {
   }, [data])
 
   return (
-    <div className="w-full p-2">
+    <div className="w-full p-2 py-0">
       {reservasSelected.length != 0 ? (
         <>
-          <h5 className="font-medium text-3xl mb-4 text-white text-center">
-            Aquí tienes tu reserva {user.nombre}
-          </h5>
+          {user.tipo == 0 ? (
+            <div className="flex flex-col text-white mb-2 justify-center items-center">
+              <h5 className="font-medium text-2xl mb-1 text-white text-center">
+                Reserva Administrador
+              </h5>
+              <InputCustom
+                placeholder="Motivo reserva"
+                labelSx="w-9/12"
+                value={motivo}
+                error={errorMotivo}
+                onChange={handleChangeMotivo}
+              />
+            </div>
+          ) : (
+            <h5 className="font-medium text-2xl mb-4 text-white text-center">
+              Aquí tienes tu reserva {user.nombre}
+            </h5>
+          )}
+
           <ul className="max-h-reserva min-h-reserva overflow-auto">
             {reservasSelected
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
@@ -87,17 +128,17 @@ export default function Reserva() {
               ))}
           </ul>
 
-          <p className="my-2 text-right text-white pr-1 text-lg">Importe total: {total} €</p>
-          <p className="my-2 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
+          <p className="my-1 text-right text-white pr-1 text-lg">Importe total: {total} €</p>
+          <p className="my-1 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
 
           {total <= saldo && (
-            <p className="my-2 text-right text-white pr-1 text-lg">
+            <p className="my-1 text-right text-white pr-1 text-lg">
               Saldo tras reserva: {saldo - total} €
             </p>
           )}
 
           {total > saldo && (
-            <div className="w-full flex justify-end my-2">
+            <div className="w-full flex justify-end my-1">
               <p className="my-2 text-red-600">Saldo insuficiente</p>
               <ButtonCustom
                 onClick={() => setSaldo(saldo + 100)}
@@ -109,7 +150,7 @@ export default function Reserva() {
             </div>
           )}
 
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-3">
             <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
               Cancelar
             </ButtonCustom>
@@ -122,7 +163,7 @@ export default function Reserva() {
           </div>
         </>
       ) : (
-        <h5 className="font-bold text-2xl mb-4 text-main-500 text-center">
+        <h5 className="font-bold text-2xl mb-4 text-white text-center">
           No hay reservas {user.nombre}
         </h5>
       )}

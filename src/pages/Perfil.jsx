@@ -97,10 +97,10 @@ const Perfil = () => {
           <div className="flex flex-col mt-4">
             {currentTab === 'perfil' ? (
               <>
-                <ButtonCustom onClick={handleChangeEmail} tipo="white-text" sx="mb-4">
+                <ButtonCustom onClick={handleChangeEmail} tipo="white-text" sx="mb-4 py-2">
                   Cambiar email
                 </ButtonCustom>
-                <ButtonCustom onClick={handleChangePassword} tipo="white-text">
+                <ButtonCustom onClick={handleChangePassword} tipo="white-text" sx="py-2">
                   Cambiar contraseña
                 </ButtonCustom>
               </>

@@ -54,7 +54,7 @@ export default function InputCustom({
           {error != '' && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </label>
       ) : (
-        <div className="w-full">
+        <div className={`w-full ${labelSx}`}>
           <input
             {...props}
             className={`shadow-xs placeholder:text-gray block w-full text-main-900
@@ -62,7 +62,7 @@ export default function InputCustom({
           focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />
-          {error != '' && <p className="text-red-500 text-sm  mt-1">{error}</p>}
+          {error != '' && <p className="text-red-500 text-md  mt-1">{error}</p>}
         </div>
       )}
     </>

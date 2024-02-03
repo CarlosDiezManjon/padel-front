@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import useStore from '../store/GeneralStore'
-import './Footer.css'
 
 export default function Footer() {
   const currentTab = useStore((state) => state.currentTab)
@@ -66,7 +65,7 @@ export default function Footer() {
     //     <div className="indicator"></div>
     //   </ul>
     // </div>
-    <div className="fixed top-auto bottom-0 h-16 text-white bg-transparent from-black to-semiblack w-full flex justify-center py-1 z-50">
+    <div className="fixed top-auto bottom-0 h-16 text-white w-full flex justify-center py-1 z-50">
       <div className="flex just">
         {listFooter
           .filter((item) => (user.tipo == 0 ? true : item.admin === false))
@@ -74,7 +73,7 @@ export default function Footer() {
             <li
               key={index}
               className={
-                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer text-3xl z-50' +
+                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer z-50' +
                 (index === currentTab ? ' text-xl' : '')
               }
               onClick={() => handleChangeTab(item, index)}
@@ -99,18 +98,6 @@ export default function Footer() {
               </div>
             </li>
           ))}
-        <div
-          className={
-            'h-14 w-16 rounded bg-transparent from-main-600 to-main-400 absolute z-1 transition duration-500 ' +
-            (currentTab == 0
-              ? 'first'
-              : currentTab == 1
-                ? 'second'
-                : currentTab == 2
-                  ? 'third'
-                  : 'fourth')
-          }
-        ></div>
       </div>
     </div>
   )

@@ -131,12 +131,12 @@ const GestionUsuarios = () => {
                   }}
                   badgeContent={
                     <>
+                      <BadgeCustom tipo="blanco" sx="w-20" label={getUserType(user.tipo)} />
                       <BadgeCustom
-                        sx="mb-2"
+                        sx="mt-2 w-20"
                         tipo={user.activo ? 'verde' : 'rojo'}
                         label={user.activo ? 'Activo' : 'Inactivo'}
                       />
-                      <BadgeCustom tipo="azul" label={getUserType(user.tipo)} />
                     </>
                   }
                 ></Badge>

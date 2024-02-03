@@ -86,20 +86,21 @@ export default function Cancelacion() {
                     </p>
                   </div>
                   <div className="w-full p-2 flex justify-between">
-                    <p className="flex w-6/12">
+                    <div className="flex w-6/12">
                       <p className="font-bold mr-1">Lugar</p>
-                      {reserva.pista.nombre}
-                    </p>
+                      <p>{reserva.pista.nombre}</p>
+                    </div>
+
                     {user.tipo == 0 ? (
-                      <p className="flex w-6/12">
+                      <div className="flex w-5/12">
                         <p className="font-bold mr-1">Usuario</p>
-                        {reserva.reserva.nombre_usuario}
-                      </p>
+                        <p>{reserva.reserva.nombre_usuario}</p>
+                      </div>
                     ) : (
-                      <p className="flex w-6/12">
+                      <div className="flex w-5/12">
                         <p className="font-bold mr-1">Precio</p>
-                        {reserva.reserva.importe} €
-                      </p>
+                        <p>{reserva.reserva.importe} €</p>
+                      </div>
                     )}
                   </div>
                 </div>

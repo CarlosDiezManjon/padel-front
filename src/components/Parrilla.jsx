@@ -85,9 +85,17 @@ export default function Parrilla({ pista }) {
 
   const getSlotContent = (slot) => {
     if (slot.reserva !== null && slot.reserva?.username !== undefined) {
-      return slot.reserva?.username
+      if (slot.reserva.motivo !== null) {
+        return slot.reserva.motivo
+      } else {
+        return slot.reserva?.username
+      }
     } else if (slot.reserva !== null && slot.reserva?.username === undefined) {
-      return 'Reservado'
+      if (slot.reserva.motivo !== null) {
+        return slot.reserva.motivo
+      } else {
+        return 'Reservado'
+      }
     } else {
       return dateUTCToLocalTime(slot.startTime) + ' - ' + dateUTCToLocalTime(slot.endTime)
     }

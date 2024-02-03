@@ -75,9 +75,9 @@ const GestionPistas = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12 !ring-0 h-full"
+          sx="md:!w-6/12 !ring-0 h-10"
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4">
+        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4 h-10">
           Nueva
         </ButtonCustom>
       </div>

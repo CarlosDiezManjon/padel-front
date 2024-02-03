@@ -221,6 +221,7 @@ const GestionUsuarioIndividual = () => {
             <InputCustom
               name="saldo"
               label="Saldo (€)"
+              type="number"
               value={usuario.saldo}
               onChange={handleInputChange}
               tipo="negro"
@@ -234,6 +235,18 @@ const GestionUsuarioIndividual = () => {
               labelSx="ml-2"
             />
           </Box>
+          {usuario.tipo == 1 && (
+            <InputCustom
+              name="numero_socio"
+              autoComplete="false"
+              label="Número socio"
+              type="number"
+              value={usuario.numero_socio}
+              onChange={handleInputChange}
+              tipo="negro"
+              labelSx="!w-[49%]"
+            />
+          )}
           <Box
             sx={{
               display: 'flex',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function SelectCustom({
   error,
@@ -41,6 +41,20 @@ export default function SelectCustom({
   }, [tipo])
 
   const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleChangeValue = (option) => {
     let event = {
@@ -58,6 +72,7 @@ export default function SelectCustom({
 
   return (
     <div
+      ref={containerRef}
       className={
         `relative block w-full mt-0 h-full ${labelStyle} ${labelSx} ` + (label ? ' mb-3' : 'mb-0')
       }
@@ -92,30 +107,4 @@ export default function SelectCustom({
       )}
     </div>
   )
-
-  // return (
-  //   <label
-  //     for={props.name}
-  //     className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
-  //   >
-  //     {props.label}
-  //     <select
-  //       data-dropdown-toggle="dropdown"
-  //       {...props}
-  //       id={props.name}
-  //       className={`shadow-xs placeholder:text-gray block w-full text-black
-  //       bg-white rounded-md border-0 px-3 py-2 ring-2 ring-inset
-  //      focus:outline-none focus:ring-2 focus:ring-inset
-  //      sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
-  //     >
-  //       {options.map((opt) => {
-  //         return (
-  //           <option value={opt.value}>
-  //             {opt.label}
-  //           </option>
-  //         )
-  //       })}
-  //     </select>
-  //   </label>
-  // )
 }

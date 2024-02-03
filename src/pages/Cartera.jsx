@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import useGetRequest from '../services/get.service'
 import ButtonCustom from '../components/ButtonCustom'
 import AddIcon from '@mui/icons-material/Add'
-import { datetimeToStringMinutes } from '../utils/utils'
+import {
+  dateUTCToLocalDateOnly,
+  dateUTCToLocalDateTime,
+  dateUTCToLocalTime,
+  datetimeToStringMinutes,
+} from '../utils/utils'
 import { Divider } from '@mui/material'
 import SkeletonCustom from '../components/SkeletonCustom'
 import useStore from '../store/GeneralStore'
@@ -39,8 +44,8 @@ export default function Cartera() {
           </ButtonCustom>
         </div>
       </div>
-      <div className="w-full items-center flex flex-col mt-4">
-        <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-4 p-2">
+      <div className="w-full items-center flex flex-col mt-2">
+        <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-2 p-2">
           <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
         <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
@@ -58,27 +63,30 @@ export default function Cartera() {
                 <React.Fragment key={movimiento.id}>
                   <div
                     className={
-                      'flex flex-col justify-between w-full text-black text-lg font-medium bg-white rounded-md mb-2 p-2'
+                      'flex flex-col justify-between w-full text-black text-lg sm:!text-lg font-medium bg-white rounded-md mb-2 p-2'
                     }
                   >
-                    <div className="flex mb-4 justify-between">
-                      <h1>{datetimeToStringMinutes(movimiento.fecha)}</h1>
+                    <div className="flex mb-1 justify-between">
+                      <h1>{dateUTCToLocalDateTime(movimiento.fecha)}</h1>
                       <h1
                         className={
-                          'text-right ' +
+                          'text-right font-bold ' +
                           (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
                         }
                       >
                         {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
                       </h1>
                     </div>
-                    <div className="flex justify-between items-end">
+                    <div className="flex justify-between mb-1">
                       <h1>{movimiento.motivo}</h1>
-
-                      <h1 className="text-right">
-                        {movimiento.nombre_pista +
-                          ' ' +
-                          datetimeToStringMinutes(movimiento.fecha_reserva)}
+                    </div>
+                    <div className="flex justify-between">
+                      <h1>{movimiento.nombre_pista}</h1>
+                      <h1>
+                        {dateUTCToLocalDateOnly(movimiento.fecha_reserva)}{' '}
+                        <span className="font-semibold">
+                          {dateUTCToLocalTime(movimiento.fecha_reserva)}
+                        </span>
                       </h1>
                     </div>
                   </div>

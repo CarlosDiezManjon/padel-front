@@ -17,8 +17,11 @@ export default function BadgeCustom({ tipo, label, sx }) {
       case 'azul':
         setStyle('bg-blue-500 text-white')
         break
+      case 'blanco':
+        setStyle('bg-white text-black')
+        break
       default:
-        setStyle('bg-gray-100 text-gray-800')
+        setStyle('bg-white text-black')
         break
     }
   }, [])

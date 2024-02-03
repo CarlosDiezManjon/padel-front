@@ -67,6 +67,21 @@ const GestionTarifas = () => {
       ),
   )
 
+  const getUserType = (tipo) => {
+    switch (tipo) {
+      case 0:
+        return 'Admin'
+      case 1:
+        return 'Socio'
+      case 2:
+        return 'No socio'
+      case 3:
+        return 'Cuota 0'
+      default:
+        return 'No socio'
+    }
+  }
+
   return (
     <Box sx={{ width: '100%' }} id="gestion-tarifas">
       <div className="flex justify-between mt-2 pr-2 mb-1">
@@ -107,6 +122,12 @@ const GestionTarifas = () => {
                   badgeContent={
                     <>
                       <BadgeCustom
+                        tipo="blanco"
+                        sx="w-20 mb-2"
+                        label={getUserType(tarifa.tipo_usuario)}
+                      />
+                      <BadgeCustom
+                        sx="w-20"
                         tipo={tarifa.activo ? 'verde' : 'rojo'}
                         label={tarifa.activo ? 'Activa' : 'Inactiva'}
                       />

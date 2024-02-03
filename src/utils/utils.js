@@ -70,7 +70,7 @@ export function dateUTCToLocalDateTime(date) {
   }
 
   const utcDate = moment.utc(date)
-  const localDateStr = utcDate.local().format('DD-MM-YYYY HH:mm')
+  const localDateStr = utcDate.local().format('DD MM YYYY HH:mm')
 
   return localDateStr
 }
