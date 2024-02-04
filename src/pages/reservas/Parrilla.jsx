@@ -1,7 +1,7 @@
 import { Box, Collapse, IconButton, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import useStore from '../store/GeneralStore'
-import { dateUTCToLocalTime } from '../utils/utils'
+import useStore from '../../store/GeneralStore'
+import { dateUTCToLocalTime } from '../../utils/utils'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styled from '@emotion/styled'
 

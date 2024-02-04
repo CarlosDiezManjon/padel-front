@@ -15,16 +15,14 @@ import GestionPistaIndividual from './pages/admin/pistas/GestionPistaIndividual'
 import GestionPistas from './pages/admin/pistas/GestionPistas'
 import GestionUsuarioIndividual from './pages/admin/usuarios/GestionUsuarioIndividual'
 import GestionUsuarios from './pages/admin/usuarios/GestionUsuarios'
-import Cancelacion from './pages/Cancelacion'
+import Cancelacion from './pages/reservas/Cancelacion'
 import Cartera from './pages/Cartera'
-import Historial from './pages/Historial'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Parrillas from './pages/Parrillas'
+import Parrillas from './pages/reservas/Parrillas'
 import Perfil from './pages/perfil/Perfil'
-import Pistas from './pages/Pistas'
 import Registro from './pages/Registro'
-import Reserva from './pages/Reserva'
+import Reserva from './pages/reservas/Reserva'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
 import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
@@ -82,8 +80,6 @@ export default function App() {
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/reserva" element={<Reserva />} />
             <Route path="/cancelacion" element={<Cancelacion />} />
-            <Route path="/pistas" element={<Pistas />} />
-            <Route path="/historial" element={<Historial />} />
             <Route path="/administracion" element={<Administracion />} />
             <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
             <Route path="/gestion-usuarios/:id" element={<GestionUsuarioIndividual />} />

@@ -68,7 +68,7 @@ const Registro = () => {
     if (data) {
       setError({
         message: 'Se ha enviado un email de confirmación a ' + email,
-        tipo: 'success',
+        tipo: 'registro',
       })
       navigate('/')
     }

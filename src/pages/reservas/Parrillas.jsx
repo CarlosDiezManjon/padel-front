@@ -1,14 +1,14 @@
 import { Box, IconButton, MenuItem, Select, Zoom } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useGetRequest from '../services/get.service'
-import { datetimeToStringDate } from '../utils/utils'
+import useGetRequest from '../../services/get.service'
+import { datetimeToStringDate } from '../../utils/utils'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import Parrilla from '../components/Parrilla'
-import useStore from '../store/GeneralStore'
-import ButtonCustom from '../components/ButtonCustom'
-import SelectCustom from '../components/SelectCustom'
+import Parrilla from './Parrilla'
+import useStore from '../../store/GeneralStore'
+import ButtonCustom from '../../components/ButtonCustom'
+import SelectCustom from '../../components/SelectCustom'
 
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 

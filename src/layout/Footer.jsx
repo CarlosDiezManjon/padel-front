@@ -1,16 +1,15 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import useStore from '../store/GeneralStore'
 
 export default function Footer() {
   const currentTab = useStore((state) => state.currentTab)
   const setCurrentTab = useStore((state) => state.setCurrentTab)
   const user = useStore((state) => state.user)
-  const navigate = useNavigate()
-  const handleChangeTab = (item, index) => {
-    navigate(item.link)
+
+  const handleChangeTab = useCallback((item, index) => {
     setCurrentTab(index)
-  }
+  }, [])
   const listFooter = [
     {
       label: 'Inicio',
@@ -41,42 +40,21 @@ export default function Footer() {
       admin: true,
     },
   ]
-  // Reemplaza esto con tu lista de enlaces
 
   return (
-    // <div className="navigation" id="footer" style={{ top: 'auto', bottom: 0 }}>
-    //   <ul>
-    //     {listFooter
-    //       .filter((item) => (user.tipo == 2 ? true : item.admin === false))
-    //       .map((item, index) => (
-    //         <li
-    //           key={index}
-    //           className={index === currentTab ? 'list active' : 'list'}
-    //           onClick={() => handleChangeTab(item, index)}
-    //         >
-    //           <div>
-    //             <span className="icon">
-    //               <ion-icon name={item.icon}></ion-icon>
-    //             </span>
-    //             <span className="text">{item.label}</span>
-    //           </div>
-    //         </li>
-    //       ))}
-    //     <div className="indicator"></div>
-    //   </ul>
-    // </div>
     <div className="fixed top-auto bottom-0 h-16 text-white w-full flex justify-center py-1 z-50">
       <div className="flex just">
         {listFooter
           .filter((item) => (user.tipo == 0 ? true : item.admin === false))
           .map((item, index) => (
-            <li
+            <Link
               key={index}
               className={
                 'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer z-50' +
                 (index === currentTab ? ' text-xl' : '')
               }
               onClick={() => handleChangeTab(item, index)}
+              to={item.link}
             >
               <div
                 className={
@@ -96,7 +74,7 @@ export default function Footer() {
                   {item.label}
                 </span>
               </div>
-            </li>
+            </Link>
           ))}
       </div>
     </div>

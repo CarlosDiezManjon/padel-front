@@ -1,12 +1,12 @@
 import { Divider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ButtonCustom from '../components/ButtonCustom'
-import useGetRequest from '../services/get.service'
-import usePostRequest from '../services/post.service'
-import useStore from '../store/GeneralStore'
-import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../utils/utils'
-import InputCustom from '../components/InputCustom'
+import ButtonCustom from '../../components/ButtonCustom'
+import useGetRequest from '../../services/get.service'
+import usePostRequest from '../../services/post.service'
+import useStore from '../../store/GeneralStore'
+import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../../utils/utils'
+import InputCustom from '../../components/InputCustom'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)

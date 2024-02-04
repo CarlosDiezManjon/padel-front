@@ -27,7 +27,7 @@ export default function CambioEmail({ email, goBack }) {
 
   useEffect(() => {
     if (data) {
-      goBack(newEmail)
+      goBack(newEmail, false)
     }
   }, [data])
 
@@ -47,7 +47,7 @@ export default function CambioEmail({ email, goBack }) {
       />
 
       <div className="flex justify-end mt-4 w-full">
-        <ButtonCustom onClick={() => goBack(false)} sx="mx-1 max-w-32" tipo={'text-white'}>
+        <ButtonCustom onClick={() => goBack(false, false)} sx="mx-1 max-w-32" tipo="text-white">
           Cancelar
         </ButtonCustom>
         <ButtonCustom

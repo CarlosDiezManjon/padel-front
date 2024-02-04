@@ -5,6 +5,7 @@ import useStore from '../store/GeneralStore'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem'
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead'
 import ButtonCustom from './ButtonCustom'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 
 export default function CustomErrorDialog({ open, onClose, title, message, tipo = 'error' }) {
   const cancelButtonRef = useRef(null)
@@ -18,6 +19,21 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
   useEffect(() => {
     if (message == 'Sesión caducada') handleLogout()
   }, [message])
+
+  const getTitle = () => {
+    switch (tipo) {
+      case 'error':
+        return 'Error'
+      case 'registro':
+        return 'Registro exitoso'
+      case 'email':
+        return 'Email cambiado'
+      case 'password':
+        return 'Contraseña cambiada'
+      default:
+        return 'Error'
+    }
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -63,7 +79,11 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
                         className="mx-auto flex  flex-shrink-0 items-center justify-center rounded-full
                             bg-green-100 h-12 w-12"
                       >
-                        <MarkEmailReadIcon className="text-green-500" />
+                        {tipo == 'email' ? (
+                          <MarkEmailReadIcon className="text-green-500" />
+                        ) : (
+                          <ThumbUpIcon className="text-green-500" />
+                        )}
                       </div>
                     )}
                     {/* <div
@@ -74,7 +94,7 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
                     </div> */}
                     <div className="ml-4 mt-0 text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray">
-                        {tipo == 'error' ? 'Error' : 'Registro exitoso'}
+                        {getTitle(tipo)}
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">{message}</p>
