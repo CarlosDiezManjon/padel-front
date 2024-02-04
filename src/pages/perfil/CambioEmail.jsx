@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-import InputCustom from './InputCustom'
-import ButtonCustom from './ButtonCustom'
+import React, { useEffect, useState } from 'react'
+import InputCustom from '../../components/InputCustom'
+import ButtonCustom from '../../components/ButtonCustom'
+import usePutRequest from '../../services/put.service'
+import useStore from '../../store/GeneralStore'
 
 export default function CambioEmail({ email, goBack }) {
   const [newEmail, setNewEmail] = useState('')
   const [emailError, setEmailError] = useState('')
+
+  const { putRequest, data } = usePutRequest()
 
   const handleEmailChange = (e) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -14,18 +18,26 @@ export default function CambioEmail({ email, goBack }) {
     if (!isValidEmail) {
       // Handle invalid email error
       setEmailError('El email no es válido')
+    } else if (e.target.value == email) {
+      setEmailError('El email es igual al actual')
     } else {
       setEmailError('')
     }
   }
 
+  useEffect(() => {
+    if (data) {
+      goBack(newEmail)
+    }
+  }, [data])
+
   const handleSave = () => {
-    // Logic to save the new email
+    putRequest('/cambiar-email', { email: newEmail })
   }
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Cambio email</h1>
+      <h1 className="text-2xl font-regular mb-4">Cambio email</h1>
       <InputCustom
         value={newEmail}
         type="email"
@@ -35,10 +47,15 @@ export default function CambioEmail({ email, goBack }) {
       />
 
       <div className="flex justify-end mt-4 w-full">
-        <ButtonCustom onClick={goBack} sx="mx-1 max-w-32" tipo={'text-white'}>
+        <ButtonCustom onClick={() => goBack(false)} sx="mx-1 max-w-32" tipo={'text-white'}>
           Cancelar
         </ButtonCustom>
-        <ButtonCustom onClick={handleSave} sx="mx-1 max-w-32" tipo="green">
+        <ButtonCustom
+          onClick={handleSave}
+          sx="mx-1 max-w-32"
+          tipo="green"
+          disabled={newEmail == '' || emailError != ''}
+        >
           Guardar
         </ButtonCustom>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import InputCustom from './InputCustom'
-import ButtonCustom from './ButtonCustom'
+import InputCustom from '../../components/InputCustom'
+import ButtonCustom from '../../components/ButtonCustom'
 
 export default function CambioPassword({ goBack }) {
   const [password, setPassword] = useState('')
@@ -37,7 +37,7 @@ export default function CambioPassword({ goBack }) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Cambio contraseña</h1>
+      <h1 className="text-2xl font-regular mb-4">Cambio contraseña</h1>
       <InputCustom
         required
         label="Password"
@@ -61,7 +61,7 @@ export default function CambioPassword({ goBack }) {
       />
 
       <div className="flex justify-end mt-4 w-full">
-        <ButtonCustom onClick={goBack} sx="mx-1 max-w-32" tipo={'text-white'}>
+        <ButtonCustom onClick={() => goBack(false)} sx="mx-1 max-w-32" tipo={'text-white'}>
           Cancelar
         </ButtonCustom>
         <ButtonCustom onClick={handleSave} sx="mx-1 max-w-32" tipo="green">

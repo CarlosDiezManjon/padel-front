@@ -1,18 +1,20 @@
 import EditIcon from '@mui/icons-material/Edit'
 import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import ButtonCustom from '../components/ButtonCustom'
-import useGetRequest from '../services/get.service'
-import { dateUTCToLocalDateOnly } from '../utils/utils'
-import BadgeCustom from '../components/BadgeCustom'
+import ButtonCustom from '../../components/ButtonCustom'
+import useGetRequest from '../../services/get.service'
+import { dateUTCToLocalDateOnly, getUserType } from '../../utils/utils'
+import BadgeCustom from '../../components/BadgeCustom'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import CambioEmail from '../components/CambioEmail'
-import CambioPassword from '../components/CambioPassword'
+import CambioEmail from './CambioEmail'
+import CambioPassword from './CambioPassword'
+import useStore from '../../store/GeneralStore'
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null)
   const [currentTab, setCurrentTab] = useState('perfil')
   const { getRequest, data } = useGetRequest()
+  const setError = useStore((state) => state.setError)
 
   useEffect(() => {
     getRequest('/perfil')
@@ -25,6 +27,19 @@ const Perfil = () => {
       }, 1000)
     }
   }, [data])
+
+  const handleGoBack = (newEmail) => {
+    setCurrentTab('perfil')
+    if (newEmail !== false) {
+      setError({
+        message: 'Se ha enviado un email de confirmación a ' + newEmail,
+        tipo: 'success',
+      })
+      setTimeout(() => {
+        getRequest('/perfil')
+      }, 3000)
+    }
+  }
 
   const handleChangeEmail = () => {
     // Add your logic to handle email change here
@@ -54,6 +69,18 @@ const Perfil = () => {
               <h6 className="mt-4 ml-1 text-3xl">{usuario.nombre + ' ' + usuario.apellidos}</h6>
               <h6 className="ml-2 text-xl">{usuario.username}</h6>
             </div>
+          </div>
+          <div className="flex w-full mt-4">
+            <BadgeCustom
+              tipo="transparente"
+              sx=" !text-md"
+              label={
+                <>
+                  {getUserType(usuario.tipo)}
+                  {usuario.tipo == 1 && ' Nº ' + usuario.numero_socio}
+                </>
+              }
+            />
           </div>
 
           <div className="flex w-full">
@@ -97,17 +124,17 @@ const Perfil = () => {
           <div className="flex flex-col mt-4">
             {currentTab === 'perfil' ? (
               <>
-                <ButtonCustom onClick={handleChangeEmail} tipo="white-text" sx="mb-4 py-2">
+                <ButtonCustom onClick={handleChangeEmail} tipo="text-white" sx="mb-4 py-2">
                   Cambiar email
                 </ButtonCustom>
-                <ButtonCustom onClick={handleChangePassword} tipo="white-text" sx="py-2">
+                <ButtonCustom onClick={handleChangePassword} tipo="text-white" sx="py-2">
                   Cambiar contraseña
                 </ButtonCustom>
               </>
             ) : currentTab === 'email' ? (
-              <CambioEmail email={usuario.email} goBack={() => setCurrentTab('perfil')} />
+              <CambioEmail email={usuario.email} goBack={handleGoBack} />
             ) : (
-              <CambioPassword goBack={() => setCurrentTab('perfil')} />
+              <CambioPassword goBack={handleGoBack} />
             )}
           </div>
         </div>

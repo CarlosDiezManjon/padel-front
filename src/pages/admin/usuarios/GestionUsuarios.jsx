@@ -22,6 +22,7 @@ import useGetRequest from '../../../services/get.service'
 import ToggleCustom from '../../../components/ToggleCustom'
 import BadgeCustom from '../../../components/BadgeCustom'
 import InputCustom from '../../../components/InputCustom'
+import { getUserType } from '../../../utils/utils'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])
@@ -69,21 +70,6 @@ const GestionUsuarios = () => {
       return { children: splitName[0][0] }
     } else {
       return { children: splitName[0][0] + splitName[1][0] }
-    }
-  }
-
-  const getUserType = (tipo) => {
-    switch (tipo) {
-      case 0:
-        return 'Admin'
-      case 1:
-        return 'Socio'
-      case 2:
-        return 'No socio'
-      case 3:
-        return 'Cuota 0'
-      default:
-        return 'No socio'
     }
   }
 

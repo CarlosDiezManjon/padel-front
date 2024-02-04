@@ -20,6 +20,9 @@ export default function BadgeCustom({ tipo, label, sx }) {
       case 'blanco':
         setStyle('bg-white text-black')
         break
+      case 'transparente':
+        setStyle('bg-transparent text-white border-2 border-white')
+        break
       default:
         setStyle('bg-white text-black')
         break

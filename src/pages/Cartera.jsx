@@ -83,9 +83,11 @@ export default function Cartera() {
                     <div className="flex justify-between">
                       <h1>{movimiento.nombre_pista}</h1>
                       <h1>
-                        {dateUTCToLocalDateOnly(movimiento.fecha_reserva)}{' '}
+                        {dateUTCToLocalDateOnly(movimiento.fecha_inicio_reserva)}{' '}
                         <span className="font-semibold">
-                          {dateUTCToLocalTime(movimiento.fecha_reserva)}
+                          {dateUTCToLocalTime(movimiento.fecha_inicio_reserva) +
+                            ' - ' +
+                            dateUTCToLocalTime(movimiento.fecha_fin_reserva)}
                         </span>
                       </h1>
                     </div>

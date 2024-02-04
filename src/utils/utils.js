@@ -118,3 +118,18 @@ export function dateUTCToLocalDateOnly(date) {
 
   return localDateStr
 }
+
+export const getUserType = (tipo) => {
+  switch (tipo) {
+    case 0:
+      return 'Admin'
+    case 1:
+      return 'Socio'
+    case 2:
+      return 'No socio'
+    case 3:
+      return 'Cuota 0'
+    default:
+      return 'No socio'
+  }
+}
