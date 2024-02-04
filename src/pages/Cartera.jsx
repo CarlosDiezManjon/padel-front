@@ -17,6 +17,7 @@ export default function Cartera() {
   const { getRequest: getRequestMovimientos, data: dataMovimientos } = useGetRequest()
   const [movimientos, setMovimientos] = useState([])
   const isLoading = useStore((state) => state.isLoading)
+  const setIsLoading = useStore((state) => state.setIsLoading)
 
   useEffect(() => {
     getRequestSaldo('/saldo')
@@ -25,6 +26,10 @@ export default function Cartera() {
 
   useEffect(() => {
     if (dataMovimientos) {
+      setIsLoading(true)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 3000)
       setMovimientos(dataMovimientos.movimientos)
     }
   }, [dataMovimientos])

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SkeletonCustom() {
   return (
-    <div className="rounded-md p-4 max-w-sm w-full mx-auto bg-white mb-2 min-h-[88px]">
+    <div className="rounded-md p-4 max-w-sm w-full mx-auto bg-white mb-2 min-h-[108px] sm:max-w-4xl">
       <div className="animate-pulse flex space-x-4">
         <div className="flex-1 space-y-6 py-1">
           <div className="space-y-3">
