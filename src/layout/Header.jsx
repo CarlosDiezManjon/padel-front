@@ -120,6 +120,11 @@ export default function Header() {
           setTitle('Registro')
           setBigHeader(false)
           break
+        case '/informes':
+          setBackButton(false)
+          setTitle('Informes')
+          setBigHeader(false)
+          break
         default:
           setTitle('Error')
           setBigHeader(false)
@@ -170,11 +175,7 @@ export default function Header() {
     )
   }
   return (
-    <AppBar
-      position="fixed"
-      id="header"
-      sx={{ boxShadow: 'none', borderBottom: '1px solid black' }}
-    >
+    <AppBar position="fixed" id="header" sx={{ boxShadow: 'none' }}>
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (

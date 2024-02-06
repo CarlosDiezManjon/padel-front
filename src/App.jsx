@@ -27,6 +27,7 @@ import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
 import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
 import GestionTarifaIndividual from './pages/admin/tarifas/GestionTarifaIndividual'
+import Informes from './pages/admin/informes/Informes'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -87,6 +88,7 @@ export default function App() {
             <Route path="/gestion-pistas/:id" element={<GestionPistaIndividual />} />
             <Route path="/gestion-tarifas" element={<GestionTarifas />} />
             <Route path="/gestion-tarifas/:id" element={<GestionTarifaIndividual />} />
+            <Route path="/informes" element={<Informes />} />
           </Route>
         ) : (
           <>

@@ -85,13 +85,30 @@ export default function Reserva() {
               <h5 className="font-medium text-2xl mb-1 text-white text-center">
                 Reserva Administrador
               </h5>
-              <InputCustom
-                placeholder="Motivo reserva"
+              <div
+                class="inline-flex rounded-md shadow-sm transition duration-300 ease-in-out"
+                role="group"
+              >
+                <button
+                  type="button"
+                  class="inline-flex items-center px-4 py-1 text-md font-medium transition duration-300 ease-in-out text-white bg-transparent border border-white rounded-s-lg hover:bg-white hover:text-black focus:bg-white focus:text-black"
+                >
+                  Cierre pista
+                </button>
+                <button
+                  type="button"
+                  class="inline-flex items-center px-4 py-1 text-md font-medium transition duration-300 ease-in-out text-white bg-transparent border border-white rounded-e-lg  hover:bg-white hover:text-black focus:bg-white focus:text-black"
+                >
+                  Reserva cliente
+                </button>
+              </div>
+              {/* <InputCustom
+                placeholder="Motivo cierre pista"
                 labelSx="w-9/12"
                 value={motivo}
                 error={errorMotivo}
                 onChange={handleChangeMotivo}
-              />
+              /> */}
             </div>
           ) : (
             <h5 className="font-medium text-2xl mb-4 text-white text-center">

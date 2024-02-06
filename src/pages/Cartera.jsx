@@ -17,7 +17,6 @@ export default function Cartera() {
   const { getRequest: getRequestMovimientos, data: dataMovimientos } = useGetRequest()
   const [movimientos, setMovimientos] = useState([])
   const isLoading = useStore((state) => state.isLoading)
-  const setIsLoading = useStore((state) => state.setIsLoading)
 
   useEffect(() => {
     getRequestSaldo('/saldo')
@@ -26,10 +25,6 @@ export default function Cartera() {
 
   useEffect(() => {
     if (dataMovimientos) {
-      setIsLoading(true)
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 3000)
       setMovimientos(dataMovimientos.movimientos)
     }
   }, [dataMovimientos])
@@ -38,16 +33,16 @@ export default function Cartera() {
 
   return (
     <div className="flex flex-col items-center w-full pt-1 h-full">
-      <div className="flex items-end rounded w-11/12 p-2 text-white">
+      <div className="flex justify-center rounded w-full p-2 text-white">
         <div className="flex flex-col w-8/12 items-center">
-          <h1 className="font-bold text-2xl mb-4 ">Saldo disponible</h1>
-          <h1 className="font-bold text-2xl ">{dataSaldo?.saldo ? dataSaldo.saldo : 0} €</h1>
+          <h1 className="font-regular text-2xl mb-4 ">Saldo disponible</h1>
+          <h1 className="font-regular text-2xl ">{dataSaldo?.saldo ? dataSaldo.saldo : 0} €</h1>
         </div>
-        <div className="flex flex-col w-4/12">
+        {/* <div className="flex flex-col w-4/12">
           <ButtonCustom tipo="text-white" sx="!w-32">
             Añadir saldo
           </ButtonCustom>
-        </div>
+        </div> */}
       </div>
       <div className="w-full items-center flex flex-col mt-2">
         <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-2 p-2">
@@ -75,7 +70,7 @@ export default function Cartera() {
                       <h1>{dateUTCToLocalDateTime(movimiento.fecha)}</h1>
                       <h1
                         className={
-                          'text-right font-bold ' +
+                          'text-right text-xl ' +
                           (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
                         }
                       >

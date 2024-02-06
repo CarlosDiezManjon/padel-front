@@ -14,6 +14,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import PeopleIcon from '@mui/icons-material/People'
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek'
 import ReceiptIcon from '@mui/icons-material/Receipt'
+import QueryStatsIcon from '@mui/icons-material/QueryStats'
 
 const Administracion = () => {
   const user = useStore((state) => state.user)
@@ -53,6 +54,15 @@ const Administracion = () => {
               <ReceiptIcon className="text-white" />
             </ListItemIcon>
             <ListItemText primary="Tarifas" />
+          </ListItemButton>
+        </ListItem>
+        <Divider className="bg-white" variant="middle" />
+        <ListItem>
+          <ListItemButton onClick={() => navigate('/informes')}>
+            <ListItemIcon>
+              <QueryStatsIcon className="text-white" />
+            </ListItemIcon>
+            <ListItemText primary="Informes" />
           </ListItemButton>
         </ListItem>
       </List>
