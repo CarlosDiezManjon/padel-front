@@ -1,29 +1,52 @@
-import { Divider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AutocompleteCustom from '../../components/AutocompleteCustom'
 import ButtonCustom from '../../components/ButtonCustom'
+import InputCustom from '../../components/InputCustom'
+import ToggleButtonGroup from '../../components/ToggleButtonGroup'
 import useGetRequest from '../../services/get.service'
 import usePostRequest from '../../services/post.service'
 import useStore from '../../store/GeneralStore'
 import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../../utils/utils'
-import InputCustom from '../../components/InputCustom'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
   const [total, setTotal] = useState(0)
+
+  const [tabActive, setTabActive] = useState(0)
   const [motivo, setMotivo] = useState('')
   const [errorMotivo, setErrorMotivo] = useState(null)
   const user = useStore((state) => state.user)
+  const [usuarios, setUsuarios] = useState([])
+  const [usuarioSelected, setUsuarioSelected] = useState(user)
   const reservasSelected = useStore((state) => state.reservasSelected)
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
   const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
   const { getRequest, data } = useGetRequest()
+
   const { postRequest, data: dataPost } = usePostRequest()
   const navigate = useNavigate()
 
   useEffect(() => {
     getRequest('/saldo')
   }, [])
+
+  useEffect(() => {
+    getRequest('/active-usuarios')
+  }, [])
+
+  useEffect(() => {
+    if (data) {
+      if (data.saldo != null) {
+        setSaldo(parseFloat(data.saldo))
+        setTotal(
+          reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.tarifa.precio), 0),
+        )
+      } else if (data.usuarios != null) {
+        setUsuarios([...data.usuarios])
+      }
+    }
+  }, [data])
 
   const handleChangeMotivo = (e) => {
     setMotivo(e.target.value)
@@ -67,15 +90,6 @@ export default function Reserva() {
     }
   }, [dataPost])
 
-  useEffect(() => {
-    if (data) {
-      setSaldo(parseFloat(data.saldo))
-      setTotal(
-        reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.tarifa.precio), 0),
-      )
-    }
-  }, [data])
-
   return (
     <div className="w-full p-2 py-0">
       {reservasSelected.length != 0 ? (
@@ -85,30 +99,29 @@ export default function Reserva() {
               <h5 className="font-medium text-2xl mb-1 text-white text-center">
                 Reserva Administrador
               </h5>
-              <div
-                class="inline-flex rounded-md shadow-sm transition duration-300 ease-in-out"
-                role="group"
-              >
-                <button
-                  type="button"
-                  class="inline-flex items-center px-4 py-1 text-md font-medium transition duration-300 ease-in-out text-white bg-transparent border border-white rounded-s-lg hover:bg-white hover:text-black focus:bg-white focus:text-black"
-                >
-                  Cierre pista
-                </button>
-                <button
-                  type="button"
-                  class="inline-flex items-center px-4 py-1 text-md font-medium transition duration-300 ease-in-out text-white bg-transparent border border-white rounded-e-lg  hover:bg-white hover:text-black focus:bg-white focus:text-black"
-                >
-                  Reserva cliente
-                </button>
-              </div>
-              {/* <InputCustom
-                placeholder="Motivo cierre pista"
-                labelSx="w-9/12"
-                value={motivo}
-                error={errorMotivo}
-                onChange={handleChangeMotivo}
-              /> */}
+
+              <ToggleButtonGroup
+                value={tabActive}
+                onChange={setTabActive}
+                options={['Cierre pista', 'Reserva para cliente']}
+              />
+              {tabActive == 0 ? (
+                <InputCustom
+                  name="motivo"
+                  placeholder="Motivo cierre de pista"
+                  value={motivo}
+                  onChange={handleChangeMotivo}
+                  error={errorMotivo}
+                  sx="w-full mt-2"
+                />
+              ) : (
+                <AutocompleteCustom
+                  options={usuarios}
+                  value={usuarioSelected}
+                  onChange={setUsuarioSelected}
+                  sx="!w-full mt-2 mb-1"
+                />
+              )}
             </div>
           ) : (
             <h5 className="font-medium text-2xl mb-4 text-white text-center">
