@@ -2,7 +2,14 @@ import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import SearchIcon from '@mui/icons-material/Search'
 
-export default function AutocompleteCustom({ value, onChange, options, sx }) {
+export default function AutocompleteCustom({
+  value,
+  onChange,
+  options,
+  sx,
+  error,
+  nullable = false,
+}) {
   const [query, setQuery] = useState('')
 
   const filteredOptions =
@@ -22,13 +29,13 @@ export default function AutocompleteCustom({ value, onChange, options, sx }) {
         )
 
   return (
-    <Combobox value={value} onChange={onChange}>
+    <Combobox value={value} onChange={onChange} nullable={nullable}>
       <div className={'relative ' + sx}>
         <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus:ring-2 focus:ring-main-500">
           <Combobox.Input
             placeholder="Buscar usuario..."
             className="w-full border-none py-2 rounded-md leading-6 pl-3 pr-10 text-md text-black ring-inset focus:ring-main-500 focus:ring-2 focus:outline-none"
-            displayValue={(option) => option.nombre + ' ' + option.apellidos}
+            displayValue={(option) => option?.nombre + ' ' + option?.apellidos}
             onChange={(event) => setQuery(event.target.value)}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -73,6 +80,7 @@ export default function AutocompleteCustom({ value, onChange, options, sx }) {
           </Combobox.Options>
         </Transition>
       </div>
+      {error != '' && <p className="text-red-500 text-md  mt-1 text-left w-full">{error}</p>}
     </Combobox>
   )
 }

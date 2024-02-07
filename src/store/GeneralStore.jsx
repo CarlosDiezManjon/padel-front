@@ -37,6 +37,14 @@ const useStore = create((set, get) => ({
           ),
       ),
     })),
+  editReservaSelected: (reservaToEdit, newReserva) =>
+    set((state) => ({
+      reservasSelected: state.reservasSelected.map((reserva) =>
+        reserva.startTime === reservaToEdit.startTime && reserva.pista.id === reservaToEdit.pista.id
+          ? newReserva
+          : reserva,
+      ),
+    })),
   clearReservasSelected: () => set(() => ({ reservasSelected: [] })),
   reservasToCancel: [],
   addReservaToCancel: (newReserva) =>

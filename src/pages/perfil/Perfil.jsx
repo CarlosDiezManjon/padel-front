@@ -102,7 +102,9 @@ const Perfil = () => {
                     />
                   </div>
 
-                  <h6 className="text-lg mt-2">{usuario.email}</h6>
+                  <h6 className="mt-2 max-w-56 sm:max-w-lg text-lg overflow-hidden overflow-ellipsis">
+                    {usuario.email}
+                  </h6>
                 </div>
                 <div className="flex flex-col w-4/12">
                   <h6 className="text-xl mt-4">Teléfono</h6>

@@ -8,6 +8,7 @@ import useGetRequest from '../../services/get.service'
 import usePostRequest from '../../services/post.service'
 import useStore from '../../store/GeneralStore'
 import { dateUTCToLocalDateOnly, dateUTCToLocalTime } from '../../utils/utils'
+import ReservaItem from './ReservaItem'
 
 export default function Reserva() {
   const [saldo, setSaldo] = useState(0)
@@ -17,8 +18,9 @@ export default function Reserva() {
   const [motivo, setMotivo] = useState('')
   const [errorMotivo, setErrorMotivo] = useState(null)
   const user = useStore((state) => state.user)
+  const [errorUser, setErrorUser] = useState(null)
   const [usuarios, setUsuarios] = useState([])
-  const [usuarioSelected, setUsuarioSelected] = useState(user)
+  const [usuarioSelected, setUsuarioSelected] = useState(null)
   const reservasSelected = useStore((state) => state.reservasSelected)
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
   const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
@@ -28,22 +30,37 @@ export default function Reserva() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getRequest('/saldo')
+    if (user.tipo != 0) {
+      getRequest('/saldo')
+    } else {
+      getRequest('/active-usuarios')
+      setUsuarioSelected(user)
+    }
   }, [])
 
   useEffect(() => {
-    getRequest('/active-usuarios')
-  }, [])
+    if (usuarioSelected != null && user.tipo == 0) {
+      getRequest('/saldo-usuario/' + usuarioSelected.id)
+    }
+  }, [usuarioSelected])
+
+  useEffect(() => {
+    if (reservasSelected.length != 0) {
+      setTotal(
+        reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.tarifa.precio), 0),
+      )
+    }
+  }, [reservasSelected])
 
   useEffect(() => {
     if (data) {
       if (data.saldo != null) {
+        console.log(data)
         setSaldo(parseFloat(data.saldo))
-        setTotal(
-          reservasSelected.reduce((acc, reserva) => acc + parseFloat(reserva.tarifa.precio), 0),
-        )
       } else if (data.usuarios != null) {
+        console.log(data)
         setUsuarios([...data.usuarios])
+      } else if (data.tarifa) {
       }
     }
   }, [data])
@@ -59,11 +76,20 @@ export default function Reserva() {
 
   const handleConfirmar = () => {
     if (user.tipo == 0) {
-      if (motivo == '') {
-        setErrorMotivo('El motivo es obligatorio')
-        return
+      if (tabActive == 0) {
+        if (motivo == '') {
+          setErrorMotivo('El motivo es obligatorio')
+          return
+        } else {
+          setErrorMotivo(null)
+        }
       } else {
-        setErrorMotivo(null)
+        if (usuarioSelected == null) {
+          setErrorUser('El usuario es obligatorio')
+          return
+        } else {
+          setErrorUser(null)
+        }
       }
     }
     let reservaToServer = [...reservasSelected]
@@ -78,6 +104,7 @@ export default function Reserva() {
       reservas: reservaToServer,
       importeTotal: importeTotal,
       motivo: motivo,
+      forUser: usuarioSelected,
     })
   }
 
@@ -119,7 +146,9 @@ export default function Reserva() {
                   options={usuarios}
                   value={usuarioSelected}
                   onChange={setUsuarioSelected}
-                  sx="!w-full mt-2 mb-1"
+                  sx="!w-full mt-2"
+                  error={errorUser}
+                  nullable
                 />
               )}
             </div>
@@ -133,41 +162,22 @@ export default function Reserva() {
             {reservasSelected
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
-                <div
-                  className="w-full flex flex-col bg-white rounded-md mb-2 p-2 text-lg"
+                <ReservaItem
                   key={reserva.startTime + '-' + index}
-                >
-                  <div className="w-full flex justify-between mb-4">
-                    <p className="flex ">
-                      <p className="font-bold mr-1">Fecha</p>
-                      {dateUTCToLocalDateOnly(reserva.startTime)}
-                    </p>
-                    <p className="flex ">
-                      {dateUTCToLocalTime(reserva.startTime)} -{' '}
-                      {dateUTCToLocalTime(reserva.endTime)}
-                    </p>
-                  </div>
-                  <div className="w-full flex justify-between">
-                    <p className="flex ">
-                      <p className="font-bold mr-1">Lugar</p>
-                      {reserva.pista.nombre}
-                    </p>
-                    <p className="flex ">{reserva.tarifa.precio} €</p>
-                  </div>
-                </div>
+                  reservaSelected={reserva}
+                  usuarioSelected={usuarioSelected}
+                />
               ))}
           </ul>
 
           <p className="my-1 text-right text-white pr-1 text-lg">Importe total: {total} €</p>
           <p className="my-1 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
 
-          {total <= saldo && (
-            <p className="my-1 text-right text-white pr-1 text-lg">
-              Saldo tras reserva: {saldo - total} €
-            </p>
-          )}
+          <p className="my-1 text-right text-white pr-1 text-lg">
+            Saldo tras reserva: {saldo - total} €
+          </p>
 
-          {total > saldo && (
+          {total > saldo && user.tipo != 0 && (
             <div className="w-full flex justify-end my-1">
               <p className="my-2 text-red-600">Saldo insuficiente</p>
               <ButtonCustom
@@ -185,7 +195,7 @@ export default function Reserva() {
               Cancelar
             </ButtonCustom>
             <ButtonCustom
-              disabled={total > saldo || reservasSelected.length == 0}
+              disabled={(total > saldo && user.tipo != 0) || reservasSelected.length == 0}
               onClick={handleConfirmar}
             >
               Confirmar

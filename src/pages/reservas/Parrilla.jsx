@@ -78,6 +78,8 @@ export default function Parrilla({ pista }) {
       return 'text-black bg-white'
     } else if (slot.toCancel) {
       return 'text-white bg-red-900'
+    } else if (slot.reserva !== null && slot.reserva?.estado == 'Pendiente') {
+      return 'text-red-700 bg-red-300 ring-2 ring-red-700'
     } else {
       return 'text-white bg-red-500'
     }
@@ -85,13 +87,13 @@ export default function Parrilla({ pista }) {
 
   const getSlotContent = (slot) => {
     if (slot.reserva !== null && slot.reserva?.username !== undefined) {
-      if (slot.reserva.motivo !== null) {
+      if (slot.reserva.motivo !== null && slot.reserva.motivo !== '') {
         return slot.reserva.motivo
       } else {
         return slot.reserva?.username
       }
     } else if (slot.reserva !== null && slot.reserva?.username === undefined) {
-      if (slot.reserva.motivo !== null) {
+      if (slot.reserva.motivo !== null && slot.reserva.motivo !== '') {
         return slot.reserva.motivo
       } else {
         return 'Reservado'

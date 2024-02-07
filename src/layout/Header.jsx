@@ -179,7 +179,7 @@ export default function Header() {
       {bigHeader ? (
         <div className="h-40"></div>
       ) : (
-        <div className="max-w-4xl flex h-14 items-center px-1 min-w-full xl:min-w-main lg:min-w-main ">
+        <div className="max-w-4xl flex h-12 items-center px-1 min-w-full xl:min-w-main lg:min-w-main ">
           {backButton ? (
             <IconButton onClick={() => navigate(-1)} sx={{ p: 0, pr: 1 }} color="inherit">
               <ArrowBackIosNewIcon />
@@ -195,8 +195,8 @@ export default function Header() {
               <h1 className="text-xl mr-2 px-1 max-w-20 min-w-20">
                 {datetimeToStringTime(currentTime)}
               </h1>
-              <div className="flex items-center text-xl mr-0 cursor-pointer">
-                <h1 onClick={handleMenu}>{user.nombre}</h1>
+              <div className="flex items-center text-xl mr-0 cursor-pointer" onClick={handleMenu}>
+                <h1>{user.nombre}</h1>
                 <MoreVertIcon />
               </div>
 
@@ -205,7 +205,7 @@ export default function Header() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'right',
                 }}
                 keepMounted
@@ -216,7 +216,7 @@ export default function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <ToggleModeItem />
+                {/* <ToggleModeItem /> */}
 
                 <MenuItem onClick={handleLogout}>
                   {' '}
