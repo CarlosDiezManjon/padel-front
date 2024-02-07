@@ -98,7 +98,7 @@ const GestionTarifaIndividual = () => {
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <div className="w-full">
       {tarifa && (
         <>
           <InputCustom
@@ -153,32 +153,22 @@ const GestionTarifaIndividual = () => {
               labelSx="ml-2"
             />
           </div>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              position: 'fixed',
-              bottom: '70px',
-              maxWidth: '900px',
-              pl: 2,
-              right: { xs: 10, sm: 'calc(50vw - 450px)' },
-            }}
-          >
+
+          <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
               onClick={toggleTarifaActive}
-              sx="mx-1"
+              sx="mx-1 max-w-48"
               tipo={tarifa.activo ? 'white-red' : 'white-green'}
             >
               {tarifa.activo ? 'Desactivar' : 'Activar'}
             </ButtonCustom>
-            <ButtonCustom onClick={handleSave} sx="mx-1" tipo="green">
+            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
               Guardar
             </ButtonCustom>
-          </Box>
+          </div>
         </>
       )}
-    </Box>
+    </div>
   )
 }
 

@@ -5,6 +5,7 @@ export default function InputCustom({
   label,
   tipo = 'blanco',
   sx = '',
+  sufix,
   labelSx = '',
   ...props
 }) {
@@ -44,24 +45,36 @@ export default function InputCustom({
           htmlFor={props.id}
         >
           {label}
-          <input
-            {...props}
-            className={`shadow-xs placeholder:text-gray block w-full text-main-900
+          <div className="relative">
+            <input
+              {...props}
+              className={`shadow-xs placeholder:text-gray block w-full text-main-900
            bg-white rounded-md border-0 px-3 py-2 ring-inset 
           focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
-          />
+            />
+            {sufix != null && (
+              <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-neutral-600 pointer-events-none">
+                {sufix}
+              </span>
+            )}
+          </div>
           {error != '' && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </label>
       ) : (
-        <div className={`w-full ${labelSx}`}>
+        <div className={`w-full relative ${labelSx}`}>
           <input
             {...props}
             className={`shadow-xs placeholder:text-gray block w-full text-main-900
-           bg-white rounded-md border-0 px-3 py-2 ring-inset 
+           bg-white rounded-md border-0 px-3 py-2 ring-inset relative
           focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />
+          {sufix != null && (
+            <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-neutral-600 pointer-events-none">
+              {sufix}
+            </span>
+          )}
           {error != '' && <p className="text-red-500 text-md  mt-1">{error}</p>}
         </div>
       )}

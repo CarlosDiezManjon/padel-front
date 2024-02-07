@@ -56,6 +56,9 @@ const Perfil = () => {
   const handleChangePassword = () => {
     setCurrentTab('password')
   }
+  const getInitials = (nombre, apellidos) => {
+    return nombre.charAt(0) + apellidos.charAt(0)
+  }
 
   return (
     <div className="flex flex-col items-center w-full h-full">
@@ -65,13 +68,16 @@ const Perfil = () => {
             <>
               <div className="flex space-x-4">
                 <div className="flex flex-col relative group">
-                  <img
+                  <div className="rounded-full h-36 w-36 bg-neutral-400 flex justify-center items-center text-6xl">
+                    {getInitials(usuario.nombre, usuario.apellidos)}
+                  </div>
+                  {/* <img
                     className="rounded-full h-36 w-36 cursor-pointer"
                     src="https://xsgames.co/randomusers/avatar.php?g=male"
                   />
-                  <div className="cursor-pointer flex justify-center items-center text-lg text-white opacity-0 group-hover:opacity-80 duration-100 absolute bg-neutral-700 h-36 w-36 top-0 right-0 rounded-full">
+                   <div className="cursor-pointer flex justify-center items-center text-lg text-white opacity-0 group-hover:opacity-80 duration-100 absolute bg-neutral-700 h-36 w-36 top-0 right-0 rounded-full">
                     Cambiar foto
-                  </div>
+                  </div>  */}
                 </div>
                 <div className="flex-1 space-y-5 py-1">
                   <h6 className="mt-4 ml-1 text-3xl">{usuario.nombre + ' ' + usuario.apellidos}</h6>

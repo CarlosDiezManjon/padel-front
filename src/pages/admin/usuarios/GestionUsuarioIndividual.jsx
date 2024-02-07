@@ -24,6 +24,8 @@ import SelectCustom from '../../../components/SelectCustom'
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
   const [usuario, setUsuario] = useState(null)
+  const [viewRecarga, setViewRecarga] = useState(false)
+  const [recarga, setRecarga] = useState(0)
   const setConfirmationDialogContent = useStore((state) => state.setConfirmationDialogContent)
   const navigate = useNavigate()
 
@@ -81,6 +83,10 @@ const GestionUsuarioIndividual = () => {
 
   const handleSave = () => {
     putRequest('/usuarios/' + usuario.id, usuario)
+  }
+
+  const handleShowRecarga = () => {
+    setViewRecarga(true)
   }
 
   return (
@@ -219,46 +225,65 @@ const GestionUsuarioIndividual = () => {
             }}
           >
             <InputCustom
-              name="saldo"
-              label="Saldo (€)"
-              type="number"
-              value={usuario.saldo}
-              onChange={handleInputChange}
-              tipo="negro"
-            />
-            <InputCustom
               name="telefono"
               label="Teléfono"
               value={usuario.telefono}
               onChange={handleInputChange}
               tipo="negro"
-              labelSx="ml-2"
             />
-          </Box>
-          {usuario.tipo == 1 && (
             <InputCustom
-              name="numero_socio"
-              autoComplete="false"
-              label="Número socio"
+              name="saldo"
+              label="Saldo"
+              sufix="€"
               type="number"
-              value={usuario.numero_socio}
+              value={usuario.saldo}
               onChange={handleInputChange}
               tipo="negro"
-              labelSx="!w-[49%]"
+              labelSx="ml-2"
+              sx="text-right pr-8"
             />
+          </Box>
+          <div className="w-full flex items-center h-16">
+            {usuario.tipo == 1 ? (
+              <InputCustom
+                name="numero_socio"
+                autoComplete="false"
+                label="Número socio"
+                type="number"
+                value={usuario.numero_socio}
+                onChange={handleInputChange}
+                tipo="negro"
+                labelSx="!w-[48%] sm:!w-[49%]"
+              />
+            ) : (
+              <div className="w-[48%]"></div>
+            )}
+            <div className="flex justify-end w-6/12">
+              <ButtonCustom tipo="white" onClick={handleShowRecarga} sx="max-w-44 mr-1 h-14 ml-2">
+                Recargar saldo
+              </ButtonCustom>
+            </div>
+          </div>
+          {viewRecarga && (
+            <div className="w-full flex justify-end items-end">
+              <InputCustom
+                label="Introduzca la cantidad a recargar"
+                name="recarga"
+                type="number"
+                step="5"
+                min="0"
+                placeholder="Introduce la cantidad a añadir"
+                value={recarga}
+                onChange={(e) => setRecarga(e.target.value)}
+                sx="text-right"
+                labelSx="mt-2 !w-3/12"
+              />
+              <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48 h-10 mb-3" tipo="green">
+                Recargar
+              </ButtonCustom>
+            </div>
           )}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              position: 'fixed',
-              bottom: '90px',
-              maxWidth: '900px',
-              pl: 2,
-              right: { xs: 10, sm: 'calc(50vw - 670px)' },
-            }}
-          >
+          <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
               onClick={toggleUserActive}
               sx="mx-1 max-w-48"
@@ -269,7 +294,7 @@ const GestionUsuarioIndividual = () => {
             <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
               Guardar
             </ButtonCustom>
-          </Box>
+          </div>
         </>
       )}
     </Box>

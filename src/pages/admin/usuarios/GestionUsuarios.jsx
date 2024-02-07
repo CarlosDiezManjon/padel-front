@@ -94,14 +94,7 @@ const GestionUsuarios = () => {
                 onClick={() => navigate('/gestion-usuarios/' + user.id)}
               >
                 <ListItemAvatar>
-                  <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}>
-                    <img
-                      key={user.id}
-                      src="https://xsgames.co/randomusers/avatar.php?g=male"
-                      height={50}
-                      width={50}
-                    ></img>
-                  </Avatar>
+                  <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}></Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   className="text-white"

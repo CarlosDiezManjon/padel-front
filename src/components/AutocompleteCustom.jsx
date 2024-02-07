@@ -7,6 +7,7 @@ export default function AutocompleteCustom({
   onChange,
   options,
   sx,
+  label,
   error,
   nullable = false,
 }) {
@@ -31,6 +32,7 @@ export default function AutocompleteCustom({
   return (
     <Combobox value={value} onChange={onChange} nullable={nullable}>
       <div className={'relative ' + sx}>
+        {label != null && <Combobox.Label>{label}</Combobox.Label>}
         <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus:ring-2 focus:ring-main-500">
           <Combobox.Input
             placeholder="Buscar usuario..."

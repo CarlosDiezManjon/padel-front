@@ -178,29 +178,18 @@ const GestionPistaIndividual = () => {
               labelSx="ml-2"
             />
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              position: 'fixed',
-              bottom: '70px',
-              maxWidth: '900px',
-              pl: 2,
-              right: { xs: 10, sm: 'calc(50vw - 450px)' },
-            }}
-          >
+          <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
               onClick={togglePistaActive}
-              sx="mx-1"
+              sx="mx-1 max-w-48"
               tipo={pista.activo ? 'white-red' : 'white-green'}
             >
               {pista.activo ? 'Desactivar' : 'Activar'}
             </ButtonCustom>
-            <ButtonCustom onClick={handleSave} sx="mx-1" tipo="green">
+            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
               Guardar
             </ButtonCustom>
-          </Box>
+          </div>
         </>
       )}
     </Box>

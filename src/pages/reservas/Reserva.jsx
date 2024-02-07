@@ -134,15 +134,18 @@ export default function Reserva() {
               />
               {tabActive == 0 ? (
                 <InputCustom
+                  label="Motivo de cierre"
                   name="motivo"
-                  placeholder="Motivo cierre de pista"
+                  placeholder="Limpieza, mantenimiento, etc."
                   value={motivo}
                   onChange={handleChangeMotivo}
                   error={errorMotivo}
-                  sx="w-full mt-2"
+                  sx="w-full"
+                  labelSx="mt-2"
                 />
               ) : (
                 <AutocompleteCustom
+                  label="Usuario"
                   options={usuarios}
                   value={usuarioSelected}
                   onChange={setUsuarioSelected}
