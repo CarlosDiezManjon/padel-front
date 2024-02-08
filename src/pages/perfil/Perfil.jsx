@@ -91,7 +91,8 @@ const Perfil = () => {
                   label={
                     <>
                       {getUserType(usuario.tipo)}
-                      {usuario.tipo == 1 && ' Nº ' + usuario.numero_socio}
+                      {usuario.tipo == 1 &&
+                        ' Nº ' + (usuario.numero_socio ? usuario.numero_socio : 'N/A')}
                     </>
                   }
                 />
@@ -125,13 +126,6 @@ const Perfil = () => {
                 <div className="flex flex-col w-4/12">
                   <div className="flex items-center">
                     <h6 className="text-xl mt-4">Saldo</h6>
-                    {/* <ButtonCustom
-                      onClick={handleChangePassword}
-                      tipo="white-text"
-                      sx="!p-0 !w-8 !h-8 !rounded-full text-2xl !border-0 !mt-4 !ml-2 hover:!bg-transparent"
-                    >
-                      <AddCircleIcon />
-                    </ButtonCustom> */}
                   </div>
 
                   <h6 className="text-lg mt-2">{usuario.saldo + ' €'}</h6>

@@ -140,8 +140,8 @@ export default function Reserva() {
                   value={motivo}
                   onChange={handleChangeMotivo}
                   error={errorMotivo}
-                  sx="w-full"
-                  labelSx="mt-2"
+                  sx="w-full md:!mt-2"
+                  labelSx="mt-2 md:!text-2xl "
                 />
               ) : (
                 <AutocompleteCustom

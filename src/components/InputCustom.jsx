@@ -30,6 +30,10 @@ export default function InputCustom({
         setInputStyle('bg-white text-black ring-neutral-300 focus:ring-main-400')
         setLabelStyle('text-white')
         break
+      case 'border-black':
+        setInputStyle('bg-white text-black ring-neutral-700 focus:ring-black ring-2')
+        setLabelStyle('')
+        break
       default:
         setInputStyle('bg-main-100 text-main-800 text-black')
         setLabelStyle('text-black')
@@ -71,7 +75,7 @@ export default function InputCustom({
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />
           {sufix != null && (
-            <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-neutral-600 pointer-events-none">
+            <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-neutral-400 pointer-events-none">
               {sufix}
             </span>
           )}

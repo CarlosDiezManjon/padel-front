@@ -15,7 +15,7 @@ export default function HomeButton({ title, onClick, image }) {
       onClick={onClick}
     >
       <div className=" w-full">
-        <div className="image pt-2 ">
+        <div className="image ">
           <img src={image} alt="" className="w-full h-40 object-cover rounded-t-md" />
         </div>
         <div className="w-full">

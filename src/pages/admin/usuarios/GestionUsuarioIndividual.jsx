@@ -20,12 +20,13 @@ import usePutRequest from '../../../services/put.service'
 import ButtonCustom from '../../../components/ButtonCustom'
 import InputCustom from '../../../components/InputCustom'
 import SelectCustom from '../../../components/SelectCustom'
+import RecargaSaldoComponent from '../../../components/RecargarSaldoComponent'
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
   const [usuario, setUsuario] = useState(null)
-  const [viewRecarga, setViewRecarga] = useState(false)
-  const [recarga, setRecarga] = useState(0)
+  const [openRecarga, setOpenRecarga] = useState(false)
+
   const setConfirmationDialogContent = useStore((state) => state.setConfirmationDialogContent)
   const navigate = useNavigate()
 
@@ -83,10 +84,6 @@ const GestionUsuarioIndividual = () => {
 
   const handleSave = () => {
     putRequest('/usuarios/' + usuario.id, usuario)
-  }
-
-  const handleShowRecarga = () => {
-    setViewRecarga(true)
   }
 
   return (
@@ -235,6 +232,7 @@ const GestionUsuarioIndividual = () => {
               name="saldo"
               label="Saldo"
               sufix="€"
+              disabled
               type="number"
               value={usuario.saldo}
               onChange={handleInputChange}
@@ -259,30 +257,16 @@ const GestionUsuarioIndividual = () => {
               <div className="w-[48%]"></div>
             )}
             <div className="flex justify-end w-6/12">
-              <ButtonCustom tipo="white" onClick={handleShowRecarga} sx="max-w-44 mr-1 h-14 ml-2">
+              <ButtonCustom
+                tipo="white"
+                onClick={() => setOpenRecarga(true)}
+                sx="max-w-44 mr-1 h-10 mt-3 ml-2"
+              >
                 Recargar saldo
               </ButtonCustom>
             </div>
           </div>
-          {viewRecarga && (
-            <div className="w-full flex justify-end items-end">
-              <InputCustom
-                label="Introduzca la cantidad a recargar"
-                name="recarga"
-                type="number"
-                step="5"
-                min="0"
-                placeholder="Introduce la cantidad a añadir"
-                value={recarga}
-                onChange={(e) => setRecarga(e.target.value)}
-                sx="text-right"
-                labelSx="mt-2 !w-3/12"
-              />
-              <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48 h-10 mb-3" tipo="green">
-                Recargar
-              </ButtonCustom>
-            </div>
-          )}
+
           <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
               onClick={toggleUserActive}
@@ -295,6 +279,15 @@ const GestionUsuarioIndividual = () => {
               Guardar
             </ButtonCustom>
           </div>
+          <RecargaSaldoComponent
+            open={openRecarga}
+            onCancel={() => setOpenRecarga(false)}
+            onSuccess={(usuarioUpdated) => {
+              setUsuario(usuarioUpdated)
+              setOpenRecarga(false)
+            }}
+            usuario={usuario}
+          />
         </>
       )}
     </Box>
