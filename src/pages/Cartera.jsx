@@ -1,34 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import useGetRequest from '../services/get.service'
-import ButtonCustom from '../components/ButtonCustom'
-import AddIcon from '@mui/icons-material/Add'
-import {
-  dateUTCToLocalDateOnly,
-  dateUTCToLocalDateTime,
-  dateUTCToLocalTime,
-  datetimeToStringMinutes,
-} from '../utils/utils'
-import { Divider } from '@mui/material'
 import SkeletonCustom from '../components/SkeletonCustom'
+import useGetRequest from '../services/get.service'
 import useStore from '../store/GeneralStore'
+import { dateUTCToLocalDateOnly, dateUTCToLocalDateTime, dateUTCToLocalTime } from '../utils/utils'
 
 export default function Cartera() {
   const { getRequest: getRequestSaldo, data: dataSaldo } = useGetRequest()
   const { getRequest: getRequestMovimientos, data: dataMovimientos } = useGetRequest()
-  const [movimientos, setMovimientos] = useState([])
+  const [movimientos, setMovimientos] = useState(null)
   const [saldo, setSaldo] = useState(0)
   const isLoading = useStore((state) => state.isLoading)
 
   useEffect(() => {
-    getRequestSaldo('/saldo')
-    getRequestMovimientos('/movimientos')
+    setTimeout(() => {
+      getRequestSaldo('/saldo')
+      getRequestMovimientos('/movimientos')
+    }, 1000)
   }, [])
 
   useEffect(() => {
     if (dataMovimientos) {
-      setTimeout(() => {
-        setMovimientos(dataMovimientos.movimientos)
-      }, 1000)
+      setMovimientos(dataMovimientos.movimientos)
     }
   }, [dataMovimientos])
 
@@ -56,13 +48,15 @@ export default function Cartera() {
           <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
         </div>
         <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
-          {movimientos.length == 0 ? (
+          {isLoading ? (
             <>
               <SkeletonCustom />
               <SkeletonCustom />
               <SkeletonCustom />
               <SkeletonCustom />
             </>
+          ) : movimientos != null && movimientos.length == 0 ? (
+            <h1 className="text-white">No hay movimientos</h1>
           ) : (
             <>
               {movimientos.map((movimiento) => (

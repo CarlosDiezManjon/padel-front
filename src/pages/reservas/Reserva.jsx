@@ -24,23 +24,25 @@ export default function Reserva() {
   const reservasSelected = useStore((state) => state.reservasSelected)
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
   const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
-  const { getRequest, data } = useGetRequest()
+  const { getRequest: getSaldo, dataSaldo } = useGetRequest()
+  const { getRequest: getActiveUsers, dataUsers } = useGetRequest()
+  const { getRequest: getSaldoUser, dataSaldoUser } = useGetRequest()
 
   const { postRequest, data: dataPost } = usePostRequest()
   const navigate = useNavigate()
 
   useEffect(() => {
     if (user.tipo != 0) {
-      getRequest('/saldo')
+      getSaldo('/saldo')
     } else {
-      getRequest('/active-usuarios')
+      getActiveUsers('/active-usuarios')
       setUsuarioSelected(user)
     }
   }, [])
 
   useEffect(() => {
     if (usuarioSelected != null && user.tipo == 0) {
-      getRequest('/saldo-usuario/' + usuarioSelected.id)
+      getSaldoUser('/saldo-usuario/' + usuarioSelected.id)
     }
   }, [usuarioSelected])
 
@@ -52,18 +54,35 @@ export default function Reserva() {
     }
   }, [reservasSelected])
 
+  // useEffect(() => {
+  //   if (data) {
+  //     if (data.saldo != null) {
+  //       console.log(data)
+  //       setSaldo(parseFloat(data.saldo))
+  //     } else if (data.usuarios != null) {
+  //       console.log(data)
+  //       setUsuarios([...data.usuarios])
+  //     }
+  //   }
+  // }, [data])
+
   useEffect(() => {
-    if (data) {
-      if (data.saldo != null) {
-        console.log(data)
-        setSaldo(parseFloat(data.saldo))
-      } else if (data.usuarios != null) {
-        console.log(data)
-        setUsuarios([...data.usuarios])
-      } else if (data.tarifa) {
-      }
+    if (dataSaldo) {
+      setSaldo(parseFloat(dataSaldo.saldo))
     }
-  }, [data])
+  }, [dataSaldo])
+
+  useEffect(() => {
+    if (dataUsers) {
+      setUsuarios(dataUsers.usuarios)
+    }
+  }, [dataUsers])
+
+  useEffect(() => {
+    if (dataSaldoUser) {
+      setSaldo(parseFloat(dataSaldoUser.saldo))
+    }
+  }, [dataSaldoUser])
 
   const handleChangeMotivo = (e) => {
     setMotivo(e.target.value)

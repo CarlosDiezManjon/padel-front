@@ -1,27 +1,18 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import PersonIcon from '@mui/icons-material/Person'
 import {
   Avatar,
   Badge,
-  Box,
-  Chip,
   Divider,
-  FormControlLabel,
-  IconButton,
-  List,
   ListItem,
   ListItemAvatar,
   ListItemButton,
   ListItemText,
-  Switch,
-  TextField,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useGetRequest from '../../../services/get.service'
-import ToggleCustom from '../../../components/ToggleCustom'
 import BadgeCustom from '../../../components/BadgeCustom'
 import InputCustom from '../../../components/InputCustom'
+import ToggleCustom from '../../../components/ToggleCustom'
+import useGetRequest from '../../../services/get.service'
 import { getUserType } from '../../../utils/utils'
 
 const GestionUsuarios = () => {

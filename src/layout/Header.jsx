@@ -53,6 +53,11 @@ export default function Header() {
       setBackButton(true)
       setCurrentTab(3)
       setBigHeader(false)
+    } else if (/^\/gestion-actividades\/(\d+|\w+)$/.test(location.pathname)) {
+      setTitle('Ficha actividad')
+      setBackButton(true)
+      setCurrentTab(3)
+      setBigHeader(false)
     } else {
       switch (location.pathname) {
         case '/':
@@ -99,19 +104,25 @@ export default function Header() {
           break
         case '/gestion-usuarios':
           setBackButton(true)
-          setTitle('Gestión usuarios')
+          setTitle('Usuarios')
           setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-pistas':
           setBackButton(true)
-          setTitle('Gestión pistas')
+          setTitle('Pistas')
           setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-tarifas':
           setBackButton(true)
-          setTitle('Gestión tarifas')
+          setTitle('Tarifas')
+          setCurrentTab(3)
+          setBigHeader(false)
+          break
+        case '/gestion-actividades':
+          setBackButton(true)
+          setTitle('Actividades')
           setCurrentTab(3)
           setBigHeader(false)
           break

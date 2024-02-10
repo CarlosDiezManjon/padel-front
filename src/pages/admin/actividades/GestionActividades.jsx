@@ -6,20 +6,20 @@ import ButtonCustom from '../../../components/ButtonCustom'
 import InputCustom from '../../../components/InputCustom'
 import useGetRequest from '../../../services/get.service'
 
-const GestionPistas = () => {
-  const [pistas, setPistas] = useState([])
+const GestionActividades = () => {
+  const [actividades, setActividades] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
   const { getRequest, data } = useGetRequest()
 
   useEffect(() => {
-    getRequest('/pistas')
+    getRequest('/actividades')
   }, [])
 
   useEffect(() => {
     if (data) {
-      setPistas(data.pistas)
+      setActividades(data.actividades)
     }
   }, [data])
 
@@ -31,12 +31,12 @@ const GestionPistas = () => {
     setSearchTerm(event.target.value)
   }
 
-  const handleAddPista = () => {
-    navigate('/gestion-pistas/nueva')
+  const handleAddActividad = () => {
+    navigate('/gestion-actividades/nueva')
   }
 
-  const filteredPistas = pistas.filter((pista) =>
-    pista.nombre
+  const filteredActividades = actividades.filter((actividad) =>
+    actividad.nombre
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
@@ -58,17 +58,17 @@ const GestionPistas = () => {
           onChange={handleSearch}
           sx="md:!w-6/12 !ring-0 h-10"
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4 h-10">
+        <ButtonCustom onClick={handleAddActividad} sx="!w-24 ml-4 h-10">
           Nueva
         </ButtonCustom>
       </div>
       <List className="max-h-listado overflow-auto text-white">
-        {filteredPistas.map((pista) => (
-          <React.Fragment key={pista.id}>
+        {filteredActividades.map((actividad) => (
+          <React.Fragment key={actividad.id}>
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-pistas/' + pista.id)}
+                onClick={() => navigate('/gestion-actividades/' + actividad.id)}
               >
                 {/* <ListItemAvatar>
                   <Avatar>
@@ -76,8 +76,8 @@ const GestionPistas = () => {
                   </Avatar>
                 </ListItemAvatar> */}
                 <ListItemText
-                  primary={pista.nombre}
-                  secondary={<span className="text-white">{pista.ubicacion}</span>}
+                  primary={actividad.nombre}
+                  secondary={<span className="text-white">{actividad.ubicacion}</span>}
                 />
                 <Badge
                   sx={{ mr: 2 }}
@@ -88,8 +88,8 @@ const GestionPistas = () => {
                   badgeContent={
                     <>
                       <BadgeCustom
-                        tipo={pista.activo ? 'verde' : 'rojo'}
-                        label={pista.activo ? 'Activa' : 'Inactiva'}
+                        tipo={actividad.activo ? 'verde' : 'rojo'}
+                        label={actividad.activo ? 'Activa' : 'Inactiva'}
                       />
                     </>
                   }
@@ -104,4 +104,4 @@ const GestionPistas = () => {
   )
 }
 
-export default GestionPistas
+export default GestionActividades

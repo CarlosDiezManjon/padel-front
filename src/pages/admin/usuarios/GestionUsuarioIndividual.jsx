@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import {
-  TextField,
-  Button,
-  Card,
-  CardContent,
-  Box,
-  InputAdornment,
-  Select,
-  InputLabel,
-  FormControl,
-  MenuItem,
-} from '@mui/material'
-import { datetimeToStringMinutes } from '../../../utils/utils'
-import useStore from '../../../store/GeneralStore'
-import useDeleteRequest from '../../../services/delete.service'
 import { useNavigate, useParams } from 'react-router-dom'
-import useGetRequest from '../../../services/get.service'
-import usePutRequest from '../../../services/put.service'
 import ButtonCustom from '../../../components/ButtonCustom'
 import InputCustom from '../../../components/InputCustom'
-import SelectCustom from '../../../components/SelectCustom'
 import RecargaSaldoComponent from '../../../components/RecargarSaldoComponent'
+import SelectCustom from '../../../components/SelectCustom'
+import useDeleteRequest from '../../../services/delete.service'
+import useGetRequest from '../../../services/get.service'
+import usePutRequest from '../../../services/put.service'
+import useStore from '../../../store/GeneralStore'
+import { datetimeToStringMinutes } from '../../../utils/utils'
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
@@ -87,18 +75,10 @@ const GestionUsuarioIndividual = () => {
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <div className="w-full">
       {usuario && (
         <>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              pr: 1,
-            }}
-          >
+          <div className="w-full flex justify-start items-center">
             <InputCustom
               name="username"
               label="Username"
@@ -114,16 +94,8 @@ const GestionUsuarioIndividual = () => {
               labelSx="ml-2"
               tipo="negro"
             />
-          </Box>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              pr: 1,
-            }}
-          >
+          </div>
+          <div className="w-full flex justify-start items-center">
             <InputCustom
               name="apellidos"
               label="Apellidos"
@@ -146,31 +118,8 @@ const GestionUsuarioIndividual = () => {
                 { value: 3, label: 'Cuota 0' },
               ]}
             />
-
-            {/* <FormControl sx={{ width: '50%' }} margin="normal">
-              <InputLabel id="tipo">Tipo usuario</InputLabel>
-              <Select
-                labelId="tipo"
-                id="tipo"
-                name="tipo"
-                value={usuario.tipo}
-                label="Tipo usuario"
-                onChange={handleInputChange}
-              >
-                <MenuItem value={1}>Usuario</MenuItem>
-                <MenuItem value={2}>Administrador</MenuItem>
-              </Select>
-            </FormControl> */}
-          </Box>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              pr: 1,
-            }}
-          >
+          </div>
+          <div className="w-full flex justify-start items-center">
             <InputCustom
               name="email"
               label="Email"
@@ -178,17 +127,9 @@ const GestionUsuarioIndividual = () => {
               onChange={handleInputChange}
               tipo="negro"
             />
-          </Box>
+          </div>
 
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              pr: 1,
-            }}
-          >
+          <div className="w-full flex justify-start items-center">
             <InputCustom
               name="fecha_alta"
               label="Fecha alta"
@@ -211,16 +152,8 @@ const GestionUsuarioIndividual = () => {
               tipo="negro"
               labelSx="ml-2"
             />
-          </Box>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              pr: 1,
-            }}
-          >
+          </div>
+          <div className="w-full flex justify-start items-center">
             <InputCustom
               name="telefono"
               label="Teléfono"
@@ -240,7 +173,7 @@ const GestionUsuarioIndividual = () => {
               labelSx="ml-2"
               sx="text-right pr-8"
             />
-          </Box>
+          </div>
           <div className="w-full flex items-center h-16">
             {usuario.tipo == 1 ? (
               <InputCustom
@@ -290,7 +223,7 @@ const GestionUsuarioIndividual = () => {
           />
         </>
       )}
-    </Box>
+    </div>
   )
 }
 

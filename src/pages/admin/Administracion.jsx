@@ -15,6 +15,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import CalendarViewWeekIcon from '@mui/icons-material/CalendarViewWeek'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 
 const Administracion = () => {
   const user = useStore((state) => state.user)
@@ -54,6 +55,15 @@ const Administracion = () => {
               <ReceiptIcon className="text-white" />
             </ListItemIcon>
             <ListItemText primary="Tarifas" />
+          </ListItemButton>
+        </ListItem>
+        <Divider className="bg-white" variant="middle" />
+        <ListItem>
+          <ListItemButton onClick={() => navigate('/gestion-actividades')}>
+            <ListItemIcon>
+              <SportsSoccerIcon className="text-white" />
+            </ListItemIcon>
+            <ListItemText primary="Tipos de actividad" />
           </ListItemButton>
         </ListItem>
         <Divider className="bg-white" variant="middle" />

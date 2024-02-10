@@ -10,25 +10,26 @@ import ConfirmationDialog from './components/ConfirmationDialog'
 import CustomErrorDialog from './components/CustomErrorDialog'
 import { baseUrl } from './constants'
 import Layout from './layout/Layout'
+import GestionActividades from './pages/admin/actividades/GestionActividades'
 import Administracion from './pages/admin/Administracion'
+import Informes from './pages/admin/informes/Informes'
 import GestionPistaIndividual from './pages/admin/pistas/GestionPistaIndividual'
 import GestionPistas from './pages/admin/pistas/GestionPistas'
+import GestionTarifaIndividual from './pages/admin/tarifas/GestionTarifaIndividual'
+import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
 import GestionUsuarioIndividual from './pages/admin/usuarios/GestionUsuarioIndividual'
 import GestionUsuarios from './pages/admin/usuarios/GestionUsuarios'
-import Cancelacion from './pages/reservas/Cancelacion'
 import Cartera from './pages/Cartera'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Parrillas from './pages/reservas/Parrillas'
 import Perfil from './pages/perfil/Perfil'
 import Registro from './pages/Registro'
+import Cancelacion from './pages/reservas/Cancelacion'
+import Parrillas from './pages/reservas/Parrillas'
 import Reserva from './pages/reservas/Reserva'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
-import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
-import GestionTarifaIndividual from './pages/admin/tarifas/GestionTarifaIndividual'
-import Informes from './pages/admin/informes/Informes'
-import GestionSaldoUsuario from './pages/admin/usuarios/GestionSaldoUsuario'
+import GestionActividadIndividual from './pages/admin/actividades/GestionActividadIndividual'
 
 export default function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -89,7 +90,8 @@ export default function App() {
             <Route path="/gestion-pistas/:id" element={<GestionPistaIndividual />} />
             <Route path="/gestion-tarifas" element={<GestionTarifas />} />
             <Route path="/gestion-tarifas/:id" element={<GestionTarifaIndividual />} />
-            <Route path="/gestion-saldo-usuario/:id" element={<GestionSaldoUsuario />} />
+            <Route path="/gestion-actividades" element={<GestionActividades />} />
+            <Route path="/gestion-actividades/:id" element={<GestionActividadIndividual />} />
             <Route path="/informes" element={<Informes />} />
           </Route>
         ) : (

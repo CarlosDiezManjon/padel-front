@@ -1,49 +1,43 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import PersonIcon from '@mui/icons-material/Person'
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Chip,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
-  Switch,
-  TextField,
-} from '@mui/material'
+import { Badge, Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useGetRequest from '../../../services/get.service'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import InputCustom from '../../../components/InputCustom'
-import ButtonCustom from '../../../components/ButtonCustom'
 import BadgeCustom from '../../../components/BadgeCustom'
+import ButtonCustom from '../../../components/ButtonCustom'
+import InputCustom from '../../../components/InputCustom'
+import useGetRequest from '../../../services/get.service'
+import SelectCustom from '../../../components/SelectCustom'
 
 const GestionTarifas = () => {
   const [tarifas, setTarifas] = useState([])
+  const [actividades, setActividades] = useState([])
+  const [actividadSelected, setActividadSelected] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
-  const { getRequest, data } = useGetRequest()
+  const { getRequest: getTarifas, data: dataTarifas } = useGetRequest()
+  const { getRequest: getActividades, data: dataActividades } = useGetRequest()
 
   useEffect(() => {
-    getRequest('/tarifas')
+    getTarifas('/tarifas')
+    getActividades('/actividades')
   }, [])
 
   useEffect(() => {
-    if (data) {
-      setTarifas(data.tarifas)
+    if (dataTarifas) {
+      setTarifas(dataTarifas.tarifas)
     }
-  }, [data])
+  }, [dataTarifas])
 
-  const handleSwitchChange = (event) => {
-    setActivo(event.target.checked)
+  useEffect(() => {
+    if (dataActividades) {
+      let copy = [...dataActividades.actividades]
+      copy.unshift({ id: 0, nombre: 'Todas' })
+      setActividades(copy)
+    }
+  }, [dataActividades])
+
+  const handleSearchActividad = (event) => {
+    setActividadSelected(event.target.value)
   }
 
   const handleSearch = (event) => {
@@ -54,7 +48,7 @@ const GestionTarifas = () => {
     navigate('/gestion-tarifas/nueva')
   }
 
-  const filteredTarifas = tarifas.filter((tarifa) =>
+  let filteredTarifas = tarifas.filter((tarifa) =>
     tarifa.nombre
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -66,6 +60,10 @@ const GestionTarifas = () => {
           .toLowerCase(),
       ),
   )
+
+  if (actividadSelected !== 0) {
+    filteredTarifas = filteredTarifas.filter((tarifa) => tarifa.actividad_id === actividadSelected)
+  }
 
   const getUserType = (tipo) => {
     switch (tipo) {
@@ -83,16 +81,25 @@ const GestionTarifas = () => {
   }
 
   return (
-    <Box sx={{ width: '100%' }} id="gestion-tarifas">
+    <div className="w-full">
       <div className="flex justify-between mt-2 pr-2 mb-1">
         <InputCustom
           placeholder="Filtrar"
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12 !ring-0 h-full"
+          labelSx="!w-4/12 md:!w-6/12 !ring-0 "
+          sx="h-full"
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4">
+        <SelectCustom
+          value={actividadSelected}
+          tipo="verde"
+          sx="h-11"
+          labelSx="ml-2 !w-4/12"
+          onChange={handleSearchActividad}
+          options={actividades.map((act) => ({ value: act.id, label: act.nombre }))}
+        />
+        <ButtonCustom onClick={handleAddPista} sx="!w-3/12 ml-2 md:!w-24">
           Nueva
         </ButtonCustom>
       </div>
@@ -110,7 +117,7 @@ const GestionTarifas = () => {
                   </Avatar>
                 </ListItemAvatar> */}
                 <ListItemText
-                  primary={tarifa.nombre}
+                  primary={tarifa.actividad_nombre + ' - ' + tarifa.nombre}
                   secondary={<span className="text-white">{tarifa.precio + ' €'}</span>}
                 />
                 <Badge
@@ -140,7 +147,7 @@ const GestionTarifas = () => {
           </React.Fragment>
         ))}
       </List>
-    </Box>
+    </div>
   )
 }
 

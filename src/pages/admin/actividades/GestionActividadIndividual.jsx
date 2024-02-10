@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ButtonCustom from '../../../components/ButtonCustom'
 import InputCustom from '../../../components/InputCustom'
-import SelectCustom from '../../../components/SelectCustom'
 import useDeleteRequest from '../../../services/delete.service'
 import useGetRequest from '../../../services/get.service'
 import usePostRequest from '../../../services/post.service'
@@ -10,19 +9,15 @@ import usePutRequest from '../../../services/put.service'
 import useStore from '../../../store/GeneralStore'
 import { UTCTimeToLocalTime, localTimeToUTCTime } from '../../../utils/utils'
 
-const emptyPista = {
+const emptyActividad = {
   nombre: '',
-  ubicacion: '',
-  duracion_reserva: 60,
-  precio: 0,
-  hora_inicio: '00:00',
-  hora_fin: '00:00',
+  descripcion: '',
   activo: true,
 }
 
-const GestionPistaIndividual = () => {
+const GestionActividadIndividual = () => {
   const { id } = useParams()
-  const [pista, setPista] = useState(emptyPista)
+  const [actividad, setActividad] = useState(emptyActividad)
   const setConfirmationDialogContent = useStore((state) => state.setConfirmationDialogContent)
   const navigate = useNavigate()
   const { deleteRequest, data: deleteData } = useDeleteRequest()
@@ -32,7 +27,7 @@ const GestionPistaIndividual = () => {
 
   useEffect(() => {
     if (id !== 'nueva') {
-      getRequest(`/pistas/${id}`)
+      getRequest(`/actividades/${id}`)
     }
   }, [])
 
@@ -56,28 +51,30 @@ const GestionPistaIndividual = () => {
 
   useEffect(() => {
     if (getData) {
-      let copy = { ...getData.pista }
+      let copy = { ...getData.actividad }
       copy.hora_fin = UTCTimeToLocalTime(copy.hora_fin)
       copy.hora_inicio = UTCTimeToLocalTime(copy.hora_inicio)
-      setPista(copy)
+      setActividad(copy)
     }
   }, [getData])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
-    setPista((prevPista) => ({
-      ...prevPista,
+    setActividad((prevActividad) => ({
+      ...prevActividad,
       [name]: value,
     }))
   }
-  const togglePistaActive = () => {
+  const toggleActividadActive = () => {
     setConfirmationDialogContent({
-      title: pista.activo ? 'Desactivar' : 'Activar',
-      message: pista.activo
-        ? '¿Está seguro de que desea desactivar la pista?'
-        : '¿Está seguro de que desea activar la pista?',
+      title: actividad.activo ? 'Desactivar' : 'Activar',
+      message: actividad.activo
+        ? '¿Está seguro de que desea desactivar la actividad?'
+        : '¿Está seguro de que desea activar la actividad?',
       onSuccess: () => {
-        pista.activo ? deleteRequest('/pistas', pista.id) : putRequest('/activar-pista/' + pista.id)
+        actividad.activo
+          ? deleteRequest('/actividades', actividad.id)
+          : putRequest('/activar-actividad/' + actividad.id)
         setConfirmationDialogContent(null)
       },
       onCancel: () => setConfirmationDialogContent(null),
@@ -85,76 +82,39 @@ const GestionPistaIndividual = () => {
   }
 
   const handleSave = () => {
-    let copy = { ...pista }
-    copy.hora_fin = localTimeToUTCTime(pista.hora_fin)
-    copy.hora_inicio = localTimeToUTCTime(pista.hora_inicio)
     if (id === 'nueva') {
-      postRequest('/pistas', copy)
+      postRequest('/actividades', actividad)
     } else {
-      putRequest('/pistas/' + pista.id, copy)
+      putRequest('/actividades/' + actividad.id, actividad)
     }
   }
 
   return (
     <div className="w-full">
-      {pista && (
+      {actividad && (
         <>
           <InputCustom
             name="nombre"
             label="Nombre"
-            value={pista.nombre}
+            value={actividad.nombre}
             onChange={handleInputChange}
             tipo="negro"
           />
           <InputCustom
-            name="ubicacion"
-            label="Ubicación"
-            value={pista.ubicacion}
+            name="descripcion"
+            label="Descripción"
+            value={actividad.descripcion}
             onChange={handleInputChange}
             tipo="negro"
           />
-          <div className="w-full flex justify-start items-center">
-            <SelectCustom
-              id="duracion_reserva"
-              name="duracion_reserva"
-              value={pista.duracion_reserva}
-              label="Duración Reserva"
-              tipo="verde"
-              onChange={handleInputChange}
-              options={[
-                { value: 30, label: '30 minutos' },
-                { value: 60, label: '1 Hora' },
-                { value: 90, label: '1 Hora y media' },
-              ]}
-            />
-          </div>
 
-          <div className="w-full flex justify-start items-center">
-            <InputCustom
-              name="hora_inicio"
-              label="Hora Inicio"
-              type="time"
-              value={pista.hora_inicio}
-              onChange={handleInputChange}
-              tipo="negro"
-            />
-            <InputCustom
-              name="hora_fin"
-              label="Hora Fin"
-              type="time"
-              value={pista.hora_fin}
-              onChange={handleInputChange}
-              tipo="negro"
-              labelSx="ml-2"
-            />
-          </div>
           <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
-              onClick={togglePistaActive}
+              onClick={toggleActividadActive}
               sx="mx-1 max-w-48"
-              tipo={pista.activo ? 'white-red' : 'white-green'}
+              tipo={actividad.activo ? 'white-red' : 'white-green'}
             >
-              {pista.activo ? 'Desactivar' : 'Activar'}
+              {actividad.activo ? 'Desactivar' : 'Activar'}
             </ButtonCustom>
             <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
               Guardar
@@ -166,4 +126,4 @@ const GestionPistaIndividual = () => {
   )
 }
 
-export default GestionPistaIndividual
+export default GestionActividadIndividual

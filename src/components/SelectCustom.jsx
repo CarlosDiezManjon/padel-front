@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 export default function SelectCustom({
   error,
@@ -81,11 +83,20 @@ export default function SelectCustom({
       <button
         onClick={toggleOpen}
         className={`shadow-xs placeholder:text-gray block w-full text-black text-start
-        bg-white rounded-md border-0 px-3 py-2  ring-inset
+        bg-white rounded-md border-0 px-3 py-2  ring-inset relative
         focus:outline-none focus:ring-2 focus:ring-inset
         sm:text-sm sm:leading-6 appearance-none  ${inputStyle} ${sx}`}
       >
-        {options.find((opt) => opt.value == value)?.label}
+        {options.find((opt) => opt.value == value)
+          ? options.find((opt) => opt.value == value).label
+          : ''}
+        <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+          {isOpen ? (
+            <KeyboardArrowUpIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          ) : (
+            <KeyboardArrowDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          )}
+        </div>
       </button>
       {isOpen && (
         <div className="absolute z-10 mt-1 w-full bg-white border rounded-md shadow">
