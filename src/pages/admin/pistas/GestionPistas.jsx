@@ -5,26 +5,39 @@ import BadgeCustom from '../../../components/BadgeCustom'
 import ButtonCustom from '../../../components/ButtonCustom'
 import InputCustom from '../../../components/InputCustom'
 import useGetRequest from '../../../services/get.service'
+import SelectCustom from '../../../components/SelectCustom'
 
 const GestionPistas = () => {
   const [pistas, setPistas] = useState([])
+  const [actividades, setActividades] = useState([])
+  const [actividadSelected, setActividadSelected] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
-  const { getRequest, data } = useGetRequest()
+  const { getRequest: getPistas, data: dataPistas } = useGetRequest()
+  const { getRequest: getActividades, data: dataActividades } = useGetRequest()
 
   useEffect(() => {
-    getRequest('/pistas')
+    getPistas('/pistas')
+    getActividades('/actividades')
   }, [])
 
   useEffect(() => {
-    if (data) {
-      setPistas(data.pistas)
+    if (dataPistas) {
+      setPistas(dataPistas.pistas)
     }
-  }, [data])
+  }, [dataPistas])
 
-  const handleSwitchChange = (event) => {
-    setActivo(event.target.checked)
+  useEffect(() => {
+    if (dataActividades) {
+      let copy = [...dataActividades.actividades]
+      copy.unshift({ id: 0, nombre: 'Todas' })
+      setActividades(copy)
+    }
+  }, [dataActividades])
+
+  const handleSearchActividad = (event) => {
+    setActividadSelected(event.target.value)
   }
 
   const handleSearch = (event) => {
@@ -35,7 +48,7 @@ const GestionPistas = () => {
     navigate('/gestion-pistas/nueva')
   }
 
-  const filteredPistas = pistas.filter((pista) =>
+  let filteredPistas = pistas.filter((pista) =>
     pista.nombre
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -48,6 +61,10 @@ const GestionPistas = () => {
       ),
   )
 
+  if (actividadSelected !== 0) {
+    filteredPistas = filteredPistas.filter((pista) => pista.actividad_id === actividadSelected)
+  }
+
   return (
     <div className="w-full">
       <div className="flex justify-between mt-2 pr-2 mb-1">
@@ -56,9 +73,18 @@ const GestionPistas = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12 !ring-0 h-10"
+          labelSx="!w-4/12 sm:!w-6/12 !ring-0 "
+          sx="h-full"
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-24 ml-4 h-10">
+        <SelectCustom
+          value={actividadSelected}
+          tipo="verde"
+          sx="h-11"
+          labelSx="ml-2 !w-4/12"
+          onChange={handleSearchActividad}
+          options={actividades.map((act) => ({ value: act.id, label: act.nombre }))}
+        />
+        <ButtonCustom onClick={handleAddPista} sx="!w-3/12 ml-1 sm:!w-24">
           Nueva
         </ButtonCustom>
       </div>
@@ -76,7 +102,7 @@ const GestionPistas = () => {
                   </Avatar>
                 </ListItemAvatar> */}
                 <ListItemText
-                  primary={pista.nombre}
+                  primary={pista.actividad_nombre + ' - ' + pista.nombre}
                   secondary={<span className="text-white">{pista.ubicacion}</span>}
                 />
                 <Badge

@@ -9,10 +9,28 @@ import useGetRequest from '../../../services/get.service'
 import usePutRequest from '../../../services/put.service'
 import useStore from '../../../store/GeneralStore'
 import { datetimeToStringMinutes } from '../../../utils/utils'
+import usePostRequest from '../../../services/post.service'
+import useRegisterRequest from '../../../services/registro.service'
+
+const emptyUsuario = {
+  username: '',
+  nombre: '',
+  apellidos: '',
+  email: '',
+  telefono: '',
+  tipo: 0,
+  fecha_alta: '',
+  fecha_baja: '',
+  saldo: 0,
+  password: '',
+  activo: true,
+  numero_socio: null,
+}
 
 const GestionUsuarioIndividual = () => {
   const { id } = useParams()
-  const [usuario, setUsuario] = useState(null)
+  const [usuario, setUsuario] = useState(emptyUsuario)
+  const [passwordError, setPasswordError] = useState('')
   const [openRecarga, setOpenRecarga] = useState(false)
 
   const setConfirmationDialogContent = useStore((state) => state.setConfirmationDialogContent)
@@ -21,22 +39,35 @@ const GestionUsuarioIndividual = () => {
   const { deleteRequest, data: deleteData } = useDeleteRequest()
   const { getRequest, data: getData } = useGetRequest()
   const { putRequest, data: putData } = usePutRequest()
+  const { register, data: postData } = useRegisterRequest()
 
   useEffect(() => {
-    getRequest(`/usuarios/${id}`)
+    if (id !== 'nuevo') {
+      getRequest(`/usuarios/${id}`)
+    }
   }, [])
+
+  useEffect(() => {
+    if (postData) {
+      setError({
+        message: 'Se ha enviado un email de confirmación a ' + email,
+        tipo: 'registro',
+      })
+      navigate('/gestion-usuarios')
+    }
+  }, [postData])
 
   useEffect(() => {
     if (putData) {
       setUsuario(putData.usuario)
-      navigate(-1)
+      navigate('/gestion-usuarios')
     }
   }, [putData])
 
   useEffect(() => {
     if (deleteData) {
       setUsuario(deleteData.usuario)
-      navigate(-1)
+      navigate('/gestion-usuarios')
     }
   }, [deleteData])
 
@@ -70,8 +101,29 @@ const GestionUsuarioIndividual = () => {
     })
   }
 
+  const handlePasswordChange = (e) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/
+    const isValidPassword = passwordRegex.test(e.target.value)
+    setUsuario((prevUsuario) => ({
+      ...prevUsuario,
+      password: e.target.value,
+    }))
+
+    if (!isValidPassword) {
+      // Handle invalid password error
+      setPasswordError(
+        'La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.',
+      )
+    } else {
+      setPasswordError('')
+    }
+  }
   const handleSave = () => {
-    putRequest('/usuarios/' + usuario.id, usuario)
+    if (id === 'nuevo') {
+      register(usuario)
+    } else {
+      putRequest('/usuarios/' + usuario.id, usuario)
+    }
   }
 
   return (
@@ -128,31 +180,37 @@ const GestionUsuarioIndividual = () => {
               tipo="negro"
             />
           </div>
+          {id !== 'nuevo' && (
+            <div className="w-full flex justify-start items-center">
+              <InputCustom
+                name="fecha_alta"
+                label="Fecha alta"
+                disabled
+                value={
+                  datetimeToStringMinutes(usuario.fecha_alta)
+                    ? datetimeToStringMinutes(usuario.fecha_alta)
+                    : 'N/A'
+                }
+                onChange={handleInputChange}
+                tipo="negro"
+              />
 
-          <div className="w-full flex justify-start items-center">
-            <InputCustom
-              name="fecha_alta"
-              label="Fecha alta"
-              disabled
-              value={datetimeToStringMinutes(usuario.fecha_alta)}
-              onChange={handleInputChange}
-              tipo="negro"
-            />
+              <InputCustom
+                name="fecha_baja"
+                label="Fecha baja"
+                disabled
+                value={
+                  datetimeToStringMinutes(usuario.fecha_baja)
+                    ? datetimeToStringMinutes(usuario.fecha_baja)
+                    : 'N/A'
+                }
+                onChange={handleInputChange}
+                tipo="negro"
+                labelSx="ml-2"
+              />
+            </div>
+          )}
 
-            <InputCustom
-              name="fecha_baja"
-              label="Fecha baja"
-              disabled
-              value={
-                datetimeToStringMinutes(usuario.fecha_baja)
-                  ? datetimeToStringMinutes(usuario.fecha_baja)
-                  : 'N/A'
-              }
-              onChange={handleInputChange}
-              tipo="negro"
-              labelSx="ml-2"
-            />
-          </div>
           <div className="w-full flex justify-start items-center">
             <InputCustom
               name="telefono"
@@ -184,26 +242,40 @@ const GestionUsuarioIndividual = () => {
                 value={usuario.numero_socio}
                 onChange={handleInputChange}
                 tipo="negro"
-                labelSx="!w-[48%] sm:!w-[49%]"
+                labelSx="!w-[49%]"
               />
             ) : (
-              <div className="w-[48%]"></div>
+              <div className="w-[49%]"></div>
             )}
-            <div className="flex justify-end w-6/12">
-              <ButtonCustom
-                tipo="white"
-                onClick={() => setOpenRecarga(true)}
-                sx="max-w-44 mr-1 h-10 mt-3 ml-2"
-              >
-                Recargar saldo
-              </ButtonCustom>
-            </div>
+            {id !== 'nuevo' && (
+              <div className="flex justify-end w-[49%] ml-2">
+                <ButtonCustom
+                  tipo="white"
+                  onClick={() => setOpenRecarga(true)}
+                  sx="sm:!max-w-44 h-10 mt-3"
+                >
+                  Recargar saldo
+                </ButtonCustom>
+              </div>
+            )}
           </div>
-
+          {id === 'nuevo' && (
+            <InputCustom
+              name="new-password"
+              label="Contraseña"
+              autoComplete="new-password"
+              type="password"
+              value={usuario.password}
+              onChange={handlePasswordChange}
+              error={passwordError}
+              tipo="negro"
+            />
+          )}
           <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
             <ButtonCustom
               onClick={toggleUserActive}
               sx="mx-1 max-w-48"
+              disabled={id === 'nuevo'}
               tipo={usuario.activo ? 'white-red' : 'white-green'}
             >
               {usuario.activo ? 'Dar de baja' : 'Dar de alta'}

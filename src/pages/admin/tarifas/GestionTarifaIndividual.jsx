@@ -120,7 +120,7 @@ const GestionTarifaIndividual = () => {
             tipo="negro"
           />
 
-          <div className="w-full flex justify-start items-center">
+          <div className="w-full flex justify-start items-center flex-wrap">
             <SelectCustom
               id="tipo_dia"
               name="tipo_dia"
@@ -140,9 +140,23 @@ const GestionTarifaIndividual = () => {
               value={tarifa.actividad_id}
               label="Actividad"
               tipo="verde"
-              labelSx="ml-2"
+              sx="h-10"
               onChange={handleInputChange}
               options={actividades.map((act) => ({ value: act.id, label: act.nombre }))}
+            />
+            <SelectCustom
+              id="tipo_usuario"
+              name="tipo_usuario"
+              value={tarifa.tipo_usuario}
+              label="Tipo usuario"
+              tipo="verde"
+              onChange={handleInputChange}
+              options={[
+                { value: 0, label: 'Administrador' },
+                { value: 1, label: 'Socio' },
+                { value: 2, label: 'No socio' },
+                { value: 3, label: 'Cuota 0' },
+              ]}
             />
           </div>
 

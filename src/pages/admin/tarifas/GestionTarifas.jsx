@@ -88,7 +88,7 @@ const GestionTarifas = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          labelSx="!w-4/12 md:!w-6/12 !ring-0 "
+          labelSx="!w-4/12 sm:!w-6/12 !ring-0 "
           sx="h-full"
         />
         <SelectCustom
@@ -99,7 +99,7 @@ const GestionTarifas = () => {
           onChange={handleSearchActividad}
           options={actividades.map((act) => ({ value: act.id, label: act.nombre }))}
         />
-        <ButtonCustom onClick={handleAddPista} sx="!w-3/12 ml-2 md:!w-24">
+        <ButtonCustom onClick={handleAddPista} sx="!w-3/12 ml-1 sm:!w-24">
           Nueva
         </ButtonCustom>
       </div>

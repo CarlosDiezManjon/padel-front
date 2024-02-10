@@ -38,7 +38,7 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (/^\/gestion-usuarios\/\d+$/.test(location.pathname)) {
+    if (/^\/gestion-usuarios\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha usuario')
       setBackButton(true)
       setCurrentTab(3)

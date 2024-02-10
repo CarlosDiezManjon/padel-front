@@ -14,6 +14,7 @@ import InputCustom from '../../../components/InputCustom'
 import ToggleCustom from '../../../components/ToggleCustom'
 import useGetRequest from '../../../services/get.service'
 import { getUserType } from '../../../utils/utils'
+import ButtonCustom from '../../../components/ButtonCustom'
 
 const GestionUsuarios = () => {
   const [users, setUsers] = useState([])
@@ -64,6 +65,10 @@ const GestionUsuarios = () => {
     }
   }
 
+  const handleAddUsuario = () => {
+    navigate('/gestion-usuarios/nuevo')
+  }
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mt-2 pr-2 mb-1">
@@ -72,9 +77,13 @@ const GestionUsuarios = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12 !ring-0 h-11"
+          labelSx="!w-5/12 sm:!w-6/12 !ring-0 "
+          sx="h-full"
         />
-        <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} sx="ml-4 h-6" />
+        <ToggleCustom label="Activo" checked={activo} onChange={handleSwitchChange} sx="ml-1 h-6" />
+        <ButtonCustom onClick={handleAddUsuario} sx="!w-3/12 ml-1 sm:!w-24">
+          Nuevo
+        </ButtonCustom>
       </div>
       <ul className="max-h-listado overflow-auto text-white">
         {filteredUsers.map((user) => (
