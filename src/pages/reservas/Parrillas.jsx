@@ -1,6 +1,6 @@
 import { Box, IconButton, MenuItem, Select, Zoom } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useGetRequest from '../../services/get.service'
 import { datetimeToStringDate } from '../../utils/utils'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
@@ -13,6 +13,7 @@ import SelectCustom from '../../components/SelectCustom'
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 export default function Parrillas() {
+  const { id } = useParams()
   const navigate = useNavigate()
   const [pistas, setPistas] = useState([])
   const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 10))
@@ -22,7 +23,7 @@ export default function Parrillas() {
 
   const { getRequest, data } = useGetRequest()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getNextSevenDays = () => {
       const options = []
       const currentDate = new Date(fecha)
@@ -39,17 +40,16 @@ export default function Parrillas() {
       return options
     }
     setOptions(getNextSevenDays())
-    getRequest('/parrilla/' + fecha)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data) {
       setPistas(data.pistas)
     }
   }, [data])
 
   useEffect(() => {
-    getRequest('/parrilla/' + fecha)
+    getRequest('/parrilla/' + id + '/' + fecha)
   }, [fecha])
 
   const handleChangeFecha = (event) => {

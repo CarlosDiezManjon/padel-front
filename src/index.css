@@ -35,23 +35,10 @@ input:-webkit-autofill:active {
 }
 
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 1px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--grey);
-  border-radius: 0px;
-  border-top-right-radius: 0px;
-  border-top-left-radius: 0px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--main-green-hover);
 }

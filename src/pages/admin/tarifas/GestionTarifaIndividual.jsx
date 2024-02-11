@@ -150,6 +150,7 @@ const GestionTarifaIndividual = () => {
               value={tarifa.tipo_usuario}
               label="Tipo usuario"
               tipo="verde"
+              sx="h-10"
               onChange={handleInputChange}
               options={[
                 { value: 0, label: 'Administrador' },

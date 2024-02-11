@@ -12,10 +12,8 @@ export default function Cartera() {
   const isLoading = useStore((state) => state.isLoading)
 
   useEffect(() => {
-    setTimeout(() => {
-      getRequestSaldo('/saldo')
-      getRequestMovimientos('/movimientos')
-    }, 1000)
+    getRequestSaldo('/saldo')
+    getRequestMovimientos('/movimientos')
   }, [])
 
   useEffect(() => {
@@ -59,42 +57,43 @@ export default function Cartera() {
             <h1 className="text-white">No hay movimientos</h1>
           ) : (
             <>
-              {movimientos.map((movimiento) => (
-                <React.Fragment key={movimiento.id}>
-                  <div
-                    className={
-                      'flex flex-col justify-between w-full text-black text-lg sm:!text-lg font-medium bg-white rounded-md mb-2 p-2'
-                    }
-                  >
-                    <div className="flex mb-1 justify-between">
-                      <h1>{dateUTCToLocalDateTime(movimiento.fecha)}</h1>
-                      <h1
-                        className={
-                          'text-right text-xl ' +
-                          (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
-                        }
-                      >
-                        {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
-                      </h1>
+              {movimientos != null &&
+                movimientos.map((movimiento) => (
+                  <React.Fragment key={movimiento.id}>
+                    <div
+                      className={
+                        'flex flex-col justify-between w-full text-black text-lg sm:!text-lg font-medium bg-white rounded-md mb-2 p-2'
+                      }
+                    >
+                      <div className="flex mb-1 justify-between">
+                        <h1>{dateUTCToLocalDateTime(movimiento.fecha)}</h1>
+                        <h1
+                          className={
+                            'text-right text-xl ' +
+                            (movimiento.tipo == 'Gasto' ? 'text-red-500' : 'text-main-500')
+                          }
+                        >
+                          {(movimiento.tipo == 'Gasto' ? '-' : '+') + movimiento.importe} €
+                        </h1>
+                      </div>
+                      <div className="flex justify-between mb-1">
+                        <h1>{movimiento.motivo}</h1>
+                        <h1>{movimiento.saldo} €</h1>
+                      </div>
+                      <div className="flex justify-between">
+                        <h1>{movimiento.nombre_pista}</h1>
+                        <h1>
+                          {dateUTCToLocalDateOnly(movimiento.fecha_inicio_reserva)}{' '}
+                          <span className="font-semibold">
+                            {dateUTCToLocalTime(movimiento.fecha_inicio_reserva) +
+                              ' - ' +
+                              dateUTCToLocalTime(movimiento.fecha_fin_reserva)}
+                          </span>
+                        </h1>
+                      </div>
                     </div>
-                    <div className="flex justify-between mb-1">
-                      <h1>{movimiento.motivo}</h1>
-                      <h1>{movimiento.saldo} €</h1>
-                    </div>
-                    <div className="flex justify-between">
-                      <h1>{movimiento.nombre_pista}</h1>
-                      <h1>
-                        {dateUTCToLocalDateOnly(movimiento.fecha_inicio_reserva)}{' '}
-                        <span className="font-semibold">
-                          {dateUTCToLocalTime(movimiento.fecha_inicio_reserva) +
-                            ' - ' +
-                            dateUTCToLocalTime(movimiento.fecha_fin_reserva)}
-                        </span>
-                      </h1>
-                    </div>
-                  </div>
-                </React.Fragment>
-              ))}
+                  </React.Fragment>
+                ))}
             </>
           )}
         </div>

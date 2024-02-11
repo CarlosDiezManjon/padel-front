@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useStore from '../store/GeneralStore'
 
@@ -7,7 +7,14 @@ export default function Footer() {
   const setCurrentTab = useStore((state) => state.setCurrentTab)
   const user = useStore((state) => state.user)
 
-  const handleChangeTab = useCallback((item, index) => {
+  const [activeTab, setActiveTab] = useState(0)
+
+  useEffect(() => {
+    setActiveTab(currentTab)
+  }, [])
+
+  const handleChangeTab = useCallback((index) => {
+    setActiveTab(index)
     setCurrentTab(index)
   }, [])
   const listFooter = [
@@ -51,21 +58,21 @@ export default function Footer() {
               key={index}
               className={
                 'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer z-50' +
-                (index === currentTab ? ' text-xl' : '')
+                (index === activeTab ? ' text-xl' : '')
               }
-              onClick={() => handleChangeTab(item, index)}
+              onClick={() => handleChangeTab(index)}
               to={item.link}
             >
               <div
                 className={
                   'flex flex-col items-center transition-all duration-500 ' +
-                  (index === currentTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
+                  (index === activeTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
                 }
               >
-                <ion-icon name={index === currentTab ? item.iconSelected : item.icon}></ion-icon>
+                <ion-icon name={index === activeTab ? item.iconSelected : item.icon}></ion-icon>
                 <span
                   className={
-                    index === currentTab
+                    index === activeTab
                       ? 'transform translate-y-0.5 opacity-1 text-base font-medium '
                       : 'transform translate-y-4 opacity-0 ' +
                         'transition-all duration-500 text-base flex transform translate-y-6'

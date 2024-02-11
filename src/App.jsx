@@ -79,7 +79,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/cartera" element={<Cartera />} />
-            <Route path="/parrillas" element={<Parrillas />} />
+            <Route path="/parrillas/:id" element={<Parrillas />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/reserva" element={<Reserva />} />
             <Route path="/cancelacion" element={<Cancelacion />} />

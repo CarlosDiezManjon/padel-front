@@ -7,11 +7,14 @@ import { Avatar, CardActionArea, Paper } from '@mui/material'
 import { greyColor, mainColor } from '../constants'
 import { ButtonCard } from './StyledComponents'
 
-export default function HomeButton({ title, onClick, image }) {
+export default function HomeButton({ title, onClick, image, last }) {
   return (
     <div
-      className="bg-transparent pb-1.5 mr-3 md:mr-6 mt-4 w-80 h-60  shadow-2xl shadow-black rounded-md transition-transform 
-    duration-300 transform hover:scale-105 flex flex-col  cursor-pointer"
+      className={
+        `bg-transparent pb-4 mr-3 md:mr-6 mt-4 w-60 h-60 shadow-md shadow-neutral-800 rounded-md transition-transform 
+    duration-300 transform hover:scale-105 flex flex-col cursor-pointer lg:mb-0 ` +
+        (last ? 'mb-8' : '')
+      }
       onClick={onClick}
     >
       <div className=" w-full">
