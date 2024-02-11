@@ -41,89 +41,89 @@ export default function Header() {
     if (/^\/gestion-usuarios\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha usuario')
       setBackButton(true)
-      // setCurrentTab(3)
+      setCurrentTab(3)
       setBigHeader(false)
     } else if (/^\/gestion-pistas\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha pista')
       setBackButton(true)
-      // setCurrentTab(3)
+      setCurrentTab(3)
       setBigHeader(false)
     } else if (/^\/gestion-tarifas\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha tarifa')
       setBackButton(true)
-      // setCurrentTab(3)
+      setCurrentTab(3)
       setBigHeader(false)
     } else if (/^\/gestion-actividades\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha actividad')
       setBackButton(true)
-      // setCurrentTab(3)
+      setCurrentTab(3)
       setBigHeader(false)
     } else {
       switch (location.pathname) {
         case '/':
           setBackButton(false)
           setTitle('Inicio')
-          // setCurrentTab(0)
+          setCurrentTab(0)
           setBigHeader(false)
           break
         case '/parrillas':
           setBackButton(true)
           setTitle('Parrillas')
-          // setCurrentTab(0)
+          setCurrentTab(0)
           setBigHeader(false)
           break
         case '/reserva':
           setTitle('Reserva')
           setBackButton(true)
           setBigHeader(false)
-          // setCurrentTab(0)
+          setCurrentTab(0)
           break
         case '/cancelacion':
           setBackButton(true)
           setTitle('Cancelación')
-          // setCurrentTab(0)
+          setCurrentTab(0)
           setBigHeader(false)
           break
         case '/cartera':
           setBackButton(false)
           setTitle('Cartera')
-          // setCurrentTab(1)
+          setCurrentTab(1)
           setBigHeader(false)
           break
         case '/perfil':
           setBackButton(false)
           setTitle('Perfil')
-          // setCurrentTab(2)
+          setCurrentTab(2)
           setBigHeader(false)
           break
         case '/administracion':
           setBackButton(false)
           setTitle('Administración')
-          // setCurrentTab(3)
+          setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-usuarios':
           setBackButton(true)
           setTitle('Usuarios')
-          // setCurrentTab(3)
+          setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-pistas':
           setBackButton(true)
           setTitle('Pistas')
-          // setCurrentTab(3)
+          setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-tarifas':
           setBackButton(true)
           setTitle('Tarifas')
-          // setCurrentTab(3)
+          setCurrentTab(3)
           setBigHeader(false)
           break
         case '/gestion-actividades':
           setBackButton(true)
           setTitle('Actividades')
-          // setCurrentTab(3)
+          setCurrentTab(3)
           setBigHeader(false)
           break
         case '/registro':

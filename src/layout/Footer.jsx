@@ -7,16 +7,11 @@ export default function Footer() {
   const setCurrentTab = useStore((state) => state.setCurrentTab)
   const user = useStore((state) => state.user)
 
-  const [activeTab, setActiveTab] = useState(0)
-
-  useEffect(() => {
-    setActiveTab(currentTab)
-  }, [])
-
   const handleChangeTab = useCallback((index) => {
-    setActiveTab(index)
+    console.log('index', index)
     setCurrentTab(index)
   }, [])
+
   const listFooter = [
     {
       label: 'Inicio',
@@ -49,33 +44,33 @@ export default function Footer() {
   ]
 
   return (
-    <div className="fixed top-auto bottom-0 h-16 text-white w-full flex justify-center py-1 z-50">
-      <div className="flex just">
+    <div className="fixed top-auto bottom-0 h-16 text-white w-full flex justify-center py-1 z-50 border-t-2">
+      <div className="flex">
         {listFooter
-          .filter((item) => (user.tipo == 0 ? true : item.admin === false))
+          .filter((item) => (user.tipo === 0 ? true : item.admin === false))
           .map((item, index) => (
             <Link
               key={index}
               className={
-                'h-full  w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-500 cursor-pointer z-50' +
-                (index === activeTab ? ' text-xl' : '')
+                'h-full text-3xl w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 cursor-pointer z-50' +
+                (index === currentTab ? ' text-xl' : '')
               }
               onClick={() => handleChangeTab(index)}
               to={item.link}
             >
               <div
                 className={
-                  'flex flex-col items-center transition-all duration-500 ' +
-                  (index === activeTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
+                  'flex flex-col items-center ' +
+                  (index === currentTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
                 }
               >
-                <ion-icon name={index === activeTab ? item.iconSelected : item.icon}></ion-icon>
+                <ion-icon name={item.icon}></ion-icon>
                 <span
                   className={
-                    index === activeTab
-                      ? 'transform translate-y-0.5 opacity-1 text-base font-medium '
+                    index === currentTab
+                      ? 'transform translate-y-0.5 opacity-1 text-base'
                       : 'transform translate-y-4 opacity-0 ' +
-                        'transition-all duration-500 text-base flex transform translate-y-6'
+                        ' text-base flex transform translate-y-6'
                   }
                 >
                   {item.label}
