@@ -21,9 +21,9 @@ const Administracion = () => {
   const user = useStore((state) => state.user)
   const navigate = useNavigate()
 
-  if (!user?.tipo == 0) {
-    return <Navigate to="/" replace />
-  }
+  // if (!user?.tipo == 0) {
+  //   return <Navigate to="/" replace />
+  // }
 
   return (
     <Box sx={{ width: '100%', color: 'white' }}>
@@ -31,7 +31,7 @@ const Administracion = () => {
         <ListItem sx={{ borderRadius: '5px', width: '100%' }}>
           <ListItemButton
             sx={{ borderRadius: '5px' }}
-            onClick={() => navigate('/gestion-usuarios')}
+            onClick={() => navigate('/gestion/usuarios')}
           >
             <ListItemIcon>
               <PeopleIcon className="text-white" />
@@ -41,7 +41,7 @@ const Administracion = () => {
         </ListItem>
         <Divider className="bg-white" variant="middle" />
         <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion-pistas')}>
+          <ListItemButton onClick={() => navigate('/gestion/pistas')}>
             <ListItemIcon>
               <CalendarViewWeekIcon className="text-white" />
             </ListItemIcon>
@@ -50,7 +50,7 @@ const Administracion = () => {
         </ListItem>
         <Divider className="bg-white" variant="middle" />
         <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion-tarifas')}>
+          <ListItemButton onClick={() => navigate('/gestion/tarifas')}>
             <ListItemIcon>
               <ReceiptIcon className="text-white" />
             </ListItemIcon>
@@ -59,7 +59,7 @@ const Administracion = () => {
         </ListItem>
         <Divider className="bg-white" variant="middle" />
         <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion-actividades')}>
+          <ListItemButton onClick={() => navigate('/gestion/actividades')}>
             <ListItemIcon>
               <SportsSoccerIcon className="text-white" />
             </ListItemIcon>
@@ -68,7 +68,7 @@ const Administracion = () => {
         </ListItem>
         <Divider className="bg-white" variant="middle" />
         <ListItem>
-          <ListItemButton onClick={() => navigate('/informes')}>
+          <ListItemButton onClick={() => navigate('/gestion/informes')}>
             <ListItemIcon>
               <QueryStatsIcon className="text-white" />
             </ListItemIcon>

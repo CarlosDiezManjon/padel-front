@@ -40,6 +40,7 @@ export default function Login() {
         headers: { Authorization: `Bearer ${data}` },
       })
       setAxios(axiosInstance)
+      navigate('/')
     }
   }, [data])
   return (

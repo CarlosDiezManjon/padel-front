@@ -45,7 +45,7 @@ const GestionPistas = () => {
   }
 
   const handleAddPista = () => {
-    navigate('/gestion-pistas/nueva')
+    navigate('/gestion/pistas/nueva')
   }
 
   let filteredPistas = pistas.filter((pista) =>
@@ -94,7 +94,7 @@ const GestionPistas = () => {
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-pistas/' + pista.id)}
+                onClick={() => navigate('/gestion/pistas/' + pista.id)}
               >
                 {/* <ListItemAvatar>
                   <Avatar>

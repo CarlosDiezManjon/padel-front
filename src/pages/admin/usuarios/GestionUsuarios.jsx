@@ -66,7 +66,7 @@ const GestionUsuarios = () => {
   }
 
   const handleAddUsuario = () => {
-    navigate('/gestion-usuarios/nuevo')
+    navigate('/gestion/usuarios/nuevo')
   }
 
   return (
@@ -91,7 +91,7 @@ const GestionUsuarios = () => {
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-usuarios/' + user.id)}
+                onClick={() => navigate('/gestion/usuarios/' + user.id)}
               >
                 <ListItemAvatar>
                   <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}></Avatar>

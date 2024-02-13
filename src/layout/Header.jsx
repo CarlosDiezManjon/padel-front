@@ -38,22 +38,22 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (/^\/gestion-usuarios\/(\d+|\w+)$/.test(location.pathname)) {
+    if (/^\/gestion\/usuarios\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha usuario')
       setBackButton(true)
       setCurrentTab(3)
       setBigHeader(false)
-    } else if (/^\/gestion-pistas\/(\d+|\w+)$/.test(location.pathname)) {
+    } else if (/^\/gestion\/pistas\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha pista')
       setBackButton(true)
       setCurrentTab(3)
       setBigHeader(false)
-    } else if (/^\/gestion-tarifas\/(\d+|\w+)$/.test(location.pathname)) {
+    } else if (/^\/gestion\/tarifas\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha tarifa')
       setBackButton(true)
       setCurrentTab(3)
       setBigHeader(false)
-    } else if (/^\/gestion-actividades\/(\d+|\w+)$/.test(location.pathname)) {
+    } else if (/^\/gestion\/actividades\/(\d+|\w+)$/.test(location.pathname)) {
       setTitle('Ficha actividad')
       setBackButton(true)
       setCurrentTab(3)
@@ -96,31 +96,31 @@ export default function Header() {
           setCurrentTab(2)
           setBigHeader(false)
           break
-        case '/administracion':
+        case '/gestion':
           setBackButton(false)
           setTitle('Administración')
           setCurrentTab(3)
           setBigHeader(false)
           break
-        case '/gestion-usuarios':
+        case '/gestion/usuarios':
           setBackButton(true)
           setTitle('Usuarios')
           setCurrentTab(3)
           setBigHeader(false)
           break
-        case '/gestion-pistas':
+        case '/gestion/pistas':
           setBackButton(true)
           setTitle('Pistas')
           setCurrentTab(3)
           setBigHeader(false)
           break
-        case '/gestion-tarifas':
+        case '/gestion/tarifas':
           setBackButton(true)
           setTitle('Tarifas')
           setCurrentTab(3)
           setBigHeader(false)
           break
-        case '/gestion-actividades':
+        case '/gestion/actividades':
           setBackButton(true)
           setTitle('Actividades')
           setCurrentTab(3)
@@ -131,7 +131,7 @@ export default function Header() {
           setTitle('Registro')
           setBigHeader(false)
           break
-        case '/informes':
+        case '/gestion/informes':
           setBackButton(false)
           setTitle('Informes')
           setBigHeader(false)
@@ -160,7 +160,6 @@ export default function Header() {
   const handleLogout = () => {
     clearState()
     localStorage.removeItem('token')
-    navigate('/')
   }
 
   const ToggleModeItem = () => {

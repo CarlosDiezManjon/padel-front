@@ -32,7 +32,7 @@ const GestionActividades = () => {
   }
 
   const handleAddActividad = () => {
-    navigate('/gestion-actividades/nueva')
+    navigate('/gestion/actividades/nueva')
   }
 
   const filteredActividades = actividades.filter((actividad) =>
@@ -68,7 +68,7 @@ const GestionActividades = () => {
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-actividades/' + actividad.id)}
+                onClick={() => navigate('/gestion/actividades/' + actividad.id)}
               >
                 {/* <ListItemAvatar>
                   <Avatar>

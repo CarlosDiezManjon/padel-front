@@ -19,10 +19,10 @@ const usePutRequest = () => {
         setError(null)
       } else {
         setData(null)
-        setError({ message: response.data.error })
+        setError({ tipo: 'error', message: response.data.error })
       }
     } catch (error) {
-      setError({ message: error.response?.data?.error || error.message })
+      setError({ tipo: 'error', message: error.response?.data?.error || error.message })
     } finally {
       setIsLoading(false)
     }

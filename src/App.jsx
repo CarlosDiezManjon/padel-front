@@ -30,31 +30,20 @@ import Reserva from './pages/reservas/Reserva'
 import useStore from './store/GeneralStore'
 import { parseJwt } from './utils/utils'
 import GestionActividadIndividual from './pages/admin/actividades/GestionActividadIndividual'
+import ProtectedRoute from './router/ProtectedRoute'
+import UnprotectedRoute from './router/UnprotectedRoute'
 
 export default function App() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  const getDesignTokens = (mode) => ({
-    palette: {
-      mode,
-    },
-    typography: {
-      fontFamily: "'Kanit', fallback-fonts",
-    },
-  })
   const navigate = useNavigate()
   const setToken = useStore((state) => state.setToken)
   const setUser = useStore((state) => state.setUser)
   const setAxios = useStore((state) => state.setAxios)
   const token = useStore((state) => state.token)
-  const error = useStore((state) => state.error)
-  const onCloseError = useStore((state) => state.onCloseError)
-  const mode = useStore((state) => state.mode)
-  const isLoading = useStore((state) => state.isLoading)
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode])
 
   function inicializeSession() {
     const localToken = localStorage.getItem('token')
     if (localToken != null) {
+      console.log('Token: ', localToken)
       setToken(localToken)
       setUser(parseJwt(localToken))
       const axiosInstance = axios.create({
@@ -72,44 +61,117 @@ export default function App() {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
       <Routes>
-        {token != null ? (
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/cartera" element={<Cartera />} />
-            <Route path="/parrillas/:id" element={<Parrillas />} />
-            <Route path="/perfil" element={<Perfil />} />
-            <Route path="/reserva" element={<Reserva />} />
-            <Route path="/cancelacion" element={<Cancelacion />} />
-            <Route path="/administracion" element={<Administracion />} />
-            <Route path="/gestion-usuarios" element={<GestionUsuarios />} />
-            <Route path="/gestion-usuarios/:id" element={<GestionUsuarioIndividual />} />
-            <Route path="/gestion-pistas" element={<GestionPistas />} />
-            <Route path="/gestion-pistas/:id" element={<GestionPistaIndividual />} />
-            <Route path="/gestion-tarifas" element={<GestionTarifas />} />
-            <Route path="/gestion-tarifas/:id" element={<GestionTarifaIndividual />} />
-            <Route path="/gestion-actividades" element={<GestionActividades />} />
-            <Route path="/gestion-actividades/:id" element={<GestionActividadIndividual />} />
-            <Route path="/informes" element={<Informes />} />
-          </Route>
-        ) : (
-          <>
-            <Route path="/" element={<Login />} />
-            <Route path="/registro" element={<Registro />} />
-          </>
-        )}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/cartera" element={<Cartera />} />
+          <Route path="/parrillas/:id" element={<Parrillas />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/reserva" element={<Reserva />} />
+          <Route path="/cancelacion" element={<Cancelacion />} />
+          <Route
+            path="/gestion"
+            element={
+              <ProtectedRoute>
+                <Administracion />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/usuarios"
+            element={
+              <ProtectedRoute>
+                <GestionUsuarios />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/usuarios/:id"
+            element={
+              <ProtectedRoute>
+                <GestionUsuarioIndividual />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/pistas"
+            element={
+              <ProtectedRoute>
+                <GestionPistas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/pistas/:id"
+            element={
+              <ProtectedRoute>
+                <GestionPistaIndividual />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/tarifas"
+            element={
+              <ProtectedRoute>
+                <GestionTarifas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/tarifas/:id"
+            element={
+              <ProtectedRoute>
+                <GestionTarifaIndividual />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/actividades"
+            element={
+              <ProtectedRoute>
+                <GestionActividades />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/actividades/:id"
+            element={
+              <ProtectedRoute>
+                <GestionActividadIndividual />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gestion/informes"
+            element={
+              <ProtectedRoute>
+                <Informes />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route
+          path="/login"
+          element={
+            <UnprotectedRoute>
+              <Login />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="registro"
+          element={
+            <UnprotectedRoute>
+              <Registro />
+            </UnprotectedRoute>
+          }
+        />
       </Routes>
-      <CustomErrorDialog
-        open={error != null}
-        message={error?.message}
-        onClose={onCloseError}
-        tipo={error?.tipo}
-      />
-      <BackdropComponent open={isLoading} />
+      <CustomErrorDialog />
+      <BackdropComponent />
       <ConfirmationDialog />
       <AlertComponent />
-    </ThemeProvider>
+    </>
   )
 }

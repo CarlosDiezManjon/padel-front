@@ -1,7 +1,9 @@
 import { Backdrop, CircularProgress } from '@mui/material'
 import React from 'react'
+import useStore from '../store/GeneralStore'
 
-export default function BackdropComponent({ open, size, thickness }) {
+export default function BackdropComponent() {
+  const isLoading = useStore((state) => state.isLoading)
   return (
     <Backdrop
       sx={{
@@ -11,15 +13,15 @@ export default function BackdropComponent({ open, size, thickness }) {
       }}
       color="primary"
       width="50%"
-      open={open}
+      open={isLoading}
       transitionDuration={{ appear: 1000, enter: 1000, exit: 1000 }}
     >
       <CircularProgress
         variant="indeterminate"
         disableShrink
         color="inherit"
-        size={size ? size : 40}
-        thickness={thickness ? thickness : 15}
+        size={40}
+        thickness={15}
       />
     </Backdrop>
   )

@@ -7,7 +7,9 @@ import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead'
 import ButtonCustom from './ButtonCustom'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 
-export default function CustomErrorDialog({ open, onClose, title, message, tipo = 'error' }) {
+export default function CustomErrorDialog({ message, tipo = 'error' }) {
+  const error = useStore((state) => state.error)
+  const onCloseError = useStore((state) => state.onCloseError)
   const cancelButtonRef = useRef(null)
   const clearState = useStore((state) => state.clearState)
   const navigate = useNavigate()
@@ -17,8 +19,8 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
     navigate('/')
   }
   useEffect(() => {
-    if (message == 'Sesión caducada') handleLogout()
-  }, [message])
+    if (error?.message == 'Sesión caducada') handleLogout()
+  }, [error?.message])
 
   const getTitle = () => {
     switch (tipo) {
@@ -36,8 +38,13 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
   }
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={onClose}>
+    <Transition.Root show={error != null} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={onCloseError}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-0"
@@ -67,7 +74,7 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
               >
                 <div className="px-4 pb-4 pt-5 p-6">
                   <div className="flex items-start">
-                    {tipo == 'error' ? (
+                    {error?.tipo == 'error' ? (
                       <div
                         className="mx-auto flex  flex-shrink-0 items-center justify-center rounded-full
                       bg-red-100 h-12 w-12"
@@ -79,7 +86,7 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
                         className="mx-auto flex  flex-shrink-0 items-center justify-center rounded-full
                             bg-green-100 h-12 w-12"
                       >
-                        {tipo == 'email' ? (
+                        {error?.tipo == 'email' ? (
                           <MarkEmailReadIcon className="text-green-500" />
                         ) : (
                           <ThumbUpIcon className="text-green-500" />
@@ -94,16 +101,16 @@ export default function CustomErrorDialog({ open, onClose, title, message, tipo 
                     </div> */}
                     <div className="ml-4 mt-0 text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray">
-                        {getTitle(tipo)}
+                        {getTitle(error?.tipo)}
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">{message}</p>
+                        <p className="text-sm text-gray-500">{error?.message}</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="py-3 flex flex-row-reverse px-6">
-                  <ButtonCustom tipo="text-black" onClick={onClose} ref={cancelButtonRef} t>
+                  <ButtonCustom tipo="text-black" onClick={onCloseError} ref={cancelButtonRef}>
                     Cerrar
                   </ButtonCustom>
                 </div>

@@ -45,7 +45,7 @@ const GestionTarifas = () => {
   }
 
   const handleAddPista = () => {
-    navigate('/gestion-tarifas/nueva')
+    navigate('/gestion/tarifas/nueva')
   }
 
   let filteredTarifas = tarifas.filter((tarifa) =>
@@ -109,7 +109,7 @@ const GestionTarifas = () => {
             <ListItem>
               <ListItemButton
                 sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion-tarifas/' + tarifa.id)}
+                onClick={() => navigate('/gestion/tarifas/' + tarifa.id)}
               >
                 {/* <ListItemAvatar>
                   <Avatar>
