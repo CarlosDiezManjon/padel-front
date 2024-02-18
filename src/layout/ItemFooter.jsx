@@ -8,7 +8,7 @@ export default function ItemFooter({ item, index }) {
   return (
     <Link
       className={
-        'h-full text-3xl w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 transition duration-700 cursor-pointer z-50' +
+        'h-full text-3xl w-20 flex flex-col justify-center mx-1 rounded font-medium py-2 duration-700 cursor-pointer z-50 text-primary dark:text-text' +
         (index === currentTab ? ' text-xl' : '')
       }
       onClick={() => setCurrentTab(index)}

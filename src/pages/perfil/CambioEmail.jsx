@@ -42,19 +42,19 @@ export default function CambioEmail({ email, goBack }) {
         value={newEmail}
         placeholder="Intruzca el nuevo email"
         type="email"
-        tipo="negro"
+        tipo="primary"
         onChange={handleEmailChange}
         error={emailError}
       />
 
       <div className="flex justify-end mt-4 w-full">
-        <ButtonCustom onClick={() => goBack(false, false)} sx="mx-1 max-w-32" tipo="text-white">
+        <ButtonCustom onClick={() => goBack(false, false)} sx="mx-1 max-w-32" tipo="secondary">
           Cancelar
         </ButtonCustom>
         <ButtonCustom
           onClick={handleSave}
           sx="mx-1 max-w-32"
-          tipo="green"
+          tipo="primary"
           disabled={newEmail == '' || emailError != ''}
         >
           Guardar

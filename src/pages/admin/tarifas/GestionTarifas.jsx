@@ -103,50 +103,32 @@ const GestionTarifas = () => {
           Nueva
         </ButtonCustom>
       </div>
-      <List className="max-h-listado overflow-auto text-white">
-        {filteredTarifas.map((tarifa) => (
-          <React.Fragment key={tarifa.id}>
-            <ListItem>
-              <ListItemButton
-                sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion/tarifas/' + tarifa.id)}
-              >
-                {/* <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar> */}
-                <ListItemText
-                  primary={tarifa.actividad_nombre + ' - ' + tarifa.nombre}
-                  secondary={<span className="text-white">{tarifa.precio + ' €'}</span>}
+      <ul className="w-full max-h-listado text-primary dark:text-text  mt-2">
+        {filteredTarifas.map((tarifa, index) => (
+          <React.Fragment key={index}>
+            <li
+              className="w-full flex h-20 cursor-pointer items-center pl-2 pr-2  hover:bg-light transition duration-300 dark:hover:text-background rounded-md my-1"
+              onClick={() => navigate('/gestion/tarifas/' + tarifa.id)}
+            >
+              <div className="flex flex-col w-7/12">
+                <h1 className="text-lg ">{tarifa.nombre}</h1>
+                <h1 className="text-md opacity-50">{tarifa.precio}</h1>
+              </div>
+
+              <h1 className="text-lg w-5/12">{tarifa.actividad_nombre}</h1>
+
+              <div className="flex flex-col w-3/12 items-end justify-end content-end">
+                <BadgeCustom
+                  sx="w-20"
+                  tipo={tarifa.activo ? 'green' : 'red'}
+                  label={tarifa.activo ? 'Activa' : 'Inactiva'}
                 />
-                <Badge
-                  sx={{ mr: 2 }}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={
-                    <>
-                      <BadgeCustom
-                        tipo="blanco"
-                        sx="w-20 mb-2"
-                        label={getUserType(tarifa.tipo_usuario)}
-                      />
-                      <BadgeCustom
-                        sx="w-20"
-                        tipo={tarifa.activo ? 'verde' : 'rojo'}
-                        label={tarifa.activo ? 'Activa' : 'Inactiva'}
-                      />
-                    </>
-                  }
-                ></Badge>
-              </ListItemButton>
-            </ListItem>
-            <Divider className="bg-white" variant="middle" />
+              </div>
+            </li>
+            <Divider className="bg-light" variant="middle" />
           </React.Fragment>
         ))}
-      </List>
+      </ul>
     </div>
   )
 }

@@ -10,6 +10,10 @@ export default {
         primary: 'var(--primary)',
         secondary: 'var(--secondary)',
         accent: 'var(--accent)',
+        light: 'var(--light)',
+        gradiante: 'var(--gradiant)',
+        backgroundFrom: 'var(--background-from)',
+        backgroundTo: 'var(--background-to)',
       },
 
       minWidth: {

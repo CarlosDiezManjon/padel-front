@@ -129,8 +129,8 @@ export default function Reserva() {
       {reservasSelected.length != 0 ? (
         <>
           {user.tipo == 0 ? (
-            <div className="flex flex-col text-white mb-2 justify-center items-center">
-              <h5 className="font-medium text-2xl mb-1 text-white text-center">
+            <div className="flex flex-col text-text mb-2 justify-center items-center">
+              <h5 className="font-medium text-2xl mb-1 text-text text-center">
                 Reserva Administrador
               </h5>
 
@@ -156,14 +156,14 @@ export default function Reserva() {
                   options={usuarios}
                   value={usuarioSelected}
                   onChange={setUsuarioSelected}
-                  sx="!w-full mt-2"
+                  sx="!w-full mt-2 mb-2"
                   error={errorUser}
                   nullable
                 />
               )}
             </div>
           ) : (
-            <h5 className="font-medium text-2xl mb-4 text-white text-center">
+            <h5 className="font-medium text-2xl mb-4 text-text text-center">
               Aquí tienes tu reserva {user.nombre}
             </h5>
           )}
@@ -180,28 +180,19 @@ export default function Reserva() {
               ))}
           </ul>
 
-          <p className="my-1 text-right text-white pr-1 text-lg">Importe total: {total} €</p>
-          <p className="my-1 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
+          <p className="my-1 text-right text-text pr-1 text-lg">Importe total: {total} €</p>
+          <p className="my-1 text-right text-text pr-1 text-lg">Saldo actual: {saldo} €</p>
 
-          <p className="my-1 text-right text-white pr-1 text-lg">
+          <p className="my-1 text-right text-text pr-1 text-lg">
             Saldo tras reserva: {saldo - total} €
           </p>
 
           {total > saldo && user.tipo != 0 && (
-            <div className="w-full flex justify-end my-1">
-              <p className="my-2 text-red-600">Saldo insuficiente</p>
-              <ButtonCustom
-                onClick={() => setSaldo(saldo + 100)}
-                tipo="text-white"
-                sx="max-w-48 ml-2"
-              >
-                Añadir saldo
-              </ButtonCustom>
-            </div>
+            <p className="my-1 text-right text-red-500 pr-1 text-lg">Saldo insuficiente</p>
           )}
 
           <div className="flex justify-end mt-3">
-            <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
+            <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="secondary">
               Cancelar
             </ButtonCustom>
             <ButtonCustom

@@ -109,14 +109,10 @@ const GestionActividadIndividual = () => {
           />
 
           <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
-            <ButtonCustom
-              onClick={toggleActividadActive}
-              sx="mx-1 max-w-48"
-              tipo={actividad.activo ? 'white-red' : 'white-green'}
-            >
+            <ButtonCustom onClick={toggleActividadActive} sx="mx-1 max-w-48" tipo="secondary">
               {actividad.activo ? 'Desactivar' : 'Activar'}
             </ButtonCustom>
-            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
+            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="primary">
               Guardar
             </ButtonCustom>
           </div>

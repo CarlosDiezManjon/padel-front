@@ -31,7 +31,7 @@ export default function Cartera() {
 
   return (
     <div className="flex flex-col items-center w-full pt-1 h-full">
-      <div className="flex justify-center rounded w-full p-2 text-white">
+      <div className="flex justify-center rounded w-full p-2 text-text">
         <div className="flex flex-col w-8/12 items-center">
           <h1 className="font-regular text-2xl mb-4 ">Saldo disponible</h1>
           <h1 className="font-regular text-2xl ">{saldo} €</h1>
@@ -44,7 +44,7 @@ export default function Cartera() {
       </div>
       <div className="w-full items-center flex flex-col mt-2">
         <div className="rounded rounded-b-none w-full  items-start flex flex-col mb-2 p-2">
-          <h1 className="font-bold text-2xl  text-white">Movimientos</h1>
+          <h1 className="font-bold text-2xl  text-text">Movimientos</h1>
         </div>
         <div className="flex flex-col w-full max-h-movimientos min-h-movimientos overflow-auto p-2 rounded-md">
           {isLoading ? (

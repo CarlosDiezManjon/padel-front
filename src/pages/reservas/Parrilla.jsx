@@ -75,15 +75,15 @@ export default function Parrilla({ pista }) {
 
   const getStyleSlot = (slot) => {
     if (slot.selected) {
-      return 'text-white bg-main-500'
+      return 'text-white bg-accent'
     } else if (slot.reserva == null) {
-      return 'text-black bg-white'
+      return 'bg-light text-text dark:text-background'
     } else if (slot.toCancel) {
-      return 'text-white bg-red-900'
-    } else if (slot.reserva !== null && slot.reserva?.estado == 'Pendiente') {
-      return 'text-red-700 bg-red-300 ring-2 ring-red-700'
-    } else {
       return 'text-white bg-red-500'
+    } else if (slot.reserva !== null && slot.reserva?.estado == 'Pendiente' && user.tipo == 0) {
+      return 'text-red-700 bg-red-300 ring-1 ring-red-700 ring-inset'
+    } else {
+      return 'text-white bg-red-300'
     }
   }
 
@@ -108,7 +108,7 @@ export default function Parrilla({ pista }) {
   return (
     <div className="flex flex-col items-center w-full max-w-64">
       <div
-        className="flex p-0.5 pl-2 pr-1 m-0.5 items-center justify-between rounded cursor-pointer text-white  bg-neutral-500 w-full"
+        className="flex p-0.5 pl-2 pr-1 m-0.5 items-center justify-between rounded cursor-pointer text-background bg-primary dark:bg-primary dark:text-text w-full"
         onClick={() => setExpanded(!expanded)}
       >
         <p className="text-lg text-center">{pista.nombre}</p>
@@ -123,8 +123,10 @@ export default function Parrilla({ pista }) {
           {slots.map((slot, index) => (
             <div
               className={
-                `${getStyleSlot(slot)} w-full m-0.5 p-1 rounded select-none xs:hover:scale-105 transition-transform duration-75 focus:scale-100` +
-                (slot.past ? ' opacity-60 text-neutral-400 cursor-default' : '') +
+                `${getStyleSlot(slot)} w-full m-0.5 p-1 rounded select-none` +
+                (slot.past
+                  ? ' opacity-40 !text-neutral-400 !cursor-default'
+                  : ' xs:hover:scale-105 transition-transform duration-75 focus:scale-100') +
                 (slot.reserva == null || user.tipo == 0 || slot.propia ? ' cursor-pointer' : '')
               }
               key={index}

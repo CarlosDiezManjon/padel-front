@@ -88,44 +88,32 @@ const GestionPistas = () => {
           Nueva
         </ButtonCustom>
       </div>
-      <List className="max-h-listado overflow-auto text-white">
-        {filteredPistas.map((pista) => (
-          <React.Fragment key={pista.id}>
-            <ListItem>
-              <ListItemButton
-                sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion/pistas/' + pista.id)}
-              >
-                {/* <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar> */}
-                <ListItemText
-                  primary={pista.actividad_nombre + ' - ' + pista.nombre}
-                  secondary={<span className="text-white">{pista.ubicacion}</span>}
+      <ul className="w-full max-h-listado text-primary dark:text-text mt-2">
+        {filteredPistas.map((pista, index) => (
+          <React.Fragment key={index}>
+            <li
+              className="w-full flex h-20 cursor-pointer items-center pl-2 pr-2 transition duration-300 hover:bg-light dark:hover:text-background rounded-md my-1"
+              onClick={() => navigate('/gestion/pistas/' + pista.id)}
+            >
+              <div className="flex flex-col w-7/12">
+                <h1 className="text-lg ">{pista.nombre}</h1>
+                <h1 className="text-md opacity-50">{pista.ubicacion}</h1>
+              </div>
+
+              <h1 className="text-lg w-5/12">{pista.actividad_nombre}</h1>
+
+              <div className="flex flex-col w-3/12 items-end justify-end content-end">
+                <BadgeCustom
+                  sx="w-20"
+                  tipo={pista.activo ? 'green' : 'red'}
+                  label={pista.activo ? 'Activa' : 'Inactiva'}
                 />
-                <Badge
-                  sx={{ mr: 2 }}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={
-                    <>
-                      <BadgeCustom
-                        tipo={pista.activo ? 'verde' : 'rojo'}
-                        label={pista.activo ? 'Activa' : 'Inactiva'}
-                      />
-                    </>
-                  }
-                ></Badge>
-              </ListItemButton>
-            </ListItem>
-            <Divider className="bg-white" variant="middle" />
+              </div>
+            </li>
+            <Divider className="bg-light" variant="middle" />
           </React.Fragment>
         ))}
-      </List>
+      </ul>
     </div>
   )
 }

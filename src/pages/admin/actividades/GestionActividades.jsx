@@ -56,50 +56,37 @@ const GestionActividades = () => {
           tipo="negro"
           value={searchTerm}
           onChange={handleSearch}
-          sx="md:!w-6/12 !ring-0 h-10"
+          labelSx="!w-4/12 sm:!w-6/12 !ring-0 "
+          sx="h-full"
         />
         <ButtonCustom onClick={handleAddActividad} sx="!w-24 ml-4 h-10">
           Nueva
         </ButtonCustom>
       </div>
-      <List className="max-h-listado overflow-auto text-white">
-        {filteredActividades.map((actividad) => (
-          <React.Fragment key={actividad.id}>
-            <ListItem>
-              <ListItemButton
-                sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion/actividades/' + actividad.id)}
-              >
-                {/* <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar> */}
-                <ListItemText
-                  primary={actividad.nombre}
-                  secondary={<span className="text-white">{actividad.ubicacion}</span>}
+      <ul className="w-full max-h-listado text-primary dark:text-text mt-2">
+        {filteredActividades.map((actividad, index) => (
+          <React.Fragment key={index}>
+            <li
+              className="w-full flex h-20 cursor-pointer items-center pl-2 pr-2  hover:bg-light dark:hover:text-background rounded-md my-1  transition duration-300"
+              onClick={() => navigate('/gestion/actividades/' + actividad.id)}
+            >
+              <div className="flex flex-col w-9/12">
+                <h1 className="text-lg ">{actividad.nombre}</h1>
+                <h1 className="text-md opacity-50">{actividad.descripcion}</h1>
+              </div>
+
+              <div className="flex flex-col w-3/12 items-end justify-end content-end">
+                <BadgeCustom
+                  sx="w-20"
+                  tipo={actividad.activo ? 'green' : 'red'}
+                  label={actividad.activo ? 'Activa' : 'Inactiva'}
                 />
-                <Badge
-                  sx={{ mr: 2 }}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={
-                    <>
-                      <BadgeCustom
-                        tipo={actividad.activo ? 'verde' : 'rojo'}
-                        label={actividad.activo ? 'Activa' : 'Inactiva'}
-                      />
-                    </>
-                  }
-                ></Badge>
-              </ListItemButton>
-            </ListItem>
-            <Divider className="bg-white" variant="middle" />
+              </div>
+            </li>
+            <Divider className="bg-light" variant="middle" />
           </React.Fragment>
         ))}
-      </List>
+      </ul>
     </div>
   )
 }

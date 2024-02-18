@@ -23,8 +23,10 @@ export default function InputCustom({
           <div className="relative">
             <input
               {...props}
-              className={`shadow-xs placeholder:text-secondary block w-full text-text ring-inset ring-2 ring-secondary rounded-md border-0 px-3 py-2 
-          focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary disabled:opacity-60 
+              className={`shadow-xs placeholder:text-neutral-400 block w-full text-text dark:text-background 
+              ring-inset ring-2 dark:ring-0 ring-secondary rounded-md border-0 px-3 py-2 
+          focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary dark:focus:ring-0 dark:hover:ring-0 
+          disabled:opacity-70 disabled:bg-neutral-200
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
             />
             {sufix != null && (
@@ -39,9 +41,10 @@ export default function InputCustom({
         <div className={`w-full relative ${labelSx}`}>
           <input
             {...props}
-            className={`shadow-xs placeholder:text-secondary block w-full text-text ring-inset ring-2 ring-secondary rounded-md border-0 px-3 py-2 relative
-          focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary disabled:opacity-60 
-          sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
+            className={`shadow-xs placeholder:text-neutral-400 block w-full text-text dark:text-background ring-inset ring-2
+             dark:ring-0 ring-secondary rounded-md border-0 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-inset 
+             focus:ring-primary dark:focus:ring-0 dark:hover:ring-0 disabled:opacity-70 disabled:bg-neutral-200 
+            sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />
           {sufix != null && (
             <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-neutral-400 pointer-events-none">

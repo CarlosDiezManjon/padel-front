@@ -79,13 +79,16 @@ export default function Login() {
           <ButtonCustom type="submit">Entrar</ButtonCustom>
         </form>
 
-        <ButtonCustom onClick={goToRegister} tipo="white" sx="mt-6">
+        <ButtonCustom onClick={goToRegister} tipo="secondary" sx="mt-6">
           Registrarse
         </ButtonCustom>
 
         <p className="text-text mt-8 text-center text-sm font-normal">
           Olvidaste la contraseña?
-          <a href="#" className="hover:text-secondary font-semibold leading-6 pl-2">
+          <a
+            href="#"
+            className="hover:text-secondary dark:hover:text-primary font-semibold leading-6 pl-2"
+          >
             Recuperar contraseña
           </a>
         </p>

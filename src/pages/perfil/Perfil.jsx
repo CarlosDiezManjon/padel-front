@@ -58,12 +58,12 @@ const Perfil = () => {
   return (
     <div className="flex flex-col items-center w-full h-full">
       {usuario ? (
-        <div className="p-2 w-full text-white h-full max-w-lg">
+        <div className="p-2 w-full text-text h-full max-w-lg">
           {currentTab === 'perfil' ? (
             <>
               <div className="flex space-x-4">
                 <div className="flex flex-col relative group">
-                  <div className="rounded-full h-36 w-36 bg-neutral-400 flex justify-center items-center text-6xl">
+                  <div className="rounded-full h-36 w-36 bg-light text-background flex justify-center items-center text-6xl">
                     {getInitials(usuario.nombre, usuario.apellidos)}
                   </div>
                   {/* <img
@@ -81,7 +81,7 @@ const Perfil = () => {
               </div>
               <div className="flex w-full mt-4">
                 <BadgeCustom
-                  tipo="transparente"
+                  tipo="primary"
                   sx=" !text-md"
                   label={
                     <>
@@ -99,7 +99,7 @@ const Perfil = () => {
                     <h6 className="text-xl">Email</h6>
                     <BadgeCustom
                       sx="ml-3"
-                      tipo={usuario.email_verificado ? 'verde' : 'rojo'}
+                      tipo={usuario.email_verificado ? 'green' : 'red'}
                       label={usuario.email_verificado ? 'Verificado' : 'Sin verificar'}
                     />
                   </div>
@@ -129,10 +129,10 @@ const Perfil = () => {
                 </div>
               </div>
               <div className="flex flex-col mt-4">
-                <ButtonCustom onClick={handleChangeEmail} tipo="text-white" sx="mb-4 py-2">
+                <ButtonCustom onClick={handleChangeEmail} tipo="primary" sx="mb-4 py-2">
                   Cambiar email
                 </ButtonCustom>
-                <ButtonCustom onClick={handleChangePassword} tipo="text-white" sx="py-2">
+                <ButtonCustom onClick={handleChangePassword} tipo="primary" sx="py-2">
                   Cambiar contraseña
                 </ButtonCustom>
               </div>

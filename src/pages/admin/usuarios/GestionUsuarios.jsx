@@ -56,13 +56,8 @@ const GestionUsuarios = () => {
         ) && (activo ? user.activo === activo : true),
   )
 
-  const getInitials = (name) => {
-    const splitName = name.split(' ')
-    if (splitName.length === 1) {
-      return { children: splitName[0][0] }
-    } else {
-      return { children: splitName[0][0] + splitName[1][0] }
-    }
+  const getInitials = (nombre, apellidos) => {
+    return nombre.charAt(0) + apellidos.charAt(0)
   }
 
   const handleAddUsuario = () => {
@@ -85,46 +80,73 @@ const GestionUsuarios = () => {
           Nuevo
         </ButtonCustom>
       </div>
-      <ul className="max-h-listado overflow-auto text-white">
-        {filteredUsers.map((user) => (
-          <React.Fragment key={user.id}>
-            <ListItem>
-              <ListItemButton
-                sx={{ borderRadius: '5px' }}
-                onClick={() => navigate('/gestion/usuarios/' + user.id)}
-              >
-                <ListItemAvatar>
-                  <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}></Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  className="text-white"
-                  primary={user.nombre + ' ' + user.apellidos}
-                  secondary={<span className="text-white">{user.username}</span>}
-                />
+      <ul className="w-full max-h-listado text-primary dark:text-text mt-2">
+        {filteredUsers.map((user, index) => (
+          <>
+            <li
+              key={index}
+              className="w-full flex h-20 cursor-pointer items-center pl-6 pr-2  hover:bg-light dark:hover:text-background rounded-md my-1 transition duration-300"
+              onClick={() => navigate('/gestion/usuarios/' + user.id)}
+            >
+              <div className="rounded-full bg-primary text-background h-10 w-10 flex justify-center items-center dark:text-text">
+                {getInitials(user.nombre, user.apellidos)}
+              </div>
+              <div className="flex flex-col ml-6 w-7/12">
+                <h1 className="text-lg ">{user.nombre + ' ' + user.apellidos}</h1>
+                <h1 className="text-md opacity-50">{user.username}</h1>
+              </div>
 
-                <Badge
-                  sx={{ mr: 2 }}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  badgeContent={
-                    <>
-                      <BadgeCustom tipo="blanco" sx="w-20" label={getUserType(user.tipo)} />
-                      <BadgeCustom
-                        sx="mt-2 w-20"
-                        tipo={user.activo ? 'verde' : 'rojo'}
-                        label={user.activo ? 'Activo' : 'Inactivo'}
-                      />
-                    </>
-                  }
-                ></Badge>
-              </ListItemButton>
-            </ListItem>
-            <Divider className="bg-white" variant="middle" />
-          </React.Fragment>
+              <div className="flex flex-col w-3/12 items-end justify-end content-end">
+                <BadgeCustom sx="w-20" label={getUserType(user.tipo)} />
+                <BadgeCustom
+                  sx="mt-2 w-20"
+                  tipo={user.activo ? 'green' : 'red'}
+                  label={user.activo ? 'Activo' : 'Inactivo'}
+                />
+              </div>
+            </li>
+            <Divider className="bg-light" variant="middle" />
+          </>
         ))}
       </ul>
+      {/* {filteredUsers.map((user) => (
+        <React.Fragment key={user.id}>
+          <ListItem>
+            <ListItemButton
+              sx={{ borderRadius: '5px' }}
+              onClick={() => navigate('/gestion/usuarios/' + user.id)}
+            >
+              <ListItemAvatar>
+                <Avatar {...getInitials(user.nombre + ' ' + user.apellidos)}></Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                className="text-white"
+                primary={user.nombre + ' ' + user.apellidos}
+                secondary={<span className="text-white">{user.username}</span>}
+              />
+
+              <Badge
+                sx={{ mr: 2 }}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                badgeContent={
+                  <>
+                    <BadgeCustom tipo="blanco" sx="w-20" label={getUserType(user.tipo)} />
+                    <BadgeCustom
+                      sx="mt-2 w-20"
+                      tipo={user.activo ? 'verde' : 'rojo'}
+                      label={user.activo ? 'Activo' : 'Inactivo'}
+                    />
+                  </>
+                }
+              ></Badge>
+            </ListItemButton>
+          </ListItem>
+          <Divider className="bg-white" variant="middle" />
+        </React.Fragment>
+      ))} */}
     </div>
   )
 }

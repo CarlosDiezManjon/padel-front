@@ -9,6 +9,10 @@
     --primary: #3a6bd4;
     --secondary: #8aaaef;
     --accent: #4a7ff2;
+    --light: #ccd9f3;
+    --gradient: linear-gradient(180deg, #030407 0%, #202020 100%);
+    --background-from: #ffffff;
+    --background-to: #ffffff;
   }
   .dark {
     --text: #f8f9fc;
@@ -16,8 +20,12 @@
     --primary: #2b5cc5;
     --secondary: #103075;
     --accent: #0d42b5;
+    --light: #ccd9f3;
+    --background-from: #202020;
+    --background-to: #2c2c2c;
   }
 }
+
 @font-face {
   font-family: 'Kanit';
   /* src: url('./../public/Kanit-Regular.ttf') format('truetype'); */

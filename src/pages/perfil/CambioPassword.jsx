@@ -81,13 +81,13 @@ export default function CambioPassword({ goBack }) {
       />
 
       <div className="flex justify-end mt-4 w-full">
-        <ButtonCustom onClick={() => goBack(false, false)} sx="mx-1 max-w-32" tipo={'text-white'}>
+        <ButtonCustom onClick={() => goBack(false, false)} sx="mx-1 max-w-32" tipo="secondary">
           Cancelar
         </ButtonCustom>
         <ButtonCustom
           onClick={handleSave}
           sx="mx-1 max-w-32"
-          tipo="green"
+          tipo="primary"
           disabled={
             newPasswordError ||
             confirmPasswordError ||

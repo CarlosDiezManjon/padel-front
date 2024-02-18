@@ -32,7 +32,7 @@ export default function ReservaItem({ reservaSelected, usuarioSelected }) {
   }, [data])
 
   return (
-    <div className="w-full flex flex-col bg-white rounded-md mb-2 p-2 text-lg">
+    <div className="w-full flex flex-col bg-light rounded-md mb-2 p-2 text-lg">
       <div className="w-full flex justify-between mb-4">
         <div className="flex ">
           <p className="font-bold mr-2">Fecha</p>

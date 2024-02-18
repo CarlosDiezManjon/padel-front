@@ -57,7 +57,6 @@ export default function Parrillas() {
   }, [lastDate])
 
   const handleChangeFecha = (event) => {
-    setFecha(event.target.value)
     setLastDate(event.target.value)
   }
 
@@ -78,10 +77,10 @@ export default function Parrillas() {
   }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <div className="flex justify-center w-full text-white items-center">
+    <div className="w-full mt-2">
+      <div className="flex justify-center w-full items-center text-text">
         <IconButton onClick={handleSetPreviousFecha}>
-          <ArrowBackIosNewIcon className="text-white" />
+          <ArrowBackIosNewIcon className="text-primary dark:text-text" />
         </IconButton>
         {/* <Select
           className="bg-white"
@@ -104,9 +103,8 @@ export default function Parrillas() {
           name="fecha"
           value={lastDate}
           label=""
-          tipo="verde"
           labelSx=" w-52 max-w-72"
-          sx="!flex justify-center"
+          sx="!flex justify-center md:!text-lg"
           onChange={handleChangeFecha}
           options={options.map((option) => ({
             value: option.date,
@@ -115,7 +113,7 @@ export default function Parrillas() {
         />
 
         <IconButton onClick={handleSetNextFecha}>
-          <ArrowForwardIosIcon className="text-white" />
+          <ArrowForwardIosIcon className="text-primary dark:text-text" />
         </IconButton>
       </div>
       <Box
@@ -139,20 +137,20 @@ export default function Parrillas() {
           display: 'flex',
           justifyContent: 'end',
           position: 'fixed',
-          bottom: 80,
-          right: { xs: '7%', sm: 'calc(50vw - 120px)' },
+          bottom: { xs: '10%', sm: 'calc(20vh - 120px)' },
+          right: { xs: '7%', sm: 'calc(40vw - 120px)' },
         }}
       >
         <Zoom in={reservasToCancel.length !== 0}>
           <div className="relative">
             <ButtonCustom
-              tipo="red"
+              tipo="outlined"
               onClick={() => navigate('/cancelacion')}
               sx="min-w-40 min-h-10 !shadow-none"
             >
               Cancelar reserva
               {reservasToCancel.length > 1 ? (
-                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
+                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-primary bg-light rounded-full">
                   {reservasToCancel.length}
                 </span>
               ) : (
@@ -161,7 +159,7 @@ export default function Parrillas() {
             </ButtonCustom>
             <div
               onClick={clearReservasToCancel}
-              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-white bg-neutral-500 flex justify-center items-center align-middle z-30"
+              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-background dark:text-text bg-neutral-500 flex justify-center items-center align-middle z-30"
             >
               <CloseIcon className="!h-5 !w-5" />
             </div>
@@ -172,7 +170,7 @@ export default function Parrillas() {
             <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10 !shadow-none ">
               Reservar
               {reservasSelected.length > 1 ? (
-                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
+                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-primary bg-background dark:bg-text rounded-full">
                   {reservasSelected.length}
                 </span>
               ) : (
@@ -181,13 +179,13 @@ export default function Parrillas() {
             </ButtonCustom>
             <div
               onClick={clearReservasSelected}
-              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-white bg-neutral-500 flex justify-center items-center align-middle z-30"
+              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-background dark:text-text bg-neutral-500 flex justify-center items-center align-middle z-30"
             >
               <CloseIcon className="!h-5 !w-5" />
             </div>
           </div>
         </Zoom>
       </Box>
-    </Box>
+    </div>
   )
 }

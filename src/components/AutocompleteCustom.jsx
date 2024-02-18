@@ -33,10 +33,10 @@ export default function AutocompleteCustom({
     <Combobox value={value} onChange={onChange} nullable={nullable}>
       <div className={'relative ' + sx}>
         {label != null && <Combobox.Label>{label}</Combobox.Label>}
-        <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus:ring-2 focus:ring-main-500">
+        <div className="relative w-full cursor-default overflow-hidden rounded-md ">
           <Combobox.Input
             placeholder="Buscar usuario..."
-            className="w-full border-none py-2 rounded-md leading-6 pl-3 pr-10 text-md text-black ring-inset focus:ring-main-500 focus:ring-2 focus:outline-none"
+            className="w-full border-none py-2 rounded-md leading-6 pl-3 pr-10 text-md text-black ring-inset dark:focus:ring-0 ring-2 ring-secondary dark:ring-0 focus:ring-primary focus:ring-2 focus:outline-none"
             displayValue={(option) => (option ? option.nombre + ' ' + option?.apellidos : '')}
             onChange={(event) => setQuery(event.target.value)}
           />
@@ -51,7 +51,7 @@ export default function AutocompleteCustom({
           leaveTo="opacity-0"
           afterLeave={() => setQuery('')}
         >
-          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
             {filteredOptions.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                 No existen usuarios con ese nombre
@@ -62,7 +62,7 @@ export default function AutocompleteCustom({
                   key={option.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-neutral-400 text-white' : 'text-black'
+                      active ? 'bg-secondary text-white' : 'text-black'
                     }`
                   }
                   value={option}

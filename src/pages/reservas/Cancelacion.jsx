@@ -58,11 +58,11 @@ export default function Cancelacion() {
       {reservasToCancel.length != 0 ? (
         <>
           {user.tipo == 0 ? (
-            <h5 className="font-bold text-2xl mb-4 text-white text-center">
+            <h5 className="font-bold text-2xl mb-4 text-text text-center">
               Cancelación administrador
             </h5>
           ) : (
-            <h5 className="font-bold text-2xl mb-4 text-white text-center">
+            <h5 className="font-bold text-2xl mb-4 text-text text-center">
               Se van a cancelar las siguientes reservas {user.nombre}
             </h5>
           )}
@@ -71,47 +71,36 @@ export default function Cancelacion() {
             {reservasToCancel
               .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
               .map((reserva, index) => (
-                <div
-                  className="w-full flex flex-col bg-white rounded-md mt-2 p-2 text-lg"
-                  key={reserva.startTime + '-' + index}
-                >
-                  <div className="w-full p-2 flex justify-between">
-                    <p className="flex w-6/12">
-                      <p className="font-bold mr-1">Fecha</p>
-                      {dateUTCToLocalDateOnly(reserva.startTime)}
-                    </p>
-                    <p className="flex w-5/12">
+                <div className="w-full flex flex-col bg-light rounded-md mb-2 p-2 text-lg">
+                  <div className="w-full flex justify-between mb-4">
+                    <div className="flex ">
+                      <p className="font-bold mr-2">Fecha</p>
+                      <p>{dateUTCToLocalDateOnly(reserva.startTime)}</p>
+                    </div>
+                    <p className="flex ">
                       {dateUTCToLocalTime(reserva.startTime)} -{' '}
                       {dateUTCToLocalTime(reserva.endTime)}
                     </p>
                   </div>
-                  <div className="w-full p-2 flex justify-between">
-                    <div className="flex w-6/12">
-                      <p className="font-bold mr-1">Lugar</p>
-                      <p>{reserva.pista.nombre}</p>
+                  <div className="w-full flex justify-between mb-4">
+                    <p className="font-bold">{reserva.pista.actividad}</p>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div className="flex ">
+                      <p className="font-bold mr-2">Lugar</p>
+                      {reserva.pista.nombre}
                     </div>
-
-                    {user.tipo == 0 ? (
-                      <div className="flex w-5/12">
-                        <p className="font-bold mr-1">Usuario</p>
-                        <p>{reserva.reserva.nombre_usuario}</p>
-                      </div>
-                    ) : (
-                      <div className="flex w-5/12">
-                        <p className="font-bold mr-1">Precio</p>
-                        <p>{reserva.reserva.importe} €</p>
-                      </div>
-                    )}
+                    <p className="flex ">{reserva.tarifa.precio} €</p>
                   </div>
                 </div>
               ))}
           </ul>
 
-          <p className="my-2 text-right text-white pr-1 text-lg">Importe a devolver: {total} €</p>
+          <p className="my-2 text-right text-text pr-1 text-lg">Importe a devolver: {total} €</p>
           {user.tipo != 0 ? (
             <>
-              <p className="my-2 text-right text-white pr-1 text-lg">Saldo actual: {saldo} €</p>
-              <p className="my-2 text-right text-white pr-1 text-lg">
+              <p className="my-2 text-right text-text pr-1 text-lg">Saldo actual: {saldo} €</p>
+              <p className="my-2 text-right text-text pr-1 text-lg">
                 Saldo tras cancelación: {saldo + total} €
               </p>
             </>
@@ -120,7 +109,7 @@ export default function Cancelacion() {
           )}
 
           <div className="flex justify-end mt-3">
-            <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="red">
+            <ButtonCustom onClick={() => navigate(-1)} sx="mr-4" tipo="secondary">
               Cancelar
             </ButtonCustom>
             <ButtonCustom disabled={reservasToCancel.length == 0} onClick={handleCancelar}>

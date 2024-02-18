@@ -130,13 +130,12 @@ const GestionUsuarioIndividual = () => {
     <div className="w-full">
       {usuario && (
         <>
-          <div className="w-full flex justify-start items-center">
+          <div className="w-full flex justify-start items-center mt-2">
             <InputCustom
               name="username"
               label="Username"
               value={usuario.username}
               onChange={handleInputChange}
-              tipo="negro"
             />
             <InputCustom
               name="nombre"
@@ -144,7 +143,6 @@ const GestionUsuarioIndividual = () => {
               value={usuario.nombre}
               onChange={handleInputChange}
               labelSx="ml-2"
-              tipo="negro"
             />
           </div>
           <div className="w-full flex justify-start items-center">
@@ -153,7 +151,6 @@ const GestionUsuarioIndividual = () => {
               label="Apellidos"
               value={usuario.apellidos}
               onChange={handleInputChange}
-              tipo="negro"
             />
             <SelectCustom
               id="tipo"
@@ -177,7 +174,6 @@ const GestionUsuarioIndividual = () => {
               label="Email"
               value={usuario.email}
               onChange={handleInputChange}
-              tipo="negro"
             />
           </div>
           {id !== 'nuevo' && (
@@ -192,7 +188,6 @@ const GestionUsuarioIndividual = () => {
                     : 'N/A'
                 }
                 onChange={handleInputChange}
-                tipo="negro"
               />
 
               <InputCustom
@@ -205,7 +200,6 @@ const GestionUsuarioIndividual = () => {
                     : 'N/A'
                 }
                 onChange={handleInputChange}
-                tipo="negro"
                 labelSx="ml-2"
               />
             </div>
@@ -217,7 +211,6 @@ const GestionUsuarioIndividual = () => {
               label="Teléfono"
               value={usuario.telefono}
               onChange={handleInputChange}
-              tipo="negro"
             />
             <InputCustom
               name="saldo"
@@ -227,7 +220,6 @@ const GestionUsuarioIndividual = () => {
               type="number"
               value={usuario.saldo}
               onChange={handleInputChange}
-              tipo="negro"
               labelSx="ml-2"
               sx="text-right pr-8"
             />
@@ -241,7 +233,6 @@ const GestionUsuarioIndividual = () => {
                 type="number"
                 value={usuario.numero_socio}
                 onChange={handleInputChange}
-                tipo="negro"
                 labelSx="!w-[49%]"
               />
             ) : (
@@ -250,7 +241,7 @@ const GestionUsuarioIndividual = () => {
             {id !== 'nuevo' && (
               <div className="flex justify-end w-[49%] ml-2">
                 <ButtonCustom
-                  tipo="white"
+                  tipo="primary"
                   onClick={() => setOpenRecarga(true)}
                   sx="sm:!max-w-44 h-10 mt-3"
                 >
@@ -268,7 +259,6 @@ const GestionUsuarioIndividual = () => {
               value={usuario.password}
               onChange={handlePasswordChange}
               error={passwordError}
-              tipo="negro"
             />
           )}
           <div className="flex justify-end w-full fixed bottom-16 max-w-[900px] pl-2 right-2 md:right-[calc(50vw-450px)]">
@@ -276,11 +266,11 @@ const GestionUsuarioIndividual = () => {
               onClick={toggleUserActive}
               sx="mx-1 max-w-48"
               disabled={id === 'nuevo'}
-              tipo={usuario.activo ? 'white-red' : 'white-green'}
+              tipo="secondary"
             >
               {usuario.activo ? 'Dar de baja' : 'Dar de alta'}
             </ButtonCustom>
-            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="green">
+            <ButtonCustom onClick={handleSave} sx="mx-1 max-w-48" tipo="primary">
               Guardar
             </ButtonCustom>
           </div>

@@ -21,62 +21,50 @@ const Administracion = () => {
   const user = useStore((state) => state.user)
   const navigate = useNavigate()
 
-  // if (!user?.tipo == 0) {
-  //   return <Navigate to="/" replace />
-  // }
+  const menuItems = [
+    {
+      icon: <PeopleIcon />,
+      text: 'Usuarios',
+      path: '/gestion/usuarios',
+    },
+    {
+      icon: <CalendarViewWeekIcon />,
+      text: 'Pistas',
+      path: '/gestion/pistas',
+    },
+    {
+      icon: <ReceiptIcon />,
+      text: 'Tarifas',
+      path: '/gestion/tarifas',
+    },
+    {
+      icon: <SportsSoccerIcon />,
+      text: 'Tipos de actividad',
+      path: '/gestion/actividades',
+    },
+    {
+      icon: <QueryStatsIcon />,
+      text: 'Informes',
+      path: '/gestion/informes',
+    },
+  ]
 
   return (
-    <Box sx={{ width: '100%', color: 'white' }}>
-      <List sx={{ width: '100%', color: 'white' }}>
-        <ListItem sx={{ borderRadius: '5px', width: '100%' }}>
-          <ListItemButton
-            sx={{ borderRadius: '5px' }}
-            onClick={() => navigate('/gestion/usuarios')}
+    <ul className="w-full h-full text-primary dark:text-text mt-2">
+      {menuItems.map((item, index) => (
+        <React.Fragment key={index}>
+          <li
+            key={index}
+            className="w-full flex h-16 cursor-pointer items-center pl-6  hover:bg-light dark:hover:text-background rounded-md my-1 transition duration-300"
+            onClick={() => navigate(item.path)}
           >
-            <ListItemIcon>
-              <PeopleIcon className="text-white" />
-            </ListItemIcon>
-            <ListItemText primary="Usuarios" />
-          </ListItemButton>
-        </ListItem>
-        <Divider className="bg-white" variant="middle" />
-        <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion/pistas')}>
-            <ListItemIcon>
-              <CalendarViewWeekIcon className="text-white" />
-            </ListItemIcon>
-            <ListItemText primary="Pistas" />
-          </ListItemButton>
-        </ListItem>
-        <Divider className="bg-white" variant="middle" />
-        <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion/tarifas')}>
-            <ListItemIcon>
-              <ReceiptIcon className="text-white" />
-            </ListItemIcon>
-            <ListItemText primary="Tarifas" />
-          </ListItemButton>
-        </ListItem>
-        <Divider className="bg-white" variant="middle" />
-        <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion/actividades')}>
-            <ListItemIcon>
-              <SportsSoccerIcon className="text-white" />
-            </ListItemIcon>
-            <ListItemText primary="Tipos de actividad" />
-          </ListItemButton>
-        </ListItem>
-        <Divider className="bg-white" variant="middle" />
-        <ListItem>
-          <ListItemButton onClick={() => navigate('/gestion/informes')}>
-            <ListItemIcon>
-              <QueryStatsIcon className="text-white" />
-            </ListItemIcon>
-            <ListItemText primary="Informes" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
+            {item.icon}
+            <h1 className="ml-6">{item.text}</h1>
+          </li>
+          <Divider className="bg-light" variant="middle" />
+        </React.Fragment>
+      ))}
+    </ul>
   )
 }
 

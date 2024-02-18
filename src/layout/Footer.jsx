@@ -38,7 +38,7 @@ export default function Footer() {
   ]
 
   return (
-    <div className="fixed top-auto bottom-0 h-16 text-white w-full flex justify-center py-1 z-50">
+    <div className="fixed top-auto bottom-0 h-16 w-full flex justify-center py-1 z-50">
       <div className="flex">
         {listFooter
           .filter((item) => (user.tipo == 0 ? true : item.admin === false))
