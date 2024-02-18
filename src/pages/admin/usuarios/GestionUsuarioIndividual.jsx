@@ -53,21 +53,21 @@ const GestionUsuarioIndividual = () => {
         message: 'Se ha enviado un email de confirmación a ' + email,
         tipo: 'registro',
       })
-      navigate('/gestion-usuarios')
+      navigate('/gestion/usuarios')
     }
   }, [postData])
 
   useEffect(() => {
     if (putData) {
       setUsuario(putData.usuario)
-      navigate('/gestion-usuarios')
+      navigate('/gestion/usuarios')
     }
   }, [putData])
 
   useEffect(() => {
     if (deleteData) {
       setUsuario(deleteData.usuario)
-      navigate('/gestion-usuarios')
+      navigate('/gestion/usuarios')
     }
   }, [deleteData])
 

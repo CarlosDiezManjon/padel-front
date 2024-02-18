@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --text: #030407;
+    --background: #f8f9fc;
+    --primary: #3a6bd4;
+    --secondary: #8aaaef;
+    --accent: #4a7ff2;
+  }
+  .dark {
+    --text: #f8f9fc;
+    --background: #030407;
+    --primary: #2b5cc5;
+    --secondary: #103075;
+    --accent: #0d42b5;
+  }
+}
 @font-face {
   font-family: 'Kanit';
   /* src: url('./../public/Kanit-Regular.ttf') format('truetype'); */
@@ -11,15 +27,6 @@
 }
 body {
   font-family: 'Kanit', fallback-fonts;
-}
-
-:root {
-  --black: #000000;
-  --semiblack: #2d2c2c;
-  --main-green: #3e9436;
-  --grey: #e5e5e575;
-  --main-green-hover: #2e662b;
-  --gradiante-negro: linear-gradient(to right, var(--black), var(--semiblack));
 }
 
 input:-webkit-autofill,

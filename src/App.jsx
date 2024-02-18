@@ -1,8 +1,5 @@
-import CssBaseline from '@mui/material/CssBaseline'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import axios from 'axios'
-import React, { useEffect, useMemo } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import AlertComponent from './components/AlertComponent'
 import BackdropComponent from './components/BackdropComponent'
@@ -10,28 +7,33 @@ import ConfirmationDialog from './components/ConfirmationDialog'
 import CustomErrorDialog from './components/CustomErrorDialog'
 import { baseUrl } from './constants'
 import Layout from './layout/Layout'
-import GestionActividades from './pages/admin/actividades/GestionActividades'
-import Administracion from './pages/admin/Administracion'
-import Informes from './pages/admin/informes/Informes'
-import GestionPistaIndividual from './pages/admin/pistas/GestionPistaIndividual'
-import GestionPistas from './pages/admin/pistas/GestionPistas'
-import GestionTarifaIndividual from './pages/admin/tarifas/GestionTarifaIndividual'
-import GestionTarifas from './pages/admin/tarifas/GestionTarifas'
-import GestionUsuarioIndividual from './pages/admin/usuarios/GestionUsuarioIndividual'
-import GestionUsuarios from './pages/admin/usuarios/GestionUsuarios'
-import Cartera from './pages/Cartera'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Perfil from './pages/perfil/Perfil'
-import Registro from './pages/Registro'
-import Cancelacion from './pages/reservas/Cancelacion'
-import Parrillas from './pages/reservas/Parrillas'
-import Reserva from './pages/reservas/Reserva'
-import useStore from './store/GeneralStore'
-import { parseJwt } from './utils/utils'
-import GestionActividadIndividual from './pages/admin/actividades/GestionActividadIndividual'
 import ProtectedRoute from './router/ProtectedRoute'
 import UnprotectedRoute from './router/UnprotectedRoute'
+import useStore from './store/GeneralStore'
+import { parseJwt } from './utils/utils'
+
+const GestionActividades = lazy(() => import('./pages/admin/actividades/GestionActividades'))
+const Administracion = lazy(() => import('./pages/admin/Administracion'))
+const Informes = lazy(() => import('./pages/admin/informes/Informes'))
+const GestionPistaIndividual = lazy(() => import('./pages/admin/pistas/GestionPistaIndividual'))
+const GestionPistas = lazy(() => import('./pages/admin/pistas/GestionPistas'))
+const GestionTarifaIndividual = lazy(() => import('./pages/admin/tarifas/GestionTarifaIndividual'))
+const GestionTarifas = lazy(() => import('./pages/admin/tarifas/GestionTarifas'))
+const GestionUsuarioIndividual = lazy(
+  () => import('./pages/admin/usuarios/GestionUsuarioIndividual'),
+)
+const GestionActividadIndividual = lazy(
+  () => import('./pages/admin/actividades/GestionActividadIndividual'),
+)
+const GestionUsuarios = lazy(() => import('./pages/admin/usuarios/GestionUsuarios'))
+const Cartera = lazy(() => import('./pages/Cartera'))
+const Home = lazy(() => import('./pages/Home'))
+const Login = lazy(() => import('./pages/Login'))
+const Perfil = lazy(() => import('./pages/perfil/Perfil'))
+const Registro = lazy(() => import('./pages/Registro'))
+const Cancelacion = lazy(() => import('./pages/reservas/Cancelacion'))
+const Parrillas = lazy(() => import('./pages/reservas/Parrillas'))
+const Reserva = lazy(() => import('./pages/reservas/Reserva'))
 
 export default function App() {
   const navigate = useNavigate()
@@ -43,7 +45,6 @@ export default function App() {
   function inicializeSession() {
     const localToken = localStorage.getItem('token')
     if (localToken != null) {
-      console.log('Token: ', localToken)
       setToken(localToken)
       setUser(parseJwt(localToken))
       const axiosInstance = axios.create({
@@ -63,7 +64,14 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<h1>Loading</h1>}>
+              <Layout />
+            </Suspense>
+          }
+        >
           <Route index element={<Home />} />
           <Route path="/cartera" element={<Cartera />} />
           <Route path="/parrillas/:id" element={<Parrillas />} />

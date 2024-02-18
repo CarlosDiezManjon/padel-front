@@ -20,7 +20,7 @@ export default function ItemFooter({ item, index }) {
           (index === currentTab ? 'text-2xl justify-center ' : 'text-3xl pt-4')
         }
       >
-        <ion-icon name={item.icon}></ion-icon>
+        <ion-icon name={index === currentTab ? item.iconSelected : item.icon}></ion-icon>
         <span
           className={
             index === currentTab

@@ -4,6 +4,8 @@ import useStore from '../../store/GeneralStore'
 import { dateUTCToLocalTime } from '../../utils/utils'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styled from '@emotion/styled'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props
@@ -106,38 +108,34 @@ export default function Parrilla({ pista }) {
   return (
     <div className="flex flex-col items-center w-full max-w-64">
       <div
-        className="flex p-0.5 pl-2 pr-1 m-0.5 align-middle justify-between rounded cursor-pointer text-white  bg-neutral-500 w-full"
+        className="flex p-0.5 pl-2 pr-1 m-0.5 items-center justify-between rounded cursor-pointer text-white  bg-neutral-500 w-full"
         onClick={() => setExpanded(!expanded)}
       >
-        <Typography variant="h6" align="center" sx={{}}>
-          {pista.nombre}
-        </Typography>
-        <ExpandMore expand={expanded} aria-expanded={expanded} aria-label="show more">
-          <ExpandMoreIcon />
-        </ExpandMore>
+        <p className="text-lg text-center">{pista.nombre}</p>
+        {expanded ? (
+          <KeyboardArrowUpIcon className="!h-6 !w-6" aria-hidden="true" />
+        ) : (
+          <KeyboardArrowDownIcon className="!h-6 !w-6" aria-hidden="true" />
+        )}
       </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ width: '100%' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        <div className="flex flex-col items-center w-full">
           {slots.map((slot, index) => (
-            <Box
+            <div
               className={
-                getStyleSlot(slot) +
-                ' w-full m-0.5 p-1 rounded' +
-                (slot.past ? ' opacity-60 text-neutral-400 !cursor-default' : '')
+                `${getStyleSlot(slot)} w-full m-0.5 p-1 rounded select-none xs:hover:scale-105 transition-transform duration-75 focus:scale-100` +
+                (slot.past ? ' opacity-60 text-neutral-400 cursor-default' : '') +
+                (slot.reserva == null || user.tipo == 0 || slot.propia ? ' cursor-pointer' : '')
               }
-              sx={{
-                cursor:
-                  slot.reserva == null || user.tipo == 0 || slot.propia ? 'pointer' : 'default',
-              }}
               key={index}
               onClick={() => handleItemClick(slot)}
             >
-              <Typography variant="body1" align="center" color={slot.propia ? 'white' : 'inherit'}>
+              <p className={`text-center text-md ${slot.propia ? 'text-white' : ''}`}>
                 {getSlotContent(slot)}
-              </Typography>
-            </Box>
+              </p>
+            </div>
           ))}
-        </Box>
+        </div>
       </Collapse>
     </div>
   )

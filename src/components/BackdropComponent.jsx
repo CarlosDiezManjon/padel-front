@@ -8,13 +8,12 @@ export default function BackdropComponent() {
     <Backdrop
       sx={{
         color: 'white',
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: 30,
         position: 'fixed',
       }}
       color="primary"
       width="50%"
       open={isLoading}
-      transitionDuration={{ appear: 1000, enter: 1000, exit: 1000 }}
     >
       <CircularProgress
         variant="indeterminate"

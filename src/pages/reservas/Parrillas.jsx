@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import Parrilla from './Parrilla'
 import useStore from '../../store/GeneralStore'
 import ButtonCustom from '../../components/ButtonCustom'
+import CloseIcon from '@mui/icons-material/Close'
 import SelectCustom from '../../components/SelectCustom'
 
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
@@ -16,17 +17,20 @@ export default function Parrillas() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [pistas, setPistas] = useState([])
-  const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 10))
   const [options, setOptions] = useState([])
   const reservasSelected = useStore((state) => state.reservasSelected)
   const reservasToCancel = useStore((state) => state.reservasToCancel)
+  const clearReservasSelected = useStore((state) => state.clearReservasSelected)
+  const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
+  const lastDate = useStore((state) => state.lastDate)
+  const setLastDate = useStore((state) => state.setLastDate)
 
   const { getRequest, data } = useGetRequest()
 
   useEffect(() => {
     const getNextSevenDays = () => {
       const options = []
-      const currentDate = new Date(fecha)
+      const currentDate = new Date(lastDate)
       for (let i = 0; i < 7; i++) {
         const nextDate = new Date(currentDate)
         nextDate.setDate(currentDate.getDate() + i)
@@ -49,26 +53,27 @@ export default function Parrillas() {
   }, [data])
 
   useEffect(() => {
-    getRequest('/parrilla/' + id + '/' + fecha)
-  }, [fecha])
+    getRequest('/parrilla/' + id + '/' + lastDate)
+  }, [lastDate])
 
   const handleChangeFecha = (event) => {
     setFecha(event.target.value)
+    setLastDate(event.target.value)
   }
 
   const handleSetNextFecha = () => {
-    const currentIndex = options.findIndex((option) => option.date === fecha)
+    const currentIndex = options.findIndex((option) => option.date === lastDate)
     if (currentIndex !== -1 && currentIndex < options.length - 1) {
       const nextFecha = options[currentIndex + 1].date
-      setFecha(nextFecha)
+      setLastDate(nextFecha)
     }
   }
 
   const handleSetPreviousFecha = () => {
-    const currentIndex = options.findIndex((option) => option.date === fecha)
+    const currentIndex = options.findIndex((option) => option.date === lastDate)
     if (currentIndex !== -1 && currentIndex > 0) {
       const previousFecha = options[currentIndex - 1].date
-      setFecha(previousFecha)
+      setLastDate(previousFecha)
     }
   }
 
@@ -97,7 +102,7 @@ export default function Parrillas() {
         <SelectCustom
           id="fecha"
           name="fecha"
-          value={fecha}
+          value={lastDate}
           label=""
           tipo="verde"
           labelSx=" w-52 max-w-72"
@@ -135,36 +140,52 @@ export default function Parrillas() {
           justifyContent: 'end',
           position: 'fixed',
           bottom: 80,
-          right: { xs: 10, sm: 'calc(50vw - 120px)' },
+          right: { xs: '7%', sm: 'calc(50vw - 120px)' },
         }}
       >
         <Zoom in={reservasToCancel.length !== 0}>
-          <ButtonCustom
-            tipo="red"
-            onClick={() => navigate('/cancelacion')}
-            sx="mr-2 min-w-48 !shadow-none"
-          >
-            Cancelar reserva
-            {reservasToCancel.length > 1 ? (
-              <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
-                {reservasToCancel.length}
-              </span>
-            ) : (
-              ' '
-            )}
-          </ButtonCustom>
+          <div className="relative">
+            <ButtonCustom
+              tipo="red"
+              onClick={() => navigate('/cancelacion')}
+              sx="min-w-40 min-h-10 !shadow-none"
+            >
+              Cancelar reserva
+              {reservasToCancel.length > 1 ? (
+                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-red-500 bg-white rounded-full">
+                  {reservasToCancel.length}
+                </span>
+              ) : (
+                ' '
+              )}
+            </ButtonCustom>
+            <div
+              onClick={clearReservasToCancel}
+              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-white bg-neutral-500 flex justify-center items-center align-middle z-30"
+            >
+              <CloseIcon className="!h-5 !w-5" />
+            </div>
+          </div>
         </Zoom>
         <Zoom in={reservasSelected.length !== 0}>
-          <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10 !shadow-none">
-            Reservar
-            {reservasSelected.length > 1 ? (
-              <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
-                {reservasSelected.length}
-              </span>
-            ) : (
-              ' '
-            )}
-          </ButtonCustom>
+          <div className="relative ml-3">
+            <ButtonCustom onClick={() => navigate('/reserva')} sx="min-w-40 min-h-10 !shadow-none ">
+              Reservar
+              {reservasSelected.length > 1 ? (
+                <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-main-500 bg-white rounded-full">
+                  {reservasSelected.length}
+                </span>
+              ) : (
+                ' '
+              )}
+            </ButtonCustom>
+            <div
+              onClick={clearReservasSelected}
+              className="rounded-full absolute -top-3 -right-3 h-6 w-6 xs:hover:scale-125 transition-transform duration-100 cursor-pointer text-white bg-neutral-500 flex justify-center items-center align-middle z-30"
+            >
+              <CloseIcon className="!h-5 !w-5" />
+            </div>
+          </div>
         </Zoom>
       </Box>
     </Box>

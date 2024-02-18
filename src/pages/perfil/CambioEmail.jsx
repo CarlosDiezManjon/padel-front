@@ -40,6 +40,7 @@ export default function CambioEmail({ email, goBack }) {
       <h1 className="text-2xl font-regular mb-4">Cambio email</h1>
       <InputCustom
         value={newEmail}
+        placeholder="Intruzca el nuevo email"
         type="email"
         tipo="negro"
         onChange={handleEmailChange}

@@ -24,9 +24,9 @@ export default function Reserva() {
   const reservasSelected = useStore((state) => state.reservasSelected)
   const clearReservasSelected = useStore((state) => state.clearReservasSelected)
   const clearReservasToCancel = useStore((state) => state.clearReservasToCancel)
-  const { getRequest: getSaldo, dataSaldo } = useGetRequest()
-  const { getRequest: getActiveUsers, dataUsers } = useGetRequest()
-  const { getRequest: getSaldoUser, dataSaldoUser } = useGetRequest()
+  const { getRequest: getSaldo, data: dataSaldo } = useGetRequest()
+  const { getRequest: getActiveUsers, data: dataUsers } = useGetRequest()
+  const { getRequest: getSaldoUser, data: dataSaldoUser } = useGetRequest()
 
   const { postRequest, data: dataPost } = usePostRequest()
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ export default function Reserva() {
       getSaldo('/saldo')
     } else {
       getActiveUsers('/active-usuarios')
-      setUsuarioSelected(user)
+      setUsuarioSelected(null)
     }
   }, [])
 
@@ -53,18 +53,6 @@ export default function Reserva() {
       )
     }
   }, [reservasSelected])
-
-  // useEffect(() => {
-  //   if (data) {
-  //     if (data.saldo != null) {
-  //       console.log(data)
-  //       setSaldo(parseFloat(data.saldo))
-  //     } else if (data.usuarios != null) {
-  //       console.log(data)
-  //       setUsuarios([...data.usuarios])
-  //     }
-  //   }
-  // }, [data])
 
   useEffect(() => {
     if (dataSaldo) {

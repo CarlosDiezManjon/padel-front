@@ -12,49 +12,19 @@ export default function InputCustom({
   const [inputStyle, setInputStyle] = useState('')
   const [labelStyle, setLabelStyle] = useState('')
 
-  useEffect(() => {
-    switch (tipo) {
-      case 'verde':
-        setInputStyle('ring-main-400 focus:ring-main-500 text-main-900')
-        setLabelStyle('text-white')
-        break
-      case 'rojo':
-        setInputStyle('ring-red-600 focus:ring-red-500')
-        setLabelStyle('text-red-800')
-        break
-      case 'blanco':
-        setInputStyle('bg-white ring-main-600 focus:ring-main-500')
-        setLabelStyle('text-white')
-        break
-      case 'negro':
-        setInputStyle('bg-white text-black ring-neutral-300 focus:ring-main-400')
-        setLabelStyle('text-white')
-        break
-      case 'border-black':
-        setInputStyle('bg-white text-black ring-neutral-700 focus:ring-black ring-2')
-        setLabelStyle('')
-        break
-      default:
-        setInputStyle('bg-main-100 text-main-800 text-black')
-        setLabelStyle('text-black')
-        break
-    }
-  }, [tipo])
-
   return (
     <>
       {label != null ? (
         <label
-          className={`mb-2 block text-md font-medium w-full ${labelStyle} ${labelSx}`}
+          className={`mb-2 block text-md text-text font-medium w-full ${labelStyle} ${labelSx}`}
           htmlFor={props.id}
         >
           {label}
           <div className="relative">
             <input
               {...props}
-              className={`shadow-xs placeholder:text-gray block w-full text-main-900
-           bg-white rounded-md border-0 px-3 py-2 ring-inset 
-          focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
+              className={`shadow-xs placeholder:text-secondary block w-full text-text ring-inset ring-2 ring-secondary rounded-md border-0 px-3 py-2 
+          focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
             />
             {sufix != null && (
@@ -69,9 +39,8 @@ export default function InputCustom({
         <div className={`w-full relative ${labelSx}`}>
           <input
             {...props}
-            className={`shadow-xs placeholder:text-gray block w-full text-main-900
-           bg-white rounded-md border-0 px-3 py-2 ring-inset relative
-          focus:outline-none focus:ring-2 focus:ring-inset disabled:opacity-60 
+            className={`shadow-xs placeholder:text-secondary block w-full text-text ring-inset ring-2 ring-secondary rounded-md border-0 px-3 py-2 relative
+          focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary disabled:opacity-60 
           sm:text-sm sm:leading-6  ${inputStyle} ${sx}`}
           />
           {sufix != null && (

@@ -37,7 +37,7 @@ export default function AutocompleteCustom({
           <Combobox.Input
             placeholder="Buscar usuario..."
             className="w-full border-none py-2 rounded-md leading-6 pl-3 pr-10 text-md text-black ring-inset focus:ring-main-500 focus:ring-2 focus:outline-none"
-            displayValue={(option) => option?.nombre + ' ' + option?.apellidos}
+            displayValue={(option) => (option ? option.nombre + ' ' + option?.apellidos : '')}
             onChange={(event) => setQuery(event.target.value)}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">

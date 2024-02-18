@@ -1,8 +1,6 @@
 import React from 'react'
-import useStore from '../store/GeneralStore'
 import { Navigate, useLocation } from 'react-router-dom'
-import Layout from '../layout/Layout'
-import Content from '../layout/Content'
+import useStore from '../store/GeneralStore'
 
 export default function ProtectedRoute({ admin, children }) {
   const location = useLocation()

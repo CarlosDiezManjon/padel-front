@@ -45,7 +45,7 @@ export default function Login() {
   }, [data])
   return (
     <div
-      className=" text-white flex h-full min-h-full flex-col 
+      className="text-text flex h-full min-h-full flex-col 
     justify-center  px-6 py-12 lg:px-8 w-full"
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -83,9 +83,9 @@ export default function Login() {
           Registrarse
         </ButtonCustom>
 
-        <p className="text-main-500 mt-8 text-center text-sm font-normal">
+        <p className="text-text mt-8 text-center text-sm font-normal">
           Olvidaste la contraseña?
-          <a href="#" className="text-white-600 hover:text-white font-semibold leading-6 pl-2">
+          <a href="#" className="hover:text-secondary font-semibold leading-6 pl-2">
             Recuperar contraseña
           </a>
         </p>

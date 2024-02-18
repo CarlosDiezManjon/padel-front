@@ -1,14 +1,11 @@
-import EditIcon from '@mui/icons-material/Edit'
-import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import BadgeCustom from '../../components/BadgeCustom'
 import ButtonCustom from '../../components/ButtonCustom'
 import useGetRequest from '../../services/get.service'
+import useStore from '../../store/GeneralStore'
 import { dateUTCToLocalDateOnly, getUserType } from '../../utils/utils'
-import BadgeCustom from '../../components/BadgeCustom'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CambioEmail from './CambioEmail'
 import CambioPassword from './CambioPassword'
-import useStore from '../../store/GeneralStore'
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null)
@@ -22,9 +19,7 @@ const Perfil = () => {
 
   useEffect(() => {
     if (data) {
-      setTimeout(() => {
-        setUsuario(data.usuario)
-      }, 1000)
+      setUsuario(data.usuario)
     }
   }, [data])
 
@@ -128,7 +123,9 @@ const Perfil = () => {
                     <h6 className="text-xl mt-4">Saldo</h6>
                   </div>
 
-                  <h6 className="text-lg mt-2">{usuario.saldo + ' €'}</h6>
+                  <h6 className={'text-lg mt-2 ' + (usuario.saldo < 0 ? 'text-red-500' : '')}>
+                    {usuario.saldo + ' €'}
+                  </h6>
                 </div>
               </div>
               <div className="flex flex-col mt-4">

@@ -17,6 +17,8 @@ const useStore = create((set, get) => ({
   error: null,
   setError: (newError) => set(() => ({ error: newError })),
   onCloseError: () => set(() => ({ error: null })),
+  lastDate: new Date().toISOString().slice(0, 10),
+  setLastDate: (newLastDate) => set(() => ({ lastDate: newLastDate })),
   axios: null,
   setAxios: (newAxios) => set(() => ({ axios: newAxios })),
   confirmationDialogContent: null,

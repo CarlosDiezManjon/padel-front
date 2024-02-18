@@ -7,15 +7,14 @@ import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@m
 import React, { useEffect, useState } from 'react'
 import useStore from '../store/GeneralStore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { datetimeToStringTime } from '../utils/utils'
+import useGetRequest from '../services/get.service'
 export default function Header() {
   const toggleMode = useStore((state) => state.toggleMode)
   const mode = useStore((state) => state.mode)
   const user = useStore((state) => state.user)
-  const setUser = useStore((state) => state.setUser)
-  const setToken = useStore((state) => state.setToken)
   const setCurrentTab = useStore((state) => state.setCurrentTab)
   const [title, setTitle] = useState('')
   const [bigHeader, setBigHeader] = useState(false)
@@ -24,18 +23,32 @@ export default function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const clearState = useStore((state) => state.clearState)
-
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [actividades, setActividades] = useState([{}])
+  const { id } = useParams()
+
+  const { getRequest, data } = useGetRequest()
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
     }, 1000)
-
+    getRequest('/actividades-activas')
     return () => {
       clearInterval(timer)
     }
   }, [])
+
+  useEffect(() => {
+    if (data) {
+      setActividades(data.actividades)
+    }
+  }, [data])
+
+  const getActividadNombre = () => {
+    const actividad = actividades.find((actividad) => actividad.id == id)
+    return actividad ? actividad.nombre : ''
+  }
 
   useEffect(() => {
     if (/^\/gestion\/usuarios\/(\d+|\w+)$/.test(location.pathname)) {
@@ -57,6 +70,11 @@ export default function Header() {
       setTitle('Ficha actividad')
       setBackButton(true)
       setCurrentTab(3)
+      setBigHeader(false)
+    } else if (/^\/parrillas\/(\d+|\w+)$/.test(location.pathname)) {
+      setTitle(getActividadNombre())
+      setBackButton(true)
+      setCurrentTab(0)
       setBigHeader(false)
     } else {
       switch (location.pathname) {
