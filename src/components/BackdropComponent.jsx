@@ -2,7 +2,7 @@ import { Backdrop, CircularProgress } from '@mui/material'
 import React from 'react'
 import useStore from '../store/GeneralStore'
 
-export default function BackdropComponent() {
+export default function BackdropComponent({ show }) {
   const isLoading = useStore((state) => state.isLoading)
   return (
     <Backdrop
@@ -13,7 +13,7 @@ export default function BackdropComponent() {
       }}
       color="primary"
       width="50%"
-      open={isLoading}
+      open={show != null ? true : isLoading}
     >
       <CircularProgress
         variant="indeterminate"

@@ -67,7 +67,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            <Suspense fallback={<h1>Loading</h1>}>
+            <Suspense fallback={<BackdropComponent show />}>
               <Layout />
             </Suspense>
           }
@@ -168,7 +168,7 @@ export default function App() {
           }
         />
         <Route
-          path="registro"
+          path="/registro"
           element={
             <UnprotectedRoute>
               <Registro />
